@@ -1,0 +1,59 @@
+@import '/variable.less';
+
+.edit-page {
+  min-height: 100vh;
+  padding: 32rpx;
+  background: @bg-color;
+  box-sizing: border-box;
+}
+
+.edit-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32rpx;
+  margin-bottom: 24rpx;
+  background: @bg-color-white;
+  border-radius: 16rpx;
+}
+
+.edit-label {
+  font-size: 32rpx;
+  color: #000000e6;
+}
+
+.avatar-btn {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  line-height: normal;
+
+  &::after {
+    border: none;
+  }
+
+  &__tip {
+    margin-left: 24rpx;
+    font-size: 28rpx;
+    color: #00000099;
+  }
+}
+
+.nickname-input {
+  flex: 1;
+  margin-left: 32rpx;
+  text-align: right;
+  font-size: 32rpx;
+  color: #000000e6;
+}
+
+.save-btn {
+  margin-top: 48rpx;
+  background: #0052d9;
+  color: #fff;
+  border-radius: 12rpx;
+  font-size: 32rpx;
+}

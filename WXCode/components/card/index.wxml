@@ -1,0 +1,11 @@
+<view class="home-card" bindtap="onTap">
+  <view class="home-card__image-wrap">
+    <t-image t-class="home-card__image" src="{{url}}" mode="aspectFill" />
+  </view>
+  <view class="home-card__info">
+    <text class="home-card__desc">{{desc}}</text>
+    <view class="home-card__tag-group">
+      <t-tag wx:for="{{tags}}" wx:key="index" size="small" variant="light" theme="{{item.theme}}">{{item.text}}</t-tag>
+    </view>
+  </view>
+</view>

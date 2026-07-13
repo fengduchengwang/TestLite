@@ -1,0 +1,55 @@
+@import '/variable.less';
+
+@home-tab-item-height: 96rpx;
+
+.home-page {
+  box-sizing: border-box;
+  background: @bg-color;
+
+  .t-tabs {
+    --td-tab-item-tag-height: @home-tab-item-height;
+    --td-tab-font-size: @font-size-small;
+    --td-tab-nav-bg-color: @bg-color-white;
+    width: 100%;
+    background: @bg-color;
+  }
+
+  .t-tabs__wrapper,
+  .t-tabs__scroll {
+    background: @bg-color-white;
+  }
+
+  .t-tabs__content,
+  .t-tabs__content-inner,
+  .t-tab-panel {
+    height: auto !important;
+    overflow: visible !important;
+    background: @bg-color;
+  }
+
+  .home-scroll {
+    width: 100%;
+    background: @bg-color;
+  }
+
+  .home-card-list {
+    padding: 24rpx;
+    padding-bottom: 48rpx;
+    background-color: @bg-color;
+    box-sizing: border-box;
+  }
+
+  .home-banner {
+    width: 100%;
+    margin-bottom: 24rpx;
+    border-radius: 16rpx;
+    overflow: hidden;
+  }
+
+  .home-cards {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24rpx 12rpx;
+  }
+}

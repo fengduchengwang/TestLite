@@ -1,0 +1,67 @@
+<t-toast id="t-toast" />
+
+<view class="my">
+  <nav title-text="我的" />
+  <view class="my-info">
+    <t-cell-group>
+      <view class="profile-row">
+        <button
+          wx:if="{{!isLoad}}"
+          class="profile-row__inner profile-row__btn"
+          open-type="chooseAvatar"
+          bind:chooseavatar="onChooseAvatar"
+        >
+          <t-avatar icon="user" size="large" />
+          <text class="profile-row__name">点击登录</text>
+        </button>
+        <view wx:else class="profile-row__inner profile-row__inner--active" bindtap="onProfileTap">
+          <t-avatar image="{{personalInfo.image}}" size="large" />
+          <text class="profile-row__name">{{personalInfo.name}}</text>
+        </view>
+      </view>
+    </t-cell-group>
+    <t-divider t-class="divider-class" />
+    <t-grid t-class="grid-class" column="{{3}}">
+      <t-grid-item
+        wx:for="{{gridList}}"
+        wx:for-item="gridItem"
+        wx:key="type"
+        text="{{gridItem.name}}"
+        icon="{{gridItem.icon}}"
+        class="grid-item"
+        data-data="{{gridItem}}"
+        bindclick="onEleClick"
+      />
+    </t-grid>
+  </view>
+
+  <view class="my-service">
+    <view class="my-service--tips">推荐服务</view>
+    <t-grid column="{{4}}" class="my-service__list">
+      <t-grid-item
+        class="my-service__list-item"
+        wx:for="{{service}}"
+        wx:key="type"
+        text="{{item.name}}"
+        image="{{item.image}}"
+        data-data="{{item}}"
+        bindclick="onEleClick"
+      />
+    </t-grid>
+  </view>
+
+  <t-cell-group theme="card">
+    <t-cell
+      wx:for="{{settingList}}"
+      wx:for-item="item"
+      wx:key="type"
+      title="{{item.name}}"
+      url="{{item.url || ''}}"
+      leftIcon="{{item.icon}}"
+      hover
+      arrow
+      data-data="{{item}}"
+      bindclick="onEleClick"
+    />
+  </t-cell-group>
+</view>

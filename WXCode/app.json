@@ -1,0 +1,47 @@
+{
+  "pages": ["pages/home/index", "pages/my/index", "pages/my/info-edit/index"],
+  "lazyCodeLoading": "requiredComponents",
+  "usingComponents": {
+    "t-toast": "tdesign-miniprogram/toast/toast"
+  },
+  "subpackages": [
+    {
+      "root": "pages/search",
+      "name": "search",
+      "pages": ["index", "result/index"]
+    },
+    {
+      "root": "pages/webview",
+      "name": "webview",
+      "pages": ["index"]
+    },
+    {
+      "root": "pages/setting",
+      "name": "setting",
+      "pages": ["index"]
+    }
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "心理测试",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "custom": true,
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/my/index",
+        "text": "我的"
+      }
+    ]
+  },
+  "resolveAlias": {
+    "~/*": "/*"
+  },
+  "sitemapLocation": "sitemap.json"
+}

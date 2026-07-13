@@ -1,0 +1,14 @@
+<t-navbar title="搜索结果" left-arrow />
+<view class="result-page">
+  <view wx:if="{{results.length === 0}}" class="result-empty">暂无「{{keyword}}」相关测试</view>
+  <view wx:else class="result-cards">
+    <card
+      wx:for="{{results}}"
+      wx:key="id"
+      desc="{{item.desc}}"
+      url="{{item.url}}"
+      link="{{item.link}}"
+      tags="{{item.tags}}"
+    />
+  </view>
+</view>

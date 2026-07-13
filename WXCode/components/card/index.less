@@ -1,0 +1,46 @@
+@import '/variable.less';
+
+.home-card {
+  display: inline-flex;
+  flex-direction: column;
+  width: 340rpx;
+  border-radius: 16rpx;
+  background: @bg-color-white;
+  overflow: hidden;
+
+  &__image-wrap {
+    width: 340rpx;
+    height: 453rpx;
+    border-radius: 16rpx;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__info {
+    padding: 20rpx 24rpx 24rpx;
+    font-weight: 400;
+    font-size: @font-size-small;
+    box-sizing: border-box;
+  }
+
+  &__desc {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    line-height: 40rpx;
+    min-height: 80rpx;
+  }
+
+  &__tag-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12rpx;
+    margin-top: 12rpx;
+  }
+}
