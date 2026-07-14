@@ -3,10 +3,10 @@ import useToastBehavior from '~/behaviors/useToast';
 const DEFAULT_NICKNAME = '微信用户';
 
 const SERVICE_LIST = [
-  { image: '/static/icon_wx.png', name: '微信', type: 'weixin', url: '' },
-  { image: '/static/icon_qq.png', name: 'QQ', type: 'QQ', url: '' },
-  { image: '/static/icon_doc.png', name: '腾讯文档', type: 'document', url: '' },
-  { image: '/static/icon_map.png', name: '腾讯地图', type: 'map', url: '' },
+  { image: '/static/icon_wx.png', name: '推广1', type: 'promotion1', url: '' },
+  { image: '/static/icon_wx.png', name: '推广2', type: 'promotion2', url: '' },
+  { image: '/static/icon_wx.png', name: '推广3', type: 'promotion3', url: '' },
+  { image: '/static/icon_wx.png', name: '推广4', type: 'promotion4', url: '' },
 ];
 
 Page({

@@ -1,11 +1,5 @@
 // app.js
-import config from './config';
-import Mock from './mock/index';
 import iconFontBase64 from './assets/tdesign-icon-font';
-
-if (config.isMock) {
-  Mock();
-}
 
 function loadIconFont() {
   wx.loadFontFace({
