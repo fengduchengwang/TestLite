@@ -1,7 +1,6 @@
 {
   "navigationStyle": "custom",
   "usingComponents": {
-    "t-swiper": "tdesign-miniprogram/swiper/swiper",
     "nav": "/components/nav",
     "card": "/components/card"
   }

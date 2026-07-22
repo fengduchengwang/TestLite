@@ -1,60 +1,53 @@
 <nav nav-type="search" />
 <view class="home-page">
-  <t-tabs defaultValue="recommend" swipeable="{{false}}" bind:change="onTabChange">
-    <t-tab-panel label="推荐" value="recommend">
-      <scroll-view
-        scroll-y
-        class="home-scroll"
-        style="height: {{scrollHeight}}px"
-        enhanced
-        show-scrollbar="{{false}}"
-      >
-        <view class="home-card-list">
-          <view class="home-banner">
-            <t-swiper
-              list="{{swiperList}}"
-              navigation="{{ { type: 'dots-bar' } }}"
-              height="360rpx"
-              autoplay="{{true}}"
-              interval="{{3000}}"
-              duration="{{500}}"
-              bind:click="onSwiperClick"
-            />
-          </view>
-          <view class="home-cards">
-            <card
-              wx:for="{{cardInfo}}"
-              wx:key="id"
-              desc="{{item.desc}}"
-              url="{{item.url}}"
-              link="{{item.link}}"
-              tags="{{item.tags}}"
-            />
-          </view>
+  <scroll-view
+    scroll-y
+    class="home-scroll"
+    style="height: {{scrollHeight}}px"
+    enhanced
+    show-scrollbar="{{false}}"
+  >
+    <view class="home-card-list">
+      <view class="home-banner">
+        <t-swiper
+          list="{{swiperList}}"
+          navigation="{{ { type: 'dots-bar' } }}"
+          height="360rpx"
+          autoplay="{{true}}"
+          interval="{{3000}}"
+          duration="{{500}}"
+          bind:click="onSwiperClick"
+        />
+      </view>
+
+      <view class="home-category">
+        <view
+          wx:for="{{categories}}"
+          wx:key="value"
+          class="home-category__item {{activeCategory === item.value ? 'home-category__item--active' : ''}}"
+          data-value="{{item.value}}"
+          bindtap="onCategoryTap"
+        >
+          {{item.label}}
         </view>
-      </scroll-view>
-    </t-tab-panel>
-    <t-tab-panel label="我的关注" value="follow">
-      <scroll-view
-        scroll-y
-        class="home-scroll"
-        style="height: {{scrollHeight}}px"
-        enhanced
-        show-scrollbar="{{false}}"
-      >
-        <view class="home-card-list">
-          <view class="home-cards">
-            <card
-              wx:for="{{focusCardInfo}}"
-              wx:key="id"
-              desc="{{item.desc}}"
-              url="{{item.url}}"
-              link="{{item.link}}"
-              tags="{{item.tags}}"
-            />
-          </view>
-        </view>
-      </scroll-view>
-    </t-tab-panel>
-  </t-tabs>
+      </view>
+
+      <view class="home-list">
+        <card
+          wx:for="{{cardInfo}}"
+          wx:key="id"
+          test-id="{{item.id}}"
+          title="{{item.title}}"
+          subtitle="{{item.subtitle}}"
+          question-count="{{item.questionCount}}"
+          duration="{{item.duration}}"
+          url="{{item.url}}"
+          link="{{item.link}}"
+          tested="{{item.tested}}"
+          tags="{{item.tags}}"
+          bind:tested="onTested"
+        />
+      </view>
+    </view>
+  </scroll-view>
 </view>

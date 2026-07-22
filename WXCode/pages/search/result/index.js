@@ -1,4 +1,5 @@
 import { searchTests } from '../searchTests';
+import { enrichTestsWithTested } from '~/utils/test';
 
 Page({
   data: {
@@ -8,7 +9,7 @@ Page({
 
   onLoad(options) {
     const keyword = decodeURIComponent(options.keyword || '');
-    const results = searchTests(keyword);
+    const results = enrichTestsWithTested(searchTests(keyword));
     this.setData({ keyword, results });
   },
 });

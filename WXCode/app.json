@@ -1,5 +1,12 @@
 {
-  "pages": ["pages/home/index", "pages/my/index", "pages/my/info-edit/index"],
+  "pages": [
+    "pages/home/index",
+    "pages/follow/index",
+    "pages/my/index",
+    "pages/my-tests/index",
+    "pages/my-history/index",
+    "pages/my/info-edit/index"
+  ],
   "lazyCodeLoading": "requiredComponents",
   "usingComponents": {
     "t-toast": "tdesign-miniprogram/toast/toast"
@@ -33,6 +40,10 @@
       {
         "pagePath": "pages/home/index",
         "text": "首页"
+      },
+      {
+        "pagePath": "pages/follow/index",
+        "text": "关注"
       },
       {
         "pagePath": "pages/my/index",

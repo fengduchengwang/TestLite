@@ -2,12 +2,14 @@
   <t-navbar title="{{ navType === 'search' ? '' : titleText }}">
     <view slot="left">
       <view class="home-navbar__left">
-        <t-search
-          shape="round"
-          placeholder="搜索心理测试"
-          bindtap="searchTurn"
+        <view
           wx:if="{{navType === 'search'}}"
-        />
+          class="home-search-btn"
+          bindtap="searchTurn"
+        >
+          <t-icon name="search" size="40rpx" class="home-search-btn__icon" />
+          <text class="home-search-btn__placeholder">搜索</text>
+        </view>
       </view>
     </view>
   </t-navbar>

@@ -1,12 +1,9 @@
-import testList, { TEST_CATEGORIES, filterTestsByCategory } from '~/data/tests';
-import { enrichTestsWithTested, openTest } from '~/utils/test';
+import testList, { followTestIds } from '~/data/tests';
+import { enrichTestsWithTested } from '~/utils/test';
 
 Page({
   data: {
     scrollHeight: 0,
-    categories: TEST_CATEGORIES,
-    activeCategory: 'all',
-    swiperList: [],
     cardInfo: [],
   },
 
@@ -21,10 +18,9 @@ Page({
   },
 
   loadData() {
-    const filtered = filterTestsByCategory(this.data.activeCategory);
+    const followList = testList.filter((item) => followTestIds.includes(item.id));
     this.setData({
-      swiperList: testList.map((item) => item.url),
-      cardInfo: enrichTestsWithTested(filtered),
+      cardInfo: enrichTestsWithTested(followList),
     });
   },
 
@@ -47,22 +43,6 @@ Page({
           });
         });
     });
-  },
-
-  onCategoryTap(e) {
-    const { value } = e.currentTarget.dataset;
-    if (value === this.data.activeCategory) return;
-
-    this.setData({ activeCategory: value }, () => {
-      this.loadData();
-    });
-  },
-
-  onSwiperClick(e) {
-    const { index } = e.detail;
-    const item = testList[index];
-    if (!item?.link) return;
-    openTest(item.id, item.link);
   },
 
   onTested(e) {

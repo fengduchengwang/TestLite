@@ -1,16 +1,18 @@
 @import '/variable.less';
 
-.home-card {
-  display: inline-flex;
-  flex-direction: column;
-  width: 340rpx;
-  border-radius: 16rpx;
+.test-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+  border-radius: 24rpx;
   background: @bg-color-white;
-  overflow: hidden;
+  box-sizing: border-box;
 
   &__image-wrap {
-    width: 340rpx;
-    height: 453rpx;
+    width: 160rpx;
+    height: 160rpx;
     border-radius: 16rpx;
     overflow: hidden;
     flex-shrink: 0;
@@ -21,26 +23,52 @@
     height: 100%;
   }
 
-  &__info {
-    padding: 20rpx 24rpx 24rpx;
-    font-weight: 400;
-    font-size: @font-size-small;
-    box-sizing: border-box;
+  &__content {
+    flex: 1;
+    min-width: 0;
+    margin-left: 24rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
-  &__desc {
+  &__title {
+    font-size: 32rpx;
+    font-weight: 600;
+    color: @gy1;
+    line-height: 44rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__subtitle {
+    margin-top: 8rpx;
+    font-size: @font-size-small;
+    color: @gy2;
+    line-height: 40rpx;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
-    line-height: 40rpx;
-    min-height: 80rpx;
   }
 
-  &__tag-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12rpx;
+  &__meta {
     margin-top: 12rpx;
+    font-size: @font-size-mini;
+    color: @gy3;
+    line-height: 32rpx;
+  }
+
+  &__badge {
+    position: absolute;
+    right: 24rpx;
+    bottom: 24rpx;
+    padding: 4rpx 16rpx;
+    border-radius: 8rpx;
+    background: #e8f8f2;
+    color: #00a870;
+    font-size: 22rpx;
+    line-height: 32rpx;
   }
 }

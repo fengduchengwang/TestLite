@@ -1,13 +1,14 @@
+import { HOT_SEARCH_TAGS } from '~/data/tests';
+
 const HISTORY_KEY = 'search_history';
+const MAX_HISTORY = 10;
 
 Page({
   data: {
+    hotTags: HOT_SEARCH_TAGS,
     historyWords: [],
     searchValue: '',
   },
-
-  deleteType: 0,
-  deleteIndex: '',
 
   onShow() {
     this.loadHistory();
@@ -19,12 +20,12 @@ Page({
   },
 
   saveHistory(keyword) {
-    const historyWords = [...this.data.historyWords];
-    const index = historyWords.indexOf(keyword);
-    if (index !== -1) historyWords.splice(index, 1);
+    let historyWords = [...this.data.historyWords];
+    historyWords = historyWords.filter((item) => item !== keyword);
     historyWords.unshift(keyword);
-    wx.setStorageSync(HISTORY_KEY, historyWords.slice(0, 20));
-    this.setData({ historyWords: historyWords.slice(0, 20) });
+    historyWords = historyWords.slice(0, MAX_HISTORY);
+    wx.setStorageSync(HISTORY_KEY, historyWords);
+    this.setData({ historyWords });
   },
 
   goResult(keyword) {
@@ -35,51 +36,24 @@ Page({
     });
   },
 
-  confirmDelete() {
-    const { historyWords } = this.data;
-    const { deleteType, deleteIndex } = this;
-
-    if (deleteType === 0) {
-      historyWords.splice(deleteIndex, 1);
-      wx.setStorageSync(HISTORY_KEY, historyWords);
-      this.setData({ historyWords });
-    } else {
-      wx.setStorageSync(HISTORY_KEY, []);
-      this.setData({ historyWords: [] });
-    }
+  handleHotTap(e) {
+    const { keyword } = e.currentTarget.dataset;
+    this.setData({ searchValue: keyword });
+    this.goResult(keyword);
   },
 
-  showDeleteConfirm(content) {
-    wx.showModal({
-      title: '提示',
-      content,
-      confirmText: '确定',
-      cancelText: '取消',
-      success: (res) => {
-        if (res.confirm) {
-          this.confirmDelete();
-        }
-      },
-    });
-  },
-
-  handleClearHistory() {
-    this.deleteType = 1;
-    this.showDeleteConfirm('确认删除所有历史记录');
-  },
-
-  deleteCurr(e) {
+  handleDeleteHistory(e) {
     const { index } = e.currentTarget.dataset;
-    this.deleteIndex = index;
-    this.deleteType = 0;
-    this.showDeleteConfirm('确认删除当前历史记录');
+    const historyWords = [...this.data.historyWords];
+    historyWords.splice(index, 1);
+    wx.setStorageSync(HISTORY_KEY, historyWords);
+    this.setData({ historyWords });
   },
 
   handleHistoryTap(e) {
-    const { historyWords } = this.data;
-    const { index } = e.currentTarget.dataset;
-    const searchValue = historyWords[index || 0] || '';
-    this.goResult(searchValue);
+    const { keyword } = e.currentTarget.dataset;
+    this.setData({ searchValue: keyword });
+    this.goResult(keyword);
   },
 
   handleSubmit(e) {
@@ -88,8 +62,15 @@ Page({
     this.goResult(value.trim());
   },
 
-  actionHandle() {
-    this.setData({ searchValue: '' });
-    wx.switchTab({ url: '/pages/home/index' });
+  handleChange(e) {
+    this.setData({ searchValue: e.detail.value });
+  },
+
+  handleBack() {
+    wx.navigateBack({
+      fail: () => {
+        wx.switchTab({ url: '/pages/home/index' });
+      },
+    });
   },
 });

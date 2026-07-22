@@ -4,5 +4,10 @@ import testList from '~/data/tests';
 export function searchTests(keyword) {
   if (!keyword || !keyword.trim()) return [];
   const kw = keyword.trim().toLowerCase();
-  return testList.filter((item) => item.desc.toLowerCase().includes(kw));
+  return testList.filter(
+    (item) =>
+      item.title.toLowerCase().includes(kw) ||
+      item.subtitle.toLowerCase().includes(kw) ||
+      item.category.toLowerCase().includes(kw),
+  );
 }

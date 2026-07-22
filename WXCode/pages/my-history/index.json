@@ -2,7 +2,6 @@
   "navigationStyle": "custom",
   "usingComponents": {
     "t-navbar": "tdesign-miniprogram/navbar/navbar",
-    "t-search": "tdesign-miniprogram/search/search",
-    "t-icon": "tdesign-miniprogram/icon/icon"
+    "card": "/components/card"
   }
 }

@@ -8,6 +8,11 @@ Component({
         label: '首页',
       },
       {
+        icon: 'heart',
+        value: 'follow',
+        label: '关注',
+      },
+      {
         icon: 'user',
         value: 'my',
         label: '我的',

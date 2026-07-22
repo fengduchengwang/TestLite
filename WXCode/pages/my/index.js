@@ -18,7 +18,7 @@ Page({
     personalInfo: {},
     gridList: [
       { name: '我的测试', icon: 'file-copy', type: 'tests', url: '' },
-      { name: '我的收藏', icon: 'star', type: 'favorites', url: '' },
+      { name: '我的关注', icon: 'heart', type: 'follow', url: '' },
       { name: '浏览记录', icon: 'time', type: 'history', url: '' },
     ],
     settingList: [
@@ -74,8 +74,22 @@ Page({
   },
 
   onEleClick(e) {
-    const { name, url } = e.currentTarget.dataset.data;
+    const { type, name, url } = e.currentTarget.dataset.data;
     if (url) return;
+
+    if (type === 'tests') {
+      wx.navigateTo({ url: '/pages/my-tests/index' });
+      return;
+    }
+    if (type === 'follow') {
+      wx.switchTab({ url: '/pages/follow/index' });
+      return;
+    }
+    if (type === 'history') {
+      wx.navigateTo({ url: '/pages/my-history/index' });
+      return;
+    }
+
     this.onShowToast('#t-toast', name);
   },
 });
