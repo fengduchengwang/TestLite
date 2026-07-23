@@ -1,10 +1,9 @@
 <view class="edit-page">
   <view class="edit-section">
     <text class="edit-label">头像</text>
-    <button class="avatar-btn" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-      <t-avatar image="{{avatarUrl}}" icon="user" size="large" />
-      <text class="avatar-btn__tip">点击更换</text>
-    </button>
+    <view class="avatar-preview">
+      <t-avatar icon="user" size="large" />
+    </view>
   </view>
   <view class="edit-section">
     <text class="edit-label">昵称</text>

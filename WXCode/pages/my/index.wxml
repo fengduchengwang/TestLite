@@ -5,17 +5,16 @@
   <view class="my-info">
     <t-cell-group>
       <view class="profile-row">
-        <button
+        <view
           wx:if="{{!isLoad}}"
-          class="profile-row__inner profile-row__btn"
-          open-type="chooseAvatar"
-          bind:chooseavatar="onChooseAvatar"
+          class="profile-row__inner profile-row__inner--active"
+          bindtap="onLoginTap"
         >
           <t-avatar icon="user" size="large" />
           <text class="profile-row__name">点击登录</text>
-        </button>
+        </view>
         <view wx:else class="profile-row__inner profile-row__inner--active" bindtap="onProfileTap">
-          <t-avatar image="{{personalInfo.image}}" size="large" />
+          <t-avatar icon="user" size="large" />
           <text class="profile-row__name">{{personalInfo.name}}</text>
         </view>
       </view>

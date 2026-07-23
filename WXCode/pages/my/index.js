@@ -29,12 +29,11 @@ Page({
 
   onShow() {
     const userInfo = wx.getStorageSync('userInfo');
-    if (userInfo?.avatarUrl) {
+    if (userInfo?.nickName) {
       this.setData({
         isLoad: true,
         personalInfo: {
           name: userInfo.nickName || DEFAULT_NICKNAME,
-          image: userInfo.avatarUrl,
         },
       });
     } else {
@@ -45,22 +44,18 @@ Page({
     }
   },
 
-  onChooseAvatar(e) {
-    const { avatarUrl } = e.detail;
-    if (!avatarUrl) return;
-
+  onLoginTap() {
     wx.login({
       success: (res) => {
         if (res.code) {
           wx.setStorageSync('access_token', res.code);
         }
-        const userInfo = { nickName: DEFAULT_NICKNAME, avatarUrl };
+        const userInfo = { nickName: DEFAULT_NICKNAME };
         wx.setStorageSync('userInfo', userInfo);
         this.setData({
           isLoad: true,
           personalInfo: {
             name: DEFAULT_NICKNAME,
-            image: avatarUrl,
           },
         });
       },

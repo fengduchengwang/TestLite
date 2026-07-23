@@ -52,17 +52,8 @@
         box-sizing: border-box;
       }
 
-      &__btn {
-        width: 100%;
-        margin: 0;
-        background: transparent;
-        border: none;
-        line-height: normal;
-        text-align: left;
-
-        &::after {
-          border: none;
-        }
+      &__inner--active:active {
+        opacity: 0.7;
       }
 
       &__name {
@@ -71,10 +62,6 @@
         font-size: 32rpx;
         font-weight: 600;
         color: #000000e6;
-      }
-
-      &__inner--active:active {
-        opacity: 0.7;
       }
     }
 
