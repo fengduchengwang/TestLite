@@ -1,5 +1,5 @@
-import testList, { followTestIds } from '~/data/tests';
-import { enrichTestsWithTested } from '~/utils/test';
+import testList from '~/data/tests';
+import { enrichTestsWithFollowed, enrichTestsWithTested, getFollowTests, removeFollow } from '~/utils/test';
 
 Page({
   data: {
@@ -18,9 +18,8 @@ Page({
   },
 
   loadData() {
-    const followList = testList.filter((item) => followTestIds.includes(item.id));
     this.setData({
-      cardInfo: enrichTestsWithTested(followList),
+      cardInfo: enrichTestsWithFollowed(enrichTestsWithTested(getFollowTests(testList))),
     });
   },
 
@@ -51,5 +50,14 @@ Page({
       item.id === id ? { ...item, tested: true } : item,
     );
     this.setData({ cardInfo });
+  },
+
+  onUnfollow(e) {
+    const { id } = e.detail;
+    removeFollow(id);
+    this.setData({
+      cardInfo: this.data.cardInfo.filter((item) => item.id !== id),
+    });
+    wx.showToast({ title: '已取消关注', icon: 'none' });
   },
 });

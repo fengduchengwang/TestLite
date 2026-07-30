@@ -1,4 +1,4 @@
-<view class="test-card" bindtap="onTap">
+<view class="test-card" bindtap="onTap" bindlongpress="onLongPress">
   <view class="test-card__image-wrap">
     <t-image t-class="test-card__image" src="{{url}}" mode="aspectFill" />
   </view>
@@ -7,5 +7,18 @@
     <text class="test-card__subtitle">{{subtitle}}</text>
     <text class="test-card__meta">{{questionCount}}题 | {{duration}}</text>
   </view>
+  <view wx:if="{{followed}}" class="test-card__follow-icon">
+    <t-icon name="heart" size="36rpx" />
+  </view>
   <view wx:if="{{tested}}" class="test-card__badge">已测试</view>
+
+  <view wx:if="{{showMenu}}" class="test-card__mask" catchtap="onCloseMenu" catchtouchmove="noop" />
+  <view wx:if="{{showMenu}}" class="test-card__menu" catchtap="noop">
+    <view wx:if="{{actionMode === 'follow'}}" class="test-card__menu-item" catchtap="onFollowActionTap">
+      {{followed ? '取消关注' : '关注'}}
+    </view>
+    <view wx:if="{{actionMode === 'unfollow'}}" class="test-card__menu-item" catchtap="onUnfollowTap">
+      取消关注
+    </view>
+  </view>
 </view>

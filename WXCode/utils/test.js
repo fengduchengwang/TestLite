@@ -1,6 +1,39 @@
 const TESTED_STORAGE_KEY = 'testedTestIds';
 const BROWSE_HISTORY_KEY = 'browseHistoryIds';
+const FOLLOW_STORAGE_KEY = 'followTestIds';
 const MAX_BROWSE_HISTORY = 10;
+
+/** 获取关注 id 列表（最新在前） */
+export function getFollowIds() {
+  return wx.getStorageSync(FOLLOW_STORAGE_KEY) || [];
+}
+
+/** 添加关注 */
+export function addFollow(id) {
+  let ids = getFollowIds().filter((item) => item !== id);
+  ids.unshift(id);
+  wx.setStorageSync(FOLLOW_STORAGE_KEY, ids);
+}
+
+/** 取消关注 */
+export function removeFollow(id) {
+  const ids = getFollowIds().filter((item) => item !== id);
+  wx.setStorageSync(FOLLOW_STORAGE_KEY, ids);
+}
+
+/** 获取关注列表 */
+export function getFollowTests(testList) {
+  return getTestsByIds(getFollowIds(), testList);
+}
+
+/** 为测试列表附加 followed 状态 */
+export function enrichTestsWithFollowed(tests) {
+  const followIds = getFollowIds();
+  return tests.map((item) => ({
+    ...item,
+    followed: followIds.includes(item.id),
+  }));
+}
 
 /** 获取已测试的测试 id 列表 */
 export function getTestedIds() {
@@ -55,6 +88,21 @@ export function enrichTestsWithTested(tests) {
     ...item,
     tested: testedIds.includes(item.id),
   }));
+}
+
+/** 清空浏览记录 */
+export function clearBrowseHistory() {
+  wx.removeStorageSync(BROWSE_HISTORY_KEY);
+}
+
+/** 清空已测试记录 */
+export function clearTestedRecords() {
+  wx.removeStorageSync(TESTED_STORAGE_KEY);
+}
+
+/** 清空关注列表 */
+export function clearFollowList() {
+  wx.removeStorageSync(FOLLOW_STORAGE_KEY);
 }
 
 /** 打开测试页并记录浏览/已测试 */

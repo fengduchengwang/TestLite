@@ -83,9 +83,6 @@ const testList = [
   },
 ];
 
-/** 关注页展示的测试 id 列表 */
-export const followTestIds = [1, 2, 3];
-
 /** 按分类筛选测试 */
 export function filterTestsByCategory(category) {
   if (!category || category === 'all') return testList;

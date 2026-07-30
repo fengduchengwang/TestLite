@@ -1,7 +1,14 @@
 import testList from '~/data/tests';
-import { enrichTestsWithTested, getTestedTests } from '~/utils/test';
+import useFollowCard from '~/behaviors/useFollowCard';
+import {
+  enrichTestsWithFollowed,
+  enrichTestsWithTested,
+  getTestedTests,
+} from '~/utils/test';
 
 Page({
+  behaviors: [useFollowCard],
+
   data: {
     cardInfo: [],
   },
@@ -12,7 +19,7 @@ Page({
 
   loadData() {
     this.setData({
-      cardInfo: enrichTestsWithTested(getTestedTests(testList)),
+      cardInfo: enrichTestsWithFollowed(enrichTestsWithTested(getTestedTests(testList))),
     });
   },
 

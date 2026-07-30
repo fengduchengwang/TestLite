@@ -20,8 +20,11 @@
         url="{{item.url}}"
         link="{{item.link}}"
         tested="{{item.tested}}"
+        followed="{{item.followed}}"
+        action-mode="unfollow"
         tags="{{item.tags}}"
         bind:tested="onTested"
+        bind:unfollow="onUnfollow"
       />
     </view>
   </scroll-view>

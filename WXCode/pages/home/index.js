@@ -1,7 +1,13 @@
 import testList, { TEST_CATEGORIES, filterTestsByCategory } from '~/data/tests';
-import { enrichTestsWithTested, openTest } from '~/utils/test';
+import useFollowCard from '~/behaviors/useFollowCard';
+import {
+  enrichTestsWithFollowed,
+  enrichTestsWithTested,
+  openTest,
+} from '~/utils/test';
 
 Page({
+  behaviors: [useFollowCard],
   data: {
     scrollHeight: 0,
     categories: TEST_CATEGORIES,
@@ -24,7 +30,7 @@ Page({
     const filtered = filterTestsByCategory(this.data.activeCategory);
     this.setData({
       swiperList: testList.map((item) => item.url),
-      cardInfo: enrichTestsWithTested(filtered),
+      cardInfo: enrichTestsWithFollowed(enrichTestsWithTested(filtered)),
     });
   },
 

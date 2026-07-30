@@ -4,13 +4,12 @@
     <t-cell
       wx:for="{{item}}"
       wx:for-item="carditem"
-      wx:key="cardkey"
+      wx:key="title"
       title="{{carditem.title}}"
       hover
       arrow
-      left-icon="app"
       url="{{carditem.url}}"
-      bordered="true"
+      bordered="{{true}}"
       leftIcon="{{carditem.icon}}"
       data-data="{{carditem}}"
       bindclick="onEleClick"
