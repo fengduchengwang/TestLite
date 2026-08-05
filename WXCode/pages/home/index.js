@@ -29,7 +29,7 @@ Page({
   loadData() {
     const filtered = filterTestsByCategory(this.data.activeCategory);
     this.setData({
-      swiperList: testList.map((item) => item.url),
+      swiperList: testList.map((item) => item.bannerLink),
       cardInfo: enrichTestsWithFollowed(enrichTestsWithTested(filtered)),
     });
   },
@@ -67,8 +67,8 @@ Page({
   onSwiperClick(e) {
     const { index } = e.detail;
     const item = testList[index];
-    if (!item?.link) return;
-    openTest(item.id, item.link);
+    if (!item?.testLink) return;
+    openTest(item.id, item.testLink);
   },
 
   onTested(e) {

@@ -8,6 +8,6 @@ export function searchTests(keyword) {
     (item) =>
       item.title.toLowerCase().includes(kw) ||
       item.subtitle.toLowerCase().includes(kw) ||
-      item.category.toLowerCase().includes(kw),
+      item.tags.some((tag) => tag.toLowerCase().includes(kw)),
   );
 }

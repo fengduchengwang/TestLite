@@ -6,9 +6,9 @@ Component({
     title: String,
     subtitle: String,
     questionCount: Number,
-    duration: String,
-    url: String,
-    link: String,
+    duration: Number,
+    imageLink: String,
+    testLink: String,
     tested: {
       type: Boolean,
       value: false,
@@ -21,7 +21,6 @@ Component({
       type: String,
       value: '',
     },
-    tags: Array,
   },
 
   data: {
@@ -38,10 +37,10 @@ Component({
         return;
       }
 
-      const { testId, link } = this.properties;
-      if (!link) return;
+      const { testId, testLink } = this.properties;
+      if (!testLink) return;
 
-      openTest(testId, link);
+      openTest(testId, testLink);
       this.setData({ tested: true });
       this.triggerEvent('tested', { id: testId });
     },

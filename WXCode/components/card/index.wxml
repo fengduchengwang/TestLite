@@ -1,11 +1,22 @@
+<wxs module="fmt">
+var formatDuration = function (seconds) {
+  var minutes = Math.max(1, Math.round(seconds / 60));
+  return '约' + minutes + '分钟';
+};
+
+module.exports = {
+  formatDuration: formatDuration,
+};
+</wxs>
+
 <view class="test-card" bindtap="onTap" bindlongpress="onLongPress">
   <view class="test-card__image-wrap">
-    <t-image t-class="test-card__image" src="{{url}}" mode="aspectFill" />
+    <t-image t-class="test-card__image" src="{{imageLink}}" mode="aspectFill" />
   </view>
   <view class="test-card__content">
     <text class="test-card__title">{{title}}</text>
     <text class="test-card__subtitle">{{subtitle}}</text>
-    <text class="test-card__meta">{{questionCount}}题 | {{duration}}</text>
+    <text class="test-card__meta">{{questionCount}}题 | {{fmt.formatDuration(duration)}}</text>
   </view>
   <view wx:if="{{followed}}" class="test-card__follow-icon">
     <t-icon name="heart" size="36rpx" />
