@@ -1,0 +1,4 @@
+body[data-template="deep"] .result-shell { max-width: 680px; }
+body[data-template="deep"] .result-hero-card { padding-block: 34px 30px; background: linear-gradient(140deg, #785fff 0%, #5e42df 58%, #4829ba 100%); }
+body[data-template="deep"] .report-card { padding: 27px; }
+body[data-template="deep"] .decision-card { border-top: 4px solid var(--teal); }

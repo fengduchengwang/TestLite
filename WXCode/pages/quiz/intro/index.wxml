@@ -1,0 +1,29 @@
+<view class="quiz-intro" wx:if="{{!loading && !error}}">
+  <view class="quiz-intro__mark">{{meta.level === 'deep' ? '深' : meta.level === 'standard' ? '析' : '测'}}</view>
+  <view class="quiz-intro__eyebrow">{{meta.categoryLabel}} · {{meta.levelLabel}}</view>
+  <view class="quiz-intro__title">{{meta.title}}</view>
+  <view class="quiz-intro__lead">{{meta.subtitle}}</view>
+
+  <view class="quiz-intro__meta">
+    <view class="quiz-intro__meta-item">
+      <text class="quiz-intro__meta-strong">{{questionCount}}题</text>
+      <text class="quiz-intro__meta-label">具体情境</text>
+    </view>
+    <view class="quiz-intro__meta-item">
+      <text class="quiz-intro__meta-strong">{{dimensionCount}}维</text>
+      <text class="quiz-intro__meta-label">独立计分</text>
+    </view>
+    <view class="quiz-intro__meta-item">
+      <text class="quiz-intro__meta-strong">{{meta.duration}}</text>
+      <text class="quiz-intro__meta-label">完成时间</text>
+    </view>
+  </view>
+
+  <button class="quiz-intro__btn" bindtap="onStart">开始测试</button>
+  <view class="quiz-intro__notice">{{meta.disclaimer}}</view>
+</view>
+
+<view class="quiz-intro quiz-intro--error" wx:elif="{{error}}">
+  <view class="quiz-intro__title">测试无法打开</view>
+  <view class="quiz-intro__lead">{{error}}</view>
+</view>

@@ -1,0 +1,31 @@
+<view class="quiz-play" wx:if="{{question}}">
+  <view class="quiz-play__head">
+    <view class="quiz-play__progress-text">{{index + 1}} / {{total}}</view>
+    <view class="quiz-play__progress">
+      <view class="quiz-play__progress-bar" style="width: {{progress}}%;"></view>
+    </view>
+  </view>
+
+  <view class="quiz-play__body">
+    <view class="quiz-play__scene">{{question.scene}}</view>
+    <view class="quiz-play__title">{{question.q}}</view>
+
+    <view class="quiz-play__options">
+      <view
+        wx:for="{{question.options}}"
+        wx:key="text"
+        class="quiz-play__option {{selected === index ? 'is-selected' : ''}}"
+        data-index="{{index}}"
+        bindtap="onSelect"
+      >
+        <text class="quiz-play__letter">{{letters[index]}}</text>
+        <text class="quiz-play__option-text">{{item.text}}</text>
+      </view>
+    </view>
+
+    <view class="quiz-play__footer">
+      <view class="quiz-play__prev {{index === 0 ? 'is-disabled' : ''}}" bindtap="onPrevious">上一题</view>
+      <view class="quiz-play__hint">选择后自动进入下一题</view>
+    </view>
+  </view>
+</view>

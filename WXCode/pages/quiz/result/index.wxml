@@ -1,0 +1,141 @@
+<scroll-view class="quiz-result" scroll-y wx:if="{{!loading && model}}">
+  <view class="quiz-result__shell">
+    <view class="result-card result-hero" wx:if="{{modules.hero}}">
+      <view class="result-kicker">{{display.heroLabel}}</view>
+      <view class="result-hero__name">{{model.primaryProfile.name}}</view>
+      <view class="result-hero__verdict">{{model.primaryProfile.verdict}}</view>
+      <view class="result-hero__tags">
+        <text wx:for="{{model.highlights}}" wx:key="key" class="result-hero__tag">
+          {{item.label}} · {{item.score}}%
+        </text>
+      </view>
+      <view class="result-hero__quote">“{{model.primaryProfile.share}}”</view>
+    </view>
+
+    <view class="result-card" wx:if="{{modules.decision && model.decision}}">
+      <view class="result-kicker">当前判断</view>
+      <view class="result-title">你现在更接近哪一步</view>
+      <view class="result-decision__label">{{model.decision.label}}</view>
+      <view class="result-decision__line">
+        <view class="result-decision__dot" style="left: {{decisionPosition}}%;"></view>
+      </view>
+      <view class="result-decision__labels">
+        <text>{{model.decision.leftLabel}}</text>
+        <text>{{model.decision.rightLabel}}</text>
+      </view>
+      <view class="result-decision__signals">
+        <view class="result-decision__col">
+          <view class="result-subtitle">支持先调整的信号</view>
+          <view wx:for="{{leftSignals}}" wx:key="*this" class="result-list-item">{{item}}</view>
+        </view>
+        <view class="result-decision__col">
+          <view class="result-subtitle">支持改变方向的信号</view>
+          <view wx:for="{{rightSignals}}" wx:key="*this" class="result-list-item">{{item}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="result-card" wx:if="{{showRadar}}">
+      <view class="result-kicker">整体轮廓</view>
+      <view class="result-title">{{display.radarTitle || '维度雷达'}}</view>
+      <canvas canvas-id="radarCanvas" class="result-radar" style="width: 300px; height: 300px;"></canvas>
+    </view>
+
+    <view class="result-card" wx:if="{{modules.dimensions}}">
+      <view class="result-kicker">结果分布</view>
+      <view class="result-title">{{display.dimensionTitle}}</view>
+      <view
+        wx:for="{{model.dimensionBars}}"
+        wx:key="key"
+        class="result-bar {{item.isStrongest ? 'is-strong' : ''}}"
+      >
+        <view class="result-bar__head">
+          <text>{{item.label}}</text>
+          <text class="result-bar__score">{{item.score}}%</text>
+        </view>
+        <view class="result-bar__track">
+          <view class="result-bar__fill" style="width: {{item.score}}%;"></view>
+        </view>
+      </view>
+      <view class="result-note">
+        百分比只表示你在本次题目中的呈现程度。每个维度独立计算，不代表人群排名或专业诊断。
+      </view>
+    </view>
+
+    <view class="result-card" wx:if="{{modules.deepAnalysis}}">
+      <view class="result-kicker">深度解析</view>
+      <view class="result-title">{{model.deepAnalysis.title}}</view>
+      <view class="result-copy">{{model.deepAnalysis.summary}}</view>
+      <view class="result-copy" wx:if="{{model.deepAnalysis.tension}}">{{model.deepAnalysis.tension}}</view>
+    </view>
+
+    <view class="result-card" wx:if="{{modules.evidence}}">
+      <view class="result-kicker">真实作答</view>
+      <view class="result-title">答案里反复出现的信号</view>
+      <view wx:for="{{model.evidence}}" wx:key="index" class="result-evidence">
+        <view class="result-evidence__scene">{{item.scene}}</view>
+        <view class="result-evidence__q">{{item.question}}</view>
+        <view class="result-evidence__a">你选择了“{{item.answer}}”</view>
+      </view>
+    </view>
+
+    <view class="result-card" wx:if="{{modules.pattern}}">
+      <view class="result-kicker">现实表现</view>
+      <view class="result-title">这套模式是怎么一步步发生的</view>
+      <view wx:for="{{model.patternSteps}}" wx:key="no" class="result-pattern">
+        <view class="result-pattern__no">{{item.no}}</view>
+        <view class="result-pattern__body">
+          <view class="result-pattern__title">{{item.title}}</view>
+          <view class="result-pattern__text">{{item.text}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="result-card" wx:if="{{modules.strengths}}">
+      <view class="result-kicker">{{isLight ? '更像你的地方' : '两面都值得看见'}}</view>
+      <view class="result-title">
+        {{isLight ? '你的方式有它的好，也有它的代价' : '你正在保护什么，又付出了什么'}}
+      </view>
+      <view class="result-grid">
+        <view class="result-box result-box--good">
+          <view class="result-subtitle">值得留下的能力</view>
+          <view wx:for="{{model.primaryProfile.strengths}}" wx:key="*this" class="result-list-item">
+            {{item}}
+          </view>
+        </view>
+        <view class="result-box result-box--cost">
+          <view class="result-subtitle">容易付出的代价</view>
+          <view wx:for="{{model.primaryProfile.costs}}" wx:key="*this" class="result-list-item">
+            {{item}}
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="result-card result-card--insight" wx:if="{{modules.insight && model.insight}}">
+      <view class="result-kicker">特别提醒</view>
+      <view class="result-title">{{model.insight.title}}</view>
+      <view class="result-copy">{{model.insight.content}}</view>
+    </view>
+
+    <view class="result-card" wx:if="{{modules.actions}}">
+      <view class="result-kicker">接下来</view>
+      <view class="result-title">
+        {{isDeep ? '把改变拆成三步，不必一次解决全部' : '可以先从这一件小事开始'}}
+      </view>
+      <view wx:for="{{model.actions}}" wx:key="time" class="result-action">
+        <view class="result-action__time">{{item.time}}</view>
+        <view class="result-action__text">{{item.text}}</view>
+      </view>
+    </view>
+
+    <block wx:if="{{modules.share}}">
+      <view class="result-closing">“{{model.primaryProfile.share}}”</view>
+      <view class="result-disclaimer">{{meta.disclaimer}}</view>
+      <view class="result-actions">
+        <button class="result-btn result-btn--ghost" bindtap="onRestart">重新测试</button>
+        <button class="result-btn result-btn--primary" bindtap="onSave">保存结果摘要</button>
+      </view>
+    </block>
+  </view>
+</scroll-view>

@@ -1,4 +1,4 @@
-import testList from '~/data/tests';
+import { fetchTestList } from '~/utils/api';
 import useFollowCard from '~/behaviors/useFollowCard';
 import {
   enrichTestsWithFollowed,
@@ -17,10 +17,16 @@ Page({
     this.loadData();
   },
 
-  loadData() {
-    this.setData({
-      cardInfo: enrichTestsWithFollowed(enrichTestsWithTested(getTestedTests(testList))),
-    });
+  async loadData() {
+    try {
+      const list = await fetchTestList();
+      this.setData({
+        cardInfo: enrichTestsWithFollowed(enrichTestsWithTested(getTestedTests(list))),
+      });
+    } catch (error) {
+      console.error(error);
+      wx.showToast({ title: '加载失败', icon: 'none' });
+    }
   },
 
   onTested(e) {

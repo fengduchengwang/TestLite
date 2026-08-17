@@ -1,0 +1,876 @@
+{
+  "schemaVersion": 2,
+  "meta": {
+    "key": "featured_003",
+    "category": "featured",
+    "categoryLabel": "精选",
+    "level": "standard",
+    "levelLabel": "标准测试",
+    "title": "你会不会把别人的情绪，当成自己的任务？",
+    "subtitle": "别人沉默、失望或语气变冷时，你是在共情、接管、修复、回避，还是能够带着边界继续靠近？",
+    "duration": "约5分钟",
+    "disclaimer": "本测试用于日常自我观察，不构成专业心理评估或诊断。"
+  },
+  "display": {
+    "template": "standard",
+    "heroLabel": "你的情绪边界",
+    "dimensionTitle": "你在关系中的各项表现",
+    "radarTitle": "你的情绪责任全景",
+    "deepAnalysisTitle": "你为什么总会先照顾别人的情绪",
+    "modules": [
+      "hero",
+      "radar",
+      "dimensions",
+      "deepAnalysis",
+      "evidence",
+      "pattern",
+      "strengths",
+      "actions",
+      "share"
+    ]
+  },
+  "dimensions": [
+    {
+      "key": "sensitivity",
+      "label": "情绪捕捉",
+      "bands": {
+        "low": "你较少自动扫描他人的情绪变化。",
+        "medium": "明显变化会引起你的注意。",
+        "high": "细微语气和表情变化也会迅速进入你的注意。"
+      }
+    },
+    {
+      "key": "responsibility",
+      "label": "责任接管",
+      "bands": {
+        "low": "你能区分关心与负责。",
+        "medium": "重要关系中，你会承担部分情绪责任。",
+        "high": "他人不舒服时，你容易立刻觉得自己需要处理。"
+      }
+    },
+    {
+      "key": "boundary",
+      "label": "边界表达",
+      "bands": {
+        "low": "你较难在照顾关系时同步表达限制。",
+        "medium": "你能在部分场景说清容量。",
+        "high": "你能够在保持关心的同时说明自己能做什么。"
+      }
+    },
+    {
+      "key": "repair",
+      "label": "修复紧迫",
+      "bands": {
+        "low": "你能允许关系暂时存在未解决状态。",
+        "medium": "重要冲突会推动你主动修复。",
+        "high": "关系出现波动时，你很难等待，常需要立刻恢复连接。"
+      }
+    },
+    {
+      "key": "avoidance",
+      "label": "冲突回避",
+      "bands": {
+        "low": "你较能承受必要分歧。",
+        "medium": "你会选择时机表达不同意见。",
+        "high": "为了不让气氛变坏，你容易压下真实意见。"
+      }
+    },
+    {
+      "key": "recovery",
+      "label": "自我恢复",
+      "bands": {
+        "low": "关系事件结束后，你仍会长时间携带他人情绪。",
+        "medium": "你需要一定时间才能回到自己。",
+        "high": "你有相对稳定的方法把注意力和感受带回自己。"
+      }
+    }
+  ],
+  "questions": [
+    {
+      "scene": "语气变化",
+      "dimension": "sensitivity",
+      "q": "熟悉的人回复比平时简短，你通常多久会注意到？",
+      "options": [
+        {
+          "text": "几乎立刻，会开始回想前面的对话",
+          "score": {
+            "sensitivity": 3,
+            "repair": 1
+          }
+        },
+        {
+          "text": "连续几次都这样才会留意",
+          "score": {
+            "sensitivity": 2
+          }
+        },
+        {
+          "text": "除非对方直接说，否则不太判断",
+          "score": {
+            "sensitivity": 0,
+            "boundary": 1
+          }
+        },
+        {
+          "text": "会注意，但先当作对方可能只是忙",
+          "score": {
+            "sensitivity": 1,
+            "recovery": 1
+          }
+        }
+      ]
+    },
+    {
+      "scene": "现场气氛",
+      "dimension": "sensitivity",
+      "q": "聚会中有一个人突然安静下来，你更可能？",
+      "options": [
+        {
+          "text": "很快发现，并持续观察他是不是不舒服",
+          "score": {
+            "sensitivity": 3
+          }
+        },
+        {
+          "text": "注意到后找机会私下问一句",
+          "score": {
+            "sensitivity": 2,
+            "boundary": 1
+          }
+        },
+        {
+          "text": "尊重他的安静，不主动赋予含义",
+          "score": {
+            "sensitivity": 0
+          }
+        },
+        {
+          "text": "先继续参与，明显不对再处理",
+          "score": {
+            "sensitivity": 1
+          }
+        }
+      ]
+    },
+    {
+      "scene": "隐含情绪",
+      "dimension": "sensitivity",
+      "q": "别人嘴上说“没事”，但表情不太自然，你会？",
+      "options": [
+        {
+          "text": "很难真的当作没事，会反复确认",
+          "score": {
+            "sensitivity": 3,
+            "repair": 1
+          }
+        },
+        {
+          "text": "表达一次关心，然后给对方选择",
+          "score": {
+            "sensitivity": 2,
+            "boundary": 2
+          }
+        },
+        {
+          "text": "按对方说的处理，需要时他会开口",
+          "score": {
+            "sensitivity": 0
+          }
+        },
+        {
+          "text": "会记在心里，之后看情况再问",
+          "score": {
+            "sensitivity": 1
+          }
+        }
+      ]
+    },
+    {
+      "scene": "朋友低落",
+      "dimension": "responsibility",
+      "q": "朋友因为工作低落，连续几天找你倾诉，你最容易怎么做？",
+      "options": [
+        {
+          "text": "尽量随时回应，怕不陪着他会更糟",
+          "score": {
+            "responsibility": 3,
+            "boundary": 0
+          }
+        },
+        {
+          "text": "陪伴的同时询问他还需要哪些支持",
+          "score": {
+            "responsibility": 2,
+            "boundary": 1
+          }
+        },
+        {
+          "text": "说明自己能听多久，也鼓励他寻找更多支持",
+          "score": {
+            "responsibility": 0,
+            "boundary": 3
+          }
+        },
+        {
+          "text": "直接给解决方案，希望问题尽快结束",
+          "score": {
+            "responsibility": 1,
+            "repair": 1
+          }
+        }
+      ]
+    },
+    {
+      "scene": "家人失望",
+      "dimension": "responsibility",
+      "q": "你拒绝家人的一个请求后，对方明显失望，你会？",
+      "options": [
+        {
+          "text": "很快改口答应，失望让我难以坚持",
+          "score": {
+            "responsibility": 3,
+            "avoidance": 2
+          }
+        },
+        {
+          "text": "解释很多，希望对方理解我不是不在乎",
+          "score": {
+            "responsibility": 2,
+            "repair": 2
+          }
+        },
+        {
+          "text": "承认对方会失望，但不因此撤回决定",
+          "score": {
+            "responsibility": 0,
+            "boundary": 3
+          }
+        },
+        {
+          "text": "先躲开，不想继续面对对方的情绪",
+          "score": {
+            "responsibility": 1,
+            "avoidance": 2
+          }
+        }
+      ]
+    },
+    {
+      "scene": "同事焦虑",
+      "dimension": "responsibility",
+      "q": "同事因为进度落后非常焦虑，但问题并不由你造成，你会？",
+      "options": [
+        {
+          "text": "主动接过一部分，先让他别那么焦虑",
+          "score": {
+            "responsibility": 3
+          }
+        },
+        {
+          "text": "帮他梳理一次，但不会默认接手",
+          "score": {
+            "responsibility": 1,
+            "boundary": 2
+          }
+        },
+        {
+          "text": "明确这是他的责任，需要他提出具体协作请求",
+          "score": {
+            "responsibility": 0,
+            "boundary": 3
+          }
+        },
+        {
+          "text": "因为不想卷入，尽量减少互动",
+          "score": {
+            "responsibility": 2,
+            "avoidance": 1
+          }
+        }
+      ]
+    },
+    {
+      "scene": "可用时间",
+      "dimension": "boundary",
+      "q": "亲近的人在你最忙时想认真聊一小时，你通常会？",
+      "options": [
+        {
+          "text": "明确现在只能聊十分钟，并约好完整时间",
+          "score": {
+            "boundary": 3,
+            "repair": 1
+          }
+        },
+        {
+          "text": "先听一会儿，超时后才开始焦躁",
+          "score": {
+            "boundary": 1,
+            "responsibility": 2
+          }
+        },
+        {
+          "text": "直接停下手头事情，不能让他失望",
+          "score": {
+            "boundary": 0,
+            "responsibility": 3
+          }
+        },
+        {
+          "text": "说自己忙，但不说明什么时候能谈",
+          "score": {
+            "boundary": 2,
+            "avoidance": 1
+          }
+        }
+      ]
+    },
+    {
+      "scene": "持续抱怨",
+      "dimension": "boundary",
+      "q": "一段谈话不断重复同样的抱怨时，你能否结束它？",
+      "options": [
+        {
+          "text": "能，会说明自己已经没有继续倾听的容量",
+          "score": {
+            "boundary": 3
+          }
+        },
+        {
+          "text": "会尝试把话题转向具体下一步",
+          "score": {
+            "boundary": 2
+          }
+        },
+        {
+          "text": "很难，怕打断显得冷漠",
+          "score": {
+            "boundary": 0,
+            "responsibility": 2
+          }
+        },
+        {
+          "text": "通常用敷衍回复慢慢退出",
+          "score": {
+            "boundary": 1,
+            "avoidance": 2
+          }
+        }
+      ]
+    },
+    {
+      "scene": "拒绝之后",
+      "dimension": "boundary",
+      "q": "你说“不方便”后，对方继续追问理由，你会？",
+      "options": [
+        {
+          "text": "重复自己的决定，不再增加解释",
+          "score": {
+            "boundary": 3
+          }
+        },
+        {
+          "text": "补充一次真实原因，希望对方理解",
+          "score": {
+            "boundary": 2
+          }
+        },
+        {
+          "text": "开始动摇，担心理由不够充分",
+          "score": {
+            "boundary": 0,
+            "responsibility": 2
+          }
+        },
+        {
+          "text": "找一个更容易被接受的借口结束对话",
+          "score": {
+            "boundary": 1,
+            "avoidance": 2
+          }
+        }
+      ]
+    },
+    {
+      "scene": "已读不回",
+      "dimension": "repair",
+      "q": "一次重要沟通后，对方很久没回复，你通常怎样等待？",
+      "options": [
+        {
+          "text": "很难做别的，会不断检查并想补充解释",
+          "score": {
+            "repair": 3,
+            "sensitivity": 1
+          }
+        },
+        {
+          "text": "会焦虑，但约定时间前不再追问",
+          "score": {
+            "repair": 2,
+            "boundary": 1
+          }
+        },
+        {
+          "text": "允许对方需要时间，把注意力放回自己",
+          "score": {
+            "repair": 0,
+            "recovery": 2
+          }
+        },
+        {
+          "text": "先变冷淡，避免显得是我更在意",
+          "score": {
+            "repair": 1,
+            "avoidance": 1
+          }
+        }
+      ]
+    },
+    {
+      "scene": "冲突过夜",
+      "dimension": "repair",
+      "q": "和伴侣发生分歧后，对方希望第二天再谈，你会？",
+      "options": [
+        {
+          "text": "很难接受，今晚不说清几乎睡不着",
+          "score": {
+            "repair": 3
+          }
+        },
+        {
+          "text": "想继续谈，但能约定明天具体时间",
+          "score": {
+            "repair": 2,
+            "boundary": 1
+          }
+        },
+        {
+          "text": "可以暂停，先让双方情绪降下来",
+          "score": {
+            "repair": 0,
+            "recovery": 2
+          }
+        },
+        {
+          "text": "表面同意，之后却故意减少联系",
+          "score": {
+            "repair": 1,
+            "avoidance": 2
+          }
+        }
+      ]
+    },
+    {
+      "scene": "关系裂缝",
+      "dimension": "repair",
+      "q": "你察觉一段关系有点疏远时，最自然的动作是？",
+      "options": [
+        {
+          "text": "立刻增加联系，希望尽快恢复原来的状态",
+          "score": {
+            "repair": 3
+          }
+        },
+        {
+          "text": "主动约一次谈话，确认双方感受",
+          "score": {
+            "repair": 2
+          }
+        },
+        {
+          "text": "观察一段时间，也接受关系可能在变化",
+          "score": {
+            "repair": 0,
+            "recovery": 1
+          }
+        },
+        {
+          "text": "先撤回投入，避免自己继续受伤",
+          "score": {
+            "repair": 1,
+            "avoidance": 2
+          }
+        }
+      ]
+    },
+    {
+      "scene": "不同意见",
+      "dimension": "avoidance",
+      "q": "大家兴致很高地决定一件你并不想参加的事，你会？",
+      "options": [
+        {
+          "text": "先答应，不想在当下破坏气氛",
+          "score": {
+            "avoidance": 3,
+            "boundary": 0
+          }
+        },
+        {
+          "text": "表达自己没兴趣，但不阻止大家参加",
+          "score": {
+            "avoidance": 0,
+            "boundary": 3
+          }
+        },
+        {
+          "text": "用玩笑暗示，希望有人听懂",
+          "score": {
+            "avoidance": 2
+          }
+        },
+        {
+          "text": "等结束后再私下说自己不参加",
+          "score": {
+            "avoidance": 1,
+            "boundary": 1
+          }
+        }
+      ]
+    },
+    {
+      "scene": "不舒服的话",
+      "dimension": "avoidance",
+      "q": "亲近的人说了一句让你不舒服的话，你更可能？",
+      "options": [
+        {
+          "text": "先压下去，告诉自己别太敏感",
+          "score": {
+            "avoidance": 3
+          }
+        },
+        {
+          "text": "等情绪稳定后，具体说明哪句话有影响",
+          "score": {
+            "avoidance": 1,
+            "boundary": 2
+          }
+        },
+        {
+          "text": "当场确认他的意思，不让猜测继续",
+          "score": {
+            "avoidance": 0,
+            "boundary": 2
+          }
+        },
+        {
+          "text": "语气变冷，让对方自己发现问题",
+          "score": {
+            "avoidance": 2,
+            "repair": 1
+          }
+        }
+      ]
+    },
+    {
+      "scene": "团队分歧",
+      "dimension": "avoidance",
+      "q": "会议上多数人支持一个你认为风险很大的方案，你会？",
+      "options": [
+        {
+          "text": "不想显得难合作，先保持沉默",
+          "score": {
+            "avoidance": 3
+          }
+        },
+        {
+          "text": "会提风险，但尽量把语气处理得很软",
+          "score": {
+            "avoidance": 2
+          }
+        },
+        {
+          "text": "清楚说明风险、依据和替代方案",
+          "score": {
+            "avoidance": 0,
+            "boundary": 2
+          }
+        },
+        {
+          "text": "会后找负责人单独表达",
+          "score": {
+            "avoidance": 1
+          }
+        }
+      ]
+    },
+    {
+      "scene": "倾诉之后",
+      "dimension": "recovery",
+      "q": "听完一段沉重倾诉后，你通常多久能回到自己的状态？",
+      "options": [
+        {
+          "text": "有自己的切换方式，一段时间后能放下",
+          "score": {
+            "recovery": 3
+          }
+        },
+        {
+          "text": "需要独处或找人说一说才能缓过来",
+          "score": {
+            "recovery": 2
+          }
+        },
+        {
+          "text": "会带着对方的情绪很久，反复想能做什么",
+          "score": {
+            "recovery": 0,
+            "responsibility": 2
+          }
+        },
+        {
+          "text": "表面恢复很快，身体却会明显疲惫",
+          "score": {
+            "recovery": 1,
+            "sensitivity": 1
+          }
+        }
+      ]
+    },
+    {
+      "scene": "关系波动",
+      "dimension": "recovery",
+      "q": "一段关系出现小摩擦后，你还能专注处理自己的事情吗？",
+      "options": [
+        {
+          "text": "能，知道关系问题可以在约定时间处理",
+          "score": {
+            "recovery": 3,
+            "boundary": 1
+          }
+        },
+        {
+          "text": "需要先写下来或走一走，再逐渐恢复",
+          "score": {
+            "recovery": 2
+          }
+        },
+        {
+          "text": "很难，事情没解决前注意力一直被占用",
+          "score": {
+            "recovery": 0,
+            "repair": 2
+          }
+        },
+        {
+          "text": "靠忙别的压过去，但停下来又会想起",
+          "score": {
+            "recovery": 1,
+            "avoidance": 1
+          }
+        }
+      ]
+    },
+    {
+      "scene": "情绪归属",
+      "dimension": "recovery",
+      "q": "面对别人的低落，你是否能提醒自己“这是他的感受，不全由我负责”？",
+      "options": [
+        {
+          "text": "能，而且这不会妨碍我继续关心他",
+          "score": {
+            "recovery": 3,
+            "boundary": 2
+          }
+        },
+        {
+          "text": "有时能，需要刻意提醒自己",
+          "score": {
+            "recovery": 2
+          }
+        },
+        {
+          "text": "很难，知道道理但身体会自动紧张",
+          "score": {
+            "recovery": 1,
+            "sensitivity": 2
+          }
+        },
+        {
+          "text": "几乎不能，只要对方不好我就很难轻松",
+          "score": {
+            "recovery": 0,
+            "responsibility": 3
+          }
+        }
+      ]
+    }
+  ],
+  "profiles": {
+    "sensitivity": {
+      "name": "高敏接收型",
+      "verdict": "你很早就能听见关系里的变化，但不必为每一个信号立刻行动。",
+      "core": "你会捕捉语气、表情和互动频率中的细小变化。这让你很会读现场，也让大量尚未确认的信息提前进入身体。",
+      "combo": "你先感知变化，再决定关系是否安全。",
+      "secondary": "你也会把细微信号当作需要认真处理的信息。",
+      "trigger": "语气改变、沉默、气氛突然变冷",
+      "reaction": "扫描细节、回想上下文、预判对方感受",
+      "benefit": "能较早发现关系问题并照顾现场",
+      "cost": "容易在事实不足时承担大量猜测",
+      "strengths": [
+        "能发现别人没说出口的变化",
+        "对关系氛围和协作状态敏锐"
+      ],
+      "costs": [
+        "可能把一次状态变化扩展成关系判断",
+        "持续扫描会占用大量注意力"
+      ],
+      "actions": [
+        {
+          "time": "本周",
+          "text": "每次捕捉到情绪信号时写两栏：已知事实、我的解释。只有事实连续出现两次，或对方明确表达后，再决定是否介入。"
+        }
+      ],
+      "share": "我看见了情绪，不等于我已经知道它为什么发生。"
+    },
+    "responsibility": {
+      "name": "情绪接管型",
+      "verdict": "你会照顾人，但常在对方还没提出请求时，就先把责任放到自己身上。",
+      "core": "别人的失望、焦虑和低落会迅速转化成你的待办。你通过陪伴、补位和让步换来短期平稳，却可能让双方都失去处理各自情绪的机会。",
+      "combo": "你会用行动减少他人的不舒服。",
+      "secondary": "你也容易把关系是否平稳当作自己的责任。",
+      "trigger": "他人低落、失望、焦虑或无法处理问题",
+      "reaction": "增加陪伴、主动补位、撤回自己的拒绝",
+      "benefit": "现场很快缓和，你也获得“我没有袖手旁观”的安心",
+      "cost": "责任边界逐渐模糊，照顾最终变成透支",
+      "strengths": [
+        "可靠，愿意在别人困难时提供实际支持",
+        "能看见情绪背后的现实需要"
+      ],
+      "costs": [
+        "容易替别人完成本该由他承担的部分",
+        "自己的容量和需要被长期延后"
+      ],
+      "actions": [
+        {
+          "time": "本周",
+          "text": "在一次帮助前先问：“你现在想让我听、一起想办法，还是帮一个具体动作？”只回应被明确提出的那一项。"
+        }
+      ],
+      "share": "我可以关心你的情绪，但不需要替你完成它。"
+    },
+    "boundary": {
+      "name": "有界共情型",
+      "verdict": "你正在建立一种更可持续的靠近：表达关心，也说明自己的容量。",
+      "core": "你知道边界不是冷漠，而是让帮助不靠硬撑。你能把时间、责任和选择说清，使对方不必猜，也让自己不至于积累到突然撤离。",
+      "combo": "你会在连接和自我保护之间寻找清楚边界。",
+      "secondary": "你也需要让自己的“可以”和“不可以”被看懂。",
+      "trigger": "他人需求超过当前时间、精力或职责",
+      "reaction": "说明可提供的范围、时间和替代方式",
+      "benefit": "关系获得可预期的支持，自己也能保持稳定",
+      "cost": "面对不习惯边界的人，你仍可能被评价为不够热情",
+      "strengths": [
+        "能把帮助说得具体",
+        "不必靠失联或爆发补回边界"
+      ],
+      "costs": [
+        "可能过度强调规则而忽略对方当下感受",
+        "遇到强烈情绪时仍需练习稳定表达"
+      ],
+      "actions": [
+        {
+          "time": "本周",
+          "text": "准备一句固定边界表达：“我现在能做的是X，不能做的是Y，如果需要，我们可以在Z时间继续。”在一件小事上完整说出。"
+        }
+      ],
+      "share": "边界不是把你推开，是告诉你我能怎样留下来。"
+    },
+    "repair": {
+      "name": "即时修复型",
+      "verdict": "关系一有裂缝，你就很难等待；真正需要练习的是带着未解决继续生活。",
+      "core": "你重视连接，也很难承受不确定。主动修复是能力，但当修复必须立刻完成，它也会变成追问、解释和过度联系，压缩双方冷静空间。",
+      "combo": "你会尽快确认关系仍然安全。",
+      "secondary": "你也通过恢复联系来降低不确定带来的焦虑。",
+      "trigger": "已读不回、冲突暂停、关系突然疏远",
+      "reaction": "追问、补充解释、增加联系",
+      "benefit": "短期获得确定感，避免问题长期悬置",
+      "cost": "对方空间被压缩，你也失去自我安顿的机会",
+      "strengths": [
+        "愿意面对关系问题而不是长期冷处理",
+        "有主动重建连接的动力"
+      ],
+      "costs": [
+        "容易把等待误解为关系正在恶化",
+        "修复速度可能快于双方理解问题的速度"
+      ],
+      "actions": [
+        {
+          "time": "本周",
+          "text": "发生轻微冲突后，只发送一次确认：“我愿意继续谈，你准备好时告诉我。”随后为自己设置至少两小时不追问窗口。"
+        }
+      ],
+      "share": "我想修复关系，也要学会不在每次沉默里追着证明安全。"
+    },
+    "avoidance": {
+      "name": "和平维持型",
+      "verdict": "你很会让现场不难看，但真实分歧常被延后到关系已经变冷以后。",
+      "core": "你对冲突成本敏感，会用沉默、软化、玩笑或事后表达保护气氛。这在短期有效，却可能让别人误以为你没有意见。",
+      "combo": "你先保住表面合作，再处理自己的不同感受。",
+      "secondary": "你也担心直接表达会让关系付出过高代价。",
+      "trigger": "多人意见一致、对方情绪强烈、表达可能扫兴",
+      "reaction": "压低意见、间接暗示、转到事后沟通",
+      "benefit": "避免现场升级，维持基本合作",
+      "cost": "需求长期不可见，最后只能用疏远补偿",
+      "strengths": [
+        "能评估表达时机和现场承受力",
+        "不轻易让分歧变成人身对抗"
+      ],
+      "costs": [
+        "别人难以知道你的真实位置",
+        "延迟表达会让不满在内部变形"
+      ],
+      "actions": [
+        {
+          "time": "本周",
+          "text": "在一次低风险分歧里使用三句式：“我听见你的考虑；我不同意的是X；我建议先试Y。”不解释自己是不是难相处。"
+        }
+      ],
+      "share": "我维护了很多次和平，也该让真实意见拥有一次位置。"
+    },
+    "recovery": {
+      "name": "自我归位型",
+      "verdict": "你能关心别人，也能在谈话结束后把感受和注意力带回自己。",
+      "core": "你不是感受不到他人，而是逐渐具备了情绪归属感：谁的感受由谁负责，自己能提供什么，以及什么时候需要退出恢复。",
+      "combo": "你会在共情之后主动完成情绪切换。",
+      "secondary": "你也重视让自己在关系事件后重新回到稳定状态。",
+      "trigger": "倾诉、冲突或长时间情绪陪伴结束",
+      "reaction": "整理事实、身体放松、转回自己的节奏",
+      "benefit": "关心不会无限延长成持续待机",
+      "cost": "如果切换过快，部分人可能误解为你不够投入",
+      "strengths": [
+        "有可持续的情绪恢复方式",
+        "能区分共情与共同陷入"
+      ],
+      "costs": [
+        "可能高估自己已经消化的程度",
+        "强调自我调节时要避免忽略必要修复"
+      ],
+      "actions": [
+        {
+          "time": "本周",
+          "text": "每次情绪陪伴结束后做一个5分钟归位动作：走动、洗手或写下“对方的部分/我的部分/下一步”，让身体知道谈话已经结束。"
+        }
+      ],
+      "share": "我可以陪你经过情绪，但不必把它带回我的整晚。"
+    }
+  },
+  "combinations": {
+    "sensitivity+responsibility": {
+      "title": "高敏接收 × 情绪接管",
+      "summary": "你不仅很快看见情绪，还会迅速把它变成自己的责任，因此常在别人开口前就开始消耗。",
+      "tension": "第一步不是降低敏感，而是在感知和行动之间增加一次确认。"
+    },
+    "repair+avoidance": {
+      "title": "想立刻和好 × 又不敢说真话",
+      "summary": "你很想恢复连接，却又害怕真正的分歧破坏关系，于是修复可能只停在恢复气氛。",
+      "tension": "有效修复需要允许短暂不舒服，并把具体问题留在对话中。"
+    },
+    "boundary+recovery": {
+      "title": "有界共情 × 自我归位",
+      "summary": "你能靠近，也能离开情绪现场。这是一种可持续的关系能力，而不是冷淡。",
+      "tension": "需要留意的是，边界表达仍要包含关心，否则正确内容也可能被听成拒绝。"
+    }
+  },
+  "insightRules": [],
+  "report": {
+    "decision": null
+  }
+}

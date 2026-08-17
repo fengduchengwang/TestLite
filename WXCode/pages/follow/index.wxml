@@ -19,6 +19,7 @@
         duration="{{item.duration}}"
         image-link="{{item.imageLink}}"
         test-link="{{item.testLink}}"
+        quiz-key="{{item.quizKey}}"
         tested="{{item.tested}}"
         followed="{{item.followed}}"
         action-mode="unfollow"

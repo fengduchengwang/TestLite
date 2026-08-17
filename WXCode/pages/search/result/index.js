@@ -19,14 +19,18 @@ Page({
     this.loadData();
   },
 
-  loadData() {
-    const results = enrichTestsWithFollowed(
-      enrichTestsWithTested(searchTests(this.keyword || this.data.keyword)),
-    );
-    this.setData({
-      keyword: this.keyword || this.data.keyword,
-      results,
-    });
+  async loadData() {
+    try {
+      const list = await searchTests(this.keyword || this.data.keyword);
+      const results = enrichTestsWithFollowed(enrichTestsWithTested(list));
+      this.setData({
+        keyword: this.keyword || this.data.keyword,
+        results,
+      });
+    } catch (error) {
+      console.error(error);
+      wx.showToast({ title: '搜索失败', icon: 'none' });
+    }
   },
 
   onTested(e) {

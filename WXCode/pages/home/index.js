@@ -1,10 +1,11 @@
-import testList, { TEST_CATEGORIES, filterTestsByCategory } from '~/data/tests';
+import { TEST_CATEGORIES, filterTestsByCategory } from '~/data/tests';
 import useFollowCard from '~/behaviors/useFollowCard';
 import {
   enrichTestsWithFollowed,
   enrichTestsWithTested,
   openTest,
 } from '~/utils/test';
+import { fetchTestList } from '~/utils/api';
 
 Page({
   behaviors: [useFollowCard],
@@ -14,6 +15,7 @@ Page({
     activeCategory: 'all',
     swiperList: [],
     cardInfo: [],
+    allTests: [],
   },
 
   onReady() {
@@ -26,12 +28,23 @@ Page({
     this.updateScrollHeight();
   },
 
-  loadData() {
-    const filtered = filterTestsByCategory(this.data.activeCategory);
-    this.setData({
-      swiperList: testList.map((item) => item.bannerLink),
-      cardInfo: enrichTestsWithFollowed(enrichTestsWithTested(filtered)),
-    });
+  async loadData() {
+    try {
+      const list = await fetchTestList({ category: 'all' });
+      if (!Array.isArray(list)) {
+        throw new Error('列表数据格式错误');
+      }
+      const filtered = filterTestsByCategory(this.data.activeCategory, list);
+      this.setData({
+        allTests: list,
+        swiperList: list.map((item) => item.bannerLink || item.imageLink || ''),
+        cardInfo: enrichTestsWithFollowed(enrichTestsWithTested(filtered)),
+      });
+    } catch (error) {
+      const message = error?.message || '列表加载失败';
+      console.error('load test list failed', message, error?.raw || error);
+      wx.showToast({ title: message.slice(0, 20), icon: 'none' });
+    }
   },
 
   updateScrollHeight() {
@@ -59,16 +72,18 @@ Page({
     const { value } = e.currentTarget.dataset;
     if (value === this.data.activeCategory) return;
 
-    this.setData({ activeCategory: value }, () => {
-      this.loadData();
+    const filtered = filterTestsByCategory(value, this.data.allTests);
+    this.setData({
+      activeCategory: value,
+      cardInfo: enrichTestsWithFollowed(enrichTestsWithTested(filtered)),
     });
   },
 
   onSwiperClick(e) {
     const { index } = e.detail;
-    const item = testList[index];
-    if (!item?.testLink) return;
-    openTest(item.id, item.testLink);
+    const item = this.data.allTests[index];
+    if (!item?.quizKey && !item?.testLink) return;
+    openTest(item.id, item.testLink, item.quizKey);
   },
 
   onTested(e) {

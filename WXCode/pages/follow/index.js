@@ -1,4 +1,4 @@
-import testList from '~/data/tests';
+import { fetchTestList } from '~/utils/api';
 import { enrichTestsWithFollowed, enrichTestsWithTested, getFollowTests, removeFollow } from '~/utils/test';
 
 Page({
@@ -17,10 +17,16 @@ Page({
     this.updateScrollHeight();
   },
 
-  loadData() {
-    this.setData({
-      cardInfo: enrichTestsWithFollowed(enrichTestsWithTested(getFollowTests(testList))),
-    });
+  async loadData() {
+    try {
+      const list = await fetchTestList();
+      this.setData({
+        cardInfo: enrichTestsWithFollowed(enrichTestsWithTested(getFollowTests(list))),
+      });
+    } catch (error) {
+      console.error(error);
+      wx.showToast({ title: '加载失败', icon: 'none' });
+    }
   },
 
   updateScrollHeight() {

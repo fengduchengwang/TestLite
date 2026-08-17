@@ -18,6 +18,11 @@
       "pages": ["index", "result/index"]
     },
     {
+      "root": "pages/quiz",
+      "name": "quiz",
+      "pages": ["intro/index", "play/index", "result/index"]
+    },
+    {
       "root": "pages/webview",
       "name": "webview",
       "pages": ["index"]

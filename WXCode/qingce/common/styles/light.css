@@ -1,0 +1,5 @@
+body[data-template="light"] .hero-mark { background: var(--orange-soft); border-color: #ffd8b3; color: #b76216; }
+body[data-template="light"] .result-shell { max-width: 540px; }
+body[data-template="light"] .result-hero-card { background: linear-gradient(140deg, #846dff 0%, #6b50e9 62%, #583bd6 100%); }
+body[data-template="light"] .score-card { padding-block: 23px; }
+body[data-template="light"] .closing-card { background: var(--orange-soft); }

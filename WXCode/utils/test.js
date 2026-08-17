@@ -105,12 +105,20 @@ export function clearFollowList() {
   wx.removeStorageSync(FOLLOW_STORAGE_KEY);
 }
 
-/** 打开测试页并记录浏览/已测试 */
-export function openTest(testId, link) {
-  if (!link) return;
+/** 打开测试页并记录浏览/已测试（优先原生 quizKey，兼容旧 H5 link） */
+export function openTest(testId, link, quizKey = '') {
+  if (!quizKey && !link) return;
 
   addBrowseRecord(testId);
   markTestAsTested(testId);
+
+  if (quizKey) {
+    wx.navigateTo({
+      url: `/pages/quiz/intro/index?key=${encodeURIComponent(quizKey)}&testId=${testId}`,
+    });
+    return;
+  }
+
   wx.navigateTo({
     url: `/pages/webview/index?url=${encodeURIComponent(link)}`,
   });

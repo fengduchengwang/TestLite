@@ -1,0 +1,121 @@
+@import '/variable.less';
+
+.quiz-play {
+  min-height: 100vh;
+  background: #f2f2f7;
+  box-sizing: border-box;
+  padding-bottom: calc(32rpx + env(safe-area-inset-bottom));
+
+  &__head {
+    background: #fff;
+    padding: 24rpx 32rpx 20rpx;
+  }
+
+  &__progress-text {
+    font-size: 24rpx;
+    color: rgba(26, 26, 26, 0.55);
+    margin-bottom: 16rpx;
+  }
+
+  &__progress {
+    height: 10rpx;
+    border-radius: 999rpx;
+    background: #ece8ff;
+    overflow: hidden;
+  }
+
+  &__progress-bar {
+    height: 100%;
+    border-radius: 999rpx;
+    background: #7b61ff;
+    transition: width 0.2s ease;
+  }
+
+  &__body {
+    padding: 40rpx 32rpx 0;
+  }
+
+  &__scene {
+    color: #7b61ff;
+    font-size: 24rpx;
+    margin-bottom: 20rpx;
+  }
+
+  &__title {
+    font-size: 40rpx;
+    line-height: 1.4;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 40rpx;
+  }
+
+  &__options {
+    display: flex;
+    flex-direction: column;
+    gap: 20rpx;
+  }
+
+  &__option {
+    display: flex;
+    align-items: flex-start;
+    gap: 20rpx;
+    background: #fff;
+    border-radius: 24rpx;
+    padding: 28rpx 24rpx;
+    border: 2rpx solid transparent;
+    box-sizing: border-box;
+  }
+
+  &__option.is-selected {
+    border-color: #7b61ff;
+    background: #f7f4ff;
+  }
+
+  &__letter {
+    width: 48rpx;
+    height: 48rpx;
+    border-radius: 50%;
+    background: #ece8ff;
+    color: #7b61ff;
+    font-size: 24rpx;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  &__option.is-selected &__letter {
+    background: #7b61ff;
+    color: #fff;
+  }
+
+  &__option-text {
+    flex: 1;
+    font-size: 28rpx;
+    line-height: 1.55;
+    color: #1a1a1a;
+    padding-top: 6rpx;
+  }
+
+  &__footer {
+    margin-top: 40rpx;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__prev {
+    font-size: 26rpx;
+    color: #7b61ff;
+  }
+
+  &__prev.is-disabled {
+    color: rgba(26, 26, 26, 0.25);
+  }
+
+  &__hint {
+    font-size: 22rpx;
+    color: rgba(26, 26, 26, 0.4);
+  }
+}

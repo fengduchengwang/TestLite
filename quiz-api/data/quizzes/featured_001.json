@@ -1,0 +1,740 @@
+{
+  "schemaVersion": 2,
+  "meta": {
+    "key": "featured_001",
+    "category": "featured",
+    "categoryLabel": "精选",
+    "level": "light",
+    "levelLabel": "轻量测试",
+    "title": "你的快乐需要观众吗？",
+    "subtitle": "有人分享才更快乐，还是没人知道也不影响满足？15道具体情境，看看回应、认可和独处分别怎样改变你的快乐。",
+    "duration": "约3分钟",
+    "disclaimer": "本测试用于日常自我观察，不构成专业心理评估或诊断。"
+  },
+  "display": {
+    "template": "light",
+    "heroLabel": "你的快乐方式",
+    "dimensionTitle": "你的快乐倾向分布",
+    "radarTitle": "",
+    "deepAnalysisTitle": "你的快乐，通常这样被放大",
+    "modules": [
+      "hero",
+      "dimensions",
+      "deepAnalysis",
+      "strengths",
+      "actions",
+      "share"
+    ]
+  },
+  "dimensions": [
+    {
+      "key": "intrinsic",
+      "label": "内在满足",
+      "bands": {
+        "low": "快乐较容易受到外部反馈影响。",
+        "medium": "你既能自得其乐，也会在意回应。",
+        "high": "没有观众时，你依然能确认体验的价值。"
+      }
+    },
+    {
+      "key": "sharing",
+      "label": "分享增益",
+      "bands": {
+        "low": "分享不是快乐成立的必要环节。",
+        "medium": "遇到合适的人时，分享会让快乐增加。",
+        "high": "表达和共同见证会显著放大你的快乐。"
+      }
+    },
+    {
+      "key": "recognition",
+      "label": "认可回声",
+      "bands": {
+        "low": "他人的评价较少决定你的满足。",
+        "medium": "重要评价会影响你，但不是唯一标准。",
+        "high": "被肯定和被看见会明显加强你的成就感。"
+      }
+    },
+    {
+      "key": "exposure",
+      "label": "呈现顾虑",
+      "bands": {
+        "low": "你较少担心分享后的评价。",
+        "medium": "你会根据对象和内容决定是否表达。",
+        "high": "分享前的自我审查容易压过原本的快乐。"
+      }
+    },
+    {
+      "key": "savoring",
+      "label": "独享沉浸",
+      "bands": {
+        "low": "你不太习惯长时间独自停留在体验里。",
+        "medium": "你能独享，也愿意适时分享。",
+        "high": "你擅长让快乐在不被打断时慢慢变深。"
+      }
+    }
+  ],
+  "questions": [
+    {
+      "scene": "无人点赞",
+      "dimension": "intrinsic",
+      "q": "你认真做了一顿很好吃的饭，但没有拍照也没人知道，你会怎样看待这顿饭？",
+      "options": [
+        {
+          "text": "吃得满足就够了，它已经完成了价值",
+          "score": {
+            "intrinsic": 3,
+            "savoring": 1
+          }
+        },
+        {
+          "text": "有点可惜，早知道应该记录或分享一下",
+          "score": {
+            "intrinsic": 1,
+            "sharing": 2
+          }
+        },
+        {
+          "text": "还是会拍下来留给自己以后看",
+          "score": {
+            "intrinsic": 2,
+            "savoring": 2
+          }
+        },
+        {
+          "text": "如果没人回应，精心准备的兴奋会少一些",
+          "score": {
+            "intrinsic": 0,
+            "recognition": 2
+          }
+        }
+      ]
+    },
+    {
+      "scene": "个人进步",
+      "dimension": "intrinsic",
+      "q": "你悄悄坚持一件事一个月，暂时还没人发现变化，最接近你的感受是？",
+      "options": [
+        {
+          "text": "过程已经让我满意，不急着被看见",
+          "score": {
+            "intrinsic": 3
+          }
+        },
+        {
+          "text": "会继续，但希望很快有人注意到",
+          "score": {
+            "intrinsic": 1,
+            "recognition": 2
+          }
+        },
+        {
+          "text": "想找一个可信的人分享这段坚持",
+          "score": {
+            "intrinsic": 2,
+            "sharing": 2
+          }
+        },
+        {
+          "text": "没人反馈时，很难确认自己做得有没有意义",
+          "score": {
+            "intrinsic": 0,
+            "recognition": 3
+          }
+        }
+      ]
+    },
+    {
+      "scene": "旅行片段",
+      "dimension": "intrinsic",
+      "q": "旅途中遇到特别漂亮、但手机没电的一幕，你更可能？",
+      "options": [
+        {
+          "text": "认真看一会儿，没留下照片也不遗憾",
+          "score": {
+            "intrinsic": 3,
+            "savoring": 2
+          }
+        },
+        {
+          "text": "会有点可惜，但仍能享受当下",
+          "score": {
+            "intrinsic": 2
+          }
+        },
+        {
+          "text": "想办法借手机拍下，不然像少了证明",
+          "score": {
+            "intrinsic": 0,
+            "recognition": 2
+          }
+        },
+        {
+          "text": "记住细节，回去讲给重要的人听",
+          "score": {
+            "intrinsic": 1,
+            "sharing": 2
+          }
+        }
+      ]
+    },
+    {
+      "scene": "即时分享",
+      "dimension": "sharing",
+      "q": "看到一句特别戳你的话，你通常会？",
+      "options": [
+        {
+          "text": "马上转给能理解它的人，并想听回应",
+          "score": {
+            "sharing": 3
+          }
+        },
+        {
+          "text": "先收藏，之后聊天合适时再提",
+          "score": {
+            "sharing": 2,
+            "savoring": 1
+          }
+        },
+        {
+          "text": "自己记住就好，不一定需要转发",
+          "score": {
+            "sharing": 0,
+            "intrinsic": 2
+          }
+        },
+        {
+          "text": "想发又担心显得矫情，最后常常算了",
+          "score": {
+            "sharing": 1,
+            "exposure": 2
+          }
+        }
+      ]
+    },
+    {
+      "scene": "好消息",
+      "dimension": "sharing",
+      "q": "收到一个期待很久的好消息，你最自然的第一步是？",
+      "options": [
+        {
+          "text": "告诉那个一路知道过程的人",
+          "score": {
+            "sharing": 3,
+            "recognition": 1
+          }
+        },
+        {
+          "text": "先自己消化，确认没变化再说",
+          "score": {
+            "sharing": 1,
+            "exposure": 1
+          }
+        },
+        {
+          "text": "安静享受一会儿，不急着让别人参与",
+          "score": {
+            "sharing": 0,
+            "savoring": 2
+          }
+        },
+        {
+          "text": "挑几个人分别分享，让快乐多发生几次",
+          "score": {
+            "sharing": 2,
+            "recognition": 1
+          }
+        }
+      ]
+    },
+    {
+      "scene": "共同体验",
+      "dimension": "sharing",
+      "q": "看完一部很喜欢的电影后，什么最能延长你的快乐？",
+      "options": [
+        {
+          "text": "和看过的人认真聊一遍细节和感受",
+          "score": {
+            "sharing": 3
+          }
+        },
+        {
+          "text": "写几句话发出来，看看有没有共鸣",
+          "score": {
+            "sharing": 2,
+            "recognition": 1
+          }
+        },
+        {
+          "text": "一个人回味配乐和片段",
+          "score": {
+            "sharing": 0,
+            "savoring": 3
+          }
+        },
+        {
+          "text": "推荐给一个人，但不要求对方马上反馈",
+          "score": {
+            "sharing": 1,
+            "intrinsic": 1
+          }
+        }
+      ]
+    },
+    {
+      "scene": "成果反馈",
+      "dimension": "recognition",
+      "q": "完成一件自己很满意的作品，却只收到一句“还可以”，你会？",
+      "options": [
+        {
+          "text": "明显泄气，开始怀疑是不是自己高估了",
+          "score": {
+            "recognition": 3,
+            "exposure": 1
+          }
+        },
+        {
+          "text": "有点失落，但仍知道满意的部分在哪里",
+          "score": {
+            "recognition": 2,
+            "intrinsic": 1
+          }
+        },
+        {
+          "text": "追问具体意见，想知道评价依据",
+          "score": {
+            "recognition": 1
+          }
+        },
+        {
+          "text": "不太受影响，我完成时已经知道它的价值",
+          "score": {
+            "recognition": 0,
+            "intrinsic": 3
+          }
+        }
+      ]
+    },
+    {
+      "scene": "朋友圈反应",
+      "dimension": "recognition",
+      "q": "一条你很喜欢的动态反应很少，你最接近哪种想法？",
+      "options": [
+        {
+          "text": "会反复看数据，甚至想删掉",
+          "score": {
+            "recognition": 3,
+            "exposure": 2
+          }
+        },
+        {
+          "text": "有点扫兴，但不会否定内容本身",
+          "score": {
+            "recognition": 2,
+            "intrinsic": 1
+          }
+        },
+        {
+          "text": "更在意某几个重要的人有没有看到",
+          "score": {
+            "recognition": 1,
+            "sharing": 2
+          }
+        },
+        {
+          "text": "发出来已经满足，反应多少没关系",
+          "score": {
+            "recognition": 0,
+            "intrinsic": 3
+          }
+        }
+      ]
+    },
+    {
+      "scene": "被夸奖",
+      "dimension": "recognition",
+      "q": "别人认真夸你一件自己也很在意的事，你的快乐通常会？",
+      "options": [
+        {
+          "text": "明显翻倍，会记很久",
+          "score": {
+            "recognition": 3
+          }
+        },
+        {
+          "text": "很开心，但不会因此改变原本判断",
+          "score": {
+            "recognition": 2,
+            "intrinsic": 1
+          }
+        },
+        {
+          "text": "先确认对方是不是客气，再决定要不要信",
+          "score": {
+            "recognition": 1,
+            "exposure": 1
+          }
+        },
+        {
+          "text": "感谢对方，但内心波动不大",
+          "score": {
+            "recognition": 0,
+            "intrinsic": 2
+          }
+        }
+      ]
+    },
+    {
+      "scene": "发布之前",
+      "dimension": "exposure",
+      "q": "准备分享一张自己很喜欢的照片时，你通常会检查多久？",
+      "options": [
+        {
+          "text": "会反复看细节和别人可能怎么想，常拖到不发",
+          "score": {
+            "exposure": 3
+          }
+        },
+        {
+          "text": "挑选和调整一会儿，确认合适再发",
+          "score": {
+            "exposure": 2
+          }
+        },
+        {
+          "text": "简单看一下就发，喜欢最重要",
+          "score": {
+            "exposure": 1,
+            "intrinsic": 1
+          }
+        },
+        {
+          "text": "几乎不检查，想分享就分享",
+          "score": {
+            "exposure": 0,
+            "sharing": 2
+          }
+        }
+      ]
+    },
+    {
+      "scene": "兴趣表达",
+      "dimension": "exposure",
+      "q": "你喜欢的东西比较冷门，别人可能看不懂，你会？",
+      "options": [
+        {
+          "text": "通常藏着，怕解释后还是被觉得奇怪",
+          "score": {
+            "exposure": 3
+          }
+        },
+        {
+          "text": "只对确定能理解的人说",
+          "score": {
+            "exposure": 2,
+            "sharing": 1
+          }
+        },
+        {
+          "text": "看场合提一两句，不要求别人喜欢",
+          "score": {
+            "exposure": 1,
+            "intrinsic": 1
+          }
+        },
+        {
+          "text": "自然表达，别人的兴趣不同也没关系",
+          "score": {
+            "exposure": 0,
+            "intrinsic": 2
+          }
+        }
+      ]
+    },
+    {
+      "scene": "公开庆祝",
+      "dimension": "exposure",
+      "q": "取得一个值得庆祝的成绩时，你对公开表达的态度是？",
+      "options": [
+        {
+          "text": "很想说，但担心被认为炫耀，最后往往淡化",
+          "score": {
+            "exposure": 3,
+            "recognition": 1
+          }
+        },
+        {
+          "text": "会谨慎说明过程，不只展示结果",
+          "score": {
+            "exposure": 2
+          }
+        },
+        {
+          "text": "只告诉亲近的人，公开与否不重要",
+          "score": {
+            "exposure": 1,
+            "sharing": 1
+          }
+        },
+        {
+          "text": "愿意大方庆祝，努力被看见没有问题",
+          "score": {
+            "exposure": 0,
+            "recognition": 1
+          }
+        }
+      ]
+    },
+    {
+      "scene": "独自体验",
+      "dimension": "savoring",
+      "q": "一个人喝到很好喝的咖啡时，你会怎样停留在这个瞬间？",
+      "options": [
+        {
+          "text": "放慢速度，注意味道、环境和当下心情",
+          "score": {
+            "savoring": 3,
+            "intrinsic": 1
+          }
+        },
+        {
+          "text": "拍照记录，然后继续做自己的事",
+          "score": {
+            "savoring": 2
+          }
+        },
+        {
+          "text": "立刻想推荐给别人，下次一起喝",
+          "score": {
+            "savoring": 1,
+            "sharing": 2
+          }
+        },
+        {
+          "text": "喝完就过去了，很少特意回味",
+          "score": {
+            "savoring": 0
+          }
+        }
+      ]
+    },
+    {
+      "scene": "快乐余韵",
+      "dimension": "savoring",
+      "q": "一次很开心的活动结束后，你通常怎样保留余韵？",
+      "options": [
+        {
+          "text": "会独自回想很多细节，让感受慢慢沉下来",
+          "score": {
+            "savoring": 3
+          }
+        },
+        {
+          "text": "整理照片或写几句话，给记忆一个位置",
+          "score": {
+            "savoring": 2
+          }
+        },
+        {
+          "text": "继续和参加的人聊天，把兴奋延长",
+          "score": {
+            "savoring": 1,
+            "sharing": 2
+          }
+        },
+        {
+          "text": "很快投入下一件事，不太停留",
+          "score": {
+            "savoring": 0
+          }
+        }
+      ]
+    },
+    {
+      "scene": "没有记录",
+      "dimension": "savoring",
+      "q": "一段珍贵经历没有照片、票根或公开记录，你会觉得它少了什么吗？",
+      "options": [
+        {
+          "text": "不会，记忆和当时的感受已经足够",
+          "score": {
+            "savoring": 3,
+            "intrinsic": 1
+          }
+        },
+        {
+          "text": "有一点，但我能通过文字或回想保存它",
+          "score": {
+            "savoring": 2
+          }
+        },
+        {
+          "text": "会遗憾，像缺少一个可以反复确认的证据",
+          "score": {
+            "savoring": 1,
+            "recognition": 1
+          }
+        },
+        {
+          "text": "如果也没人分享，会觉得这段经历很快就散了",
+          "score": {
+            "savoring": 0,
+            "sharing": 2
+          }
+        }
+      ]
+    }
+  ],
+  "profiles": {
+    "intrinsic": {
+      "name": "自得其乐型",
+      "verdict": "快乐对你来说首先是一种内部事实，不需要被围观才能成立。",
+      "core": "你能够从体验本身确认价值。无人点赞、没人知道，并不会自动抹掉一顿好饭、一次进步或一段风景。",
+      "combo": "你先确认自己是否真实喜欢，再决定要不要让别人参与。",
+      "secondary": "你也在努力保留一块不由外界评价的满足。",
+      "trigger": "体验被要求展示、解释或用反馈证明价值",
+      "reaction": "把注意力收回自己的感受和判断",
+      "benefit": "快乐较少被外界反应绑架",
+      "cost": "如果长期不表达，别人可能很难参与和理解你的重要时刻",
+      "strengths": [
+        "能独立确认体验的意义",
+        "外界反应不足时仍能保持稳定"
+      ],
+      "costs": [
+        "容易低估分享对关系的价值",
+        "重要成果可能因为太低调而失去应有的呈现"
+      ],
+      "actions": [
+        {
+          "time": "这周",
+          "text": "选一件本来只想留给自己的小事，告诉一个值得的人：我不是求评价，只是想让你知道这对我很重要。"
+        }
+      ],
+      "share": "没人看见也没关系，我知道这一刻真的让我快乐。"
+    },
+    "sharing": {
+      "name": "联结增益型",
+      "verdict": "你的快乐不是靠观众成立，而是在被理解时自然变大。",
+      "core": "你愿意把好消息、好内容和好体验交给关系，让快乐从个人事件变成共同记忆。你要的通常不是围观，而是准确的共鸣。",
+      "combo": "你会通过分享把一个瞬间连接到重要的人。",
+      "secondary": "你也需要体验在关系里得到来回流动。",
+      "trigger": "遇到好消息、好内容或值得共同记住的瞬间",
+      "reaction": "主动表达，寻找能理解语境的人",
+      "benefit": "快乐获得延展，关系也积累共同素材",
+      "cost": "对方没有及时回应时，原本的快乐可能被失落覆盖",
+      "strengths": [
+        "善于创造共同记忆",
+        "愿意让关系参与真实生活"
+      ],
+      "costs": [
+        "容易把回应速度误读为重视程度",
+        "分享对象不合适时会产生额外消耗"
+      ],
+      "actions": [
+        {
+          "time": "这周",
+          "text": "分享前先区分目的：想记录、想共鸣还是想被肯定。根据目的只选择一个最合适的对象。"
+        }
+      ],
+      "share": "我不是非要被围观，我只是喜欢有人能接住同一个瞬间。"
+    },
+    "recognition": {
+      "name": "回声确认型",
+      "verdict": "被肯定会显著放大你的快乐，因为反馈帮你确认投入被看见了。",
+      "core": "你对认可的需要并不等于虚荣。很多时候，你在意的是努力是否抵达别人、成果是否具有现实影响。问题只在于，外部回声是否成了唯一证据。",
+      "combo": "你会从他人的具体反馈中确认自己的价值和影响。",
+      "secondary": "你也希望重要投入能够得到清楚回应。",
+      "trigger": "投入很多却反馈模糊、结果没有被注意",
+      "reaction": "观察反应、比较反馈、重新判断自己的表现",
+      "benefit": "有效反馈能快速带来方向感和动力",
+      "cost": "反馈不足时容易把“没被看见”推导成“做得不好”",
+      "strengths": [
+        "重视真实影响而非自我陶醉",
+        "能从反馈中快速校准表达"
+      ],
+      "costs": [
+        "容易让沉默替别人做出负面评价",
+        "满足感可能随着平台数据和他人态度波动"
+      ],
+      "actions": [
+        {
+          "time": "这周",
+          "text": "为一件重要成果写下两个标准：一个由自己判断，一个需要外部反馈。没有反馈时，只暂停第二个判断，不推翻第一个。"
+        }
+      ],
+      "share": "我想被看见的，不只是结果，还有我认真走过的那段路。"
+    },
+    "exposure": {
+      "name": "呈现审慎型",
+      "verdict": "你不是没有快乐，而是分享前的自我审查常常先一步出现。",
+      "core": "你会预演别人如何理解、是否觉得炫耀、会不会暴露太多。谨慎保护了边界，也可能让原本自然的表达变成一次高成本发布。",
+      "combo": "你在表达前先检查风险，确保自己不会被轻易误读。",
+      "secondary": "你也需要确认表达不会带来超出承受范围的注视。",
+      "trigger": "准备公开兴趣、成果或私人快乐",
+      "reaction": "反复修改、缩小表达、只对少数人展示",
+      "benefit": "降低被误解和过度暴露的风险",
+      "cost": "审查过度时，快乐会在发布前被消耗掉",
+      "strengths": [
+        "有清楚的隐私意识",
+        "能根据关系远近调整表达边界"
+      ],
+      "costs": [
+        "容易把可能的评价当成已经发生的评价",
+        "长期收缩表达会让别人只看到安全版本的你"
+      ],
+      "actions": [
+        {
+          "time": "这周",
+          "text": "选一条风险很低的真实表达，限制自己只检查两遍后发布；24小时内不删除，也不反复查看数据。"
+        }
+      ],
+      "share": "我不是没有想分享，只是常在开口前先替所有人评价了自己。"
+    },
+    "savoring": {
+      "name": "沉浸收藏型",
+      "verdict": "你擅长让快乐慢下来，不急着把体验立刻变成内容。",
+      "core": "你会停留、回味、整理细节，让一次体验在内部继续生长。这种能力让普通日常也有厚度。",
+      "combo": "你会为快乐保留余韵，而不是马上追赶下一次刺激。",
+      "secondary": "你也需要不被打断地完成对体验的消化。",
+      "trigger": "遇到让你舒展、感动或想长期记住的时刻",
+      "reaction": "放慢速度、回想细节、通过私人记录保存",
+      "benefit": "体验被充分吸收，不依赖连续刺激",
+      "cost": "沉浸过久时，可能减少了和他人建立共同记忆的机会",
+      "strengths": [
+        "能从小事获得持续满足",
+        "有较好的当下感和记忆保存能力"
+      ],
+      "costs": [
+        "容易把重要体验留得太私人",
+        "过度回味时可能推迟回到现实行动"
+      ],
+      "actions": [
+        {
+          "time": "这周",
+          "text": "选择一个快乐瞬间，先独自停留10分钟，再用三句话分享给一个人：发生了什么、你感到什么、为什么重要。"
+        }
+      ],
+      "share": "我不急着让快乐被看见，我想先让它在自己心里待久一点。"
+    }
+  },
+  "combinations": {
+    "intrinsic+sharing": {
+      "title": "自得其乐 × 联结增益",
+      "summary": "你能独立享受，也知道分享会让好体验多一层关系意义。",
+      "tension": "关键不是分享多少，而是别让分享后的反应反过来改写原本的满足。"
+    },
+    "recognition+exposure": {
+      "title": "想被看见 × 又怕被误读",
+      "summary": "你确实需要回应，却也高度在意回应可能带来的评价，这是最消耗你的拉扯。",
+      "tension": "与其扩大公开表达，不如先建立少量、稳定、能够提供具体反馈的关系。"
+    },
+    "savoring+intrinsic": {
+      "title": "沉浸收藏 × 自得其乐",
+      "summary": "你的快乐适合慢慢发生。你不依赖热闹，也能把普通体验保存得很深。",
+      "tension": "需要留意的是，珍贵不必等于私密，适度表达能让别人更了解你。"
+    }
+  },
+  "insightRules": [],
+  "report": {
+    "decision": null
+  }
+}

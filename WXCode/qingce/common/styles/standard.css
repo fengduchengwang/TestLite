@@ -1,0 +1,3 @@
+body[data-template="standard"] .result-shell { max-width: 620px; }
+body[data-template="standard"] .radar-card { padding-bottom: 18px; }
+body[data-template="standard"] .result-hero-card { background: linear-gradient(140deg, #8067ff 0%, #6548e4 58%, #5133c8 100%); }

@@ -9,6 +9,10 @@ Component({
     duration: Number,
     imageLink: String,
     testLink: String,
+    quizKey: {
+      type: String,
+      value: '',
+    },
     tested: {
       type: Boolean,
       value: false,
@@ -37,10 +41,10 @@ Component({
         return;
       }
 
-      const { testId, testLink } = this.properties;
-      if (!testLink) return;
+      const { testId, testLink, quizKey } = this.properties;
+      if (!quizKey && !testLink) return;
 
-      openTest(testId, testLink);
+      openTest(testId, testLink, quizKey);
       this.setData({ tested: true });
       this.triggerEvent('tested', { id: testId });
     },
