@@ -7,6 +7,18 @@ import {
 } from '~/utils/test';
 import { fetchTestList } from '~/utils/api';
 
+const BANNER_MAX_COUNT = 5;
+
+function pickRandomItems(list, max = BANNER_MAX_COUNT) {
+  if (!Array.isArray(list) || !list.length) return [];
+  const shuffled = [...list];
+  for (let i = shuffled.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled.slice(0, Math.min(max, shuffled.length));
+}
+
 Page({
   behaviors: [useFollowCard],
   data: {
@@ -16,6 +28,11 @@ Page({
     swiperList: [],
     cardInfo: [],
     allTests: [],
+  },
+
+  onLoad() {
+    this.refreshBanner = true;
+    this.bannerTests = [];
   },
 
   onReady() {
@@ -34,10 +51,14 @@ Page({
       if (!Array.isArray(list)) {
         throw new Error('列表数据格式错误');
       }
+      if (this.refreshBanner) {
+        this.bannerTests = pickRandomItems(list);
+        this.refreshBanner = false;
+      }
       const filtered = filterTestsByCategory(this.data.activeCategory, list);
       this.setData({
         allTests: list,
-        swiperList: list.map((item) => item.bannerLink || item.imageLink || ''),
+        swiperList: this.bannerTests.map((item) => item.bannerLink || item.imageLink || ''),
         cardInfo: enrichTestsWithFollowed(enrichTestsWithTested(filtered)),
       });
     } catch (error) {
@@ -81,7 +102,7 @@ Page({
 
   onSwiperClick(e) {
     const { index } = e.detail;
-    const item = this.data.allTests[index];
+    const item = this.bannerTests[index];
     if (!item?.quizKey && !item?.testLink) return;
     openTest(item.id, item.testLink, item.quizKey);
   },
