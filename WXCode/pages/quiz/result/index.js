@@ -2,6 +2,8 @@ import { fetchQuizDetail } from '~/utils/api';
 import { scoreQuiz } from '~/utils/quiz/score';
 import { buildQuizResult } from '~/utils/quiz/result';
 import { buildRadarPoints, drawRadar } from '~/utils/quiz/radar';
+import { createShareImageController } from '~/utils/quiz/shareImage';
+import { preloadMiniprogramQrcode } from '~/utils/quiz/sharePoster';
 
 const SESSION_KEY = 'quizSession';
 
@@ -20,6 +22,10 @@ Page({
   async onLoad(query) {
     const key = decodeURIComponent(query.key || '');
     const testId = Number(query.testId || 0);
+    this.shareImagePath = '';
+    this.qrcodeLocalPath = '';
+    this.shareImageController = createShareImageController(this);
+    this.entrancePath = `/pages/quiz/intro/index?key=${encodeURIComponent(key)}&testId=${testId}`;
     const session = wx.getStorageSync(SESSION_KEY) || {};
 
     if (session.key !== key || !Array.isArray(session.answers)) {
@@ -89,6 +95,10 @@ Page({
       if (modules.radar) {
         wx.nextTick(() => this.drawRadarChart(quiz, model));
       }
+
+      preloadMiniprogramQrcode().then((path) => {
+        this.qrcodeLocalPath = path;
+      });
     } catch (error) {
       this.setData({ loading: false, key, testId });
       wx.showToast({ title: error.message || '结果加载失败', icon: 'none' });
@@ -109,14 +119,19 @@ Page({
     });
   },
 
-  onSave() {
-    const { meta, model } = this.data;
-    if (!model) return;
-    const signals = model.highlights.map((item) => `${item.label} ${item.score}%`).join(' · ');
-    const text = `${meta.title}\n${model.primaryProfile.name}\n${signals}\n${model.primaryProfile.verdict}\n${model.primaryProfile.share}`;
-    wx.setClipboardData({
-      data: text,
-      success: () => wx.showToast({ title: '结果摘要已复制', icon: 'none' }),
-    });
+  getSharePayload() {
+    const { meta, model, display, modules } = this.data;
+    return {
+      meta,
+      model,
+      display,
+      modules,
+      dimensions: this.quiz?.dimensions || [],
+    };
+  },
+
+  onShareResult() {
+    if (!this.data.model) return;
+    this.shareImageController.shareResult(this.getSharePayload(), this.entrancePath);
   },
 });

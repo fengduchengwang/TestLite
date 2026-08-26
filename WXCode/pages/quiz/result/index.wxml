@@ -5,9 +5,9 @@
       <view class="result-hero__name">{{model.primaryProfile.name}}</view>
       <view class="result-hero__verdict">{{model.primaryProfile.verdict}}</view>
       <view class="result-hero__tags">
-        <text wx:for="{{model.highlights}}" wx:key="key" class="result-hero__tag">
+        <view wx:for="{{model.highlights}}" wx:key="key" class="result-hero__tag">
           {{item.label}} · {{item.score}}%
-        </text>
+        </view>
       </view>
       <view class="result-hero__quote">“{{model.primaryProfile.share}}”</view>
     </view>
@@ -132,10 +132,17 @@
     <block wx:if="{{modules.share}}">
       <view class="result-closing">“{{model.primaryProfile.share}}”</view>
       <view class="result-disclaimer">{{meta.disclaimer}}</view>
-      <view class="result-actions">
-        <button class="result-btn result-btn--ghost" bindtap="onRestart">重新测试</button>
-        <button class="result-btn result-btn--primary" bindtap="onSave">保存结果摘要</button>
-      </view>
     </block>
+
+    <view class="result-actions">
+      <button class="result-btn" bindtap="onRestart">重新测试</button>
+      <button class="result-btn result-btn--solid" bindtap="onShareResult">分享结果</button>
+    </view>
   </view>
 </scroll-view>
+
+<canvas
+  canvas-id="sharePosterCanvas"
+  class="share-poster-canvas"
+  style="width: 750px; height: 2400px;"
+/>

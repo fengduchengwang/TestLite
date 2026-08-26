@@ -41,9 +41,11 @@ export function buildRadarPoints(dimensions, scores, size = 300) {
   return { size, center, rings, axes, shape, labels };
 }
 
-export function drawRadar(ctx, radarData) {
-  const { size, rings, axes, shape, labels } = radarData;
-  ctx.clearRect(0, 0, size, size);
+export function paintRadar(ctx, radarData, offsetX = 0, offsetY = 0) {
+  const { rings, axes, shape, labels } = radarData;
+
+  ctx.save();
+  ctx.translate(offsetX, offsetY);
 
   rings.forEach((ring) => {
     ctx.beginPath();
@@ -95,10 +97,18 @@ export function drawRadar(ctx, radarData) {
     ctx.fillText(item.value, item.x, item.y + 10);
   });
 
+  ctx.restore();
+}
+
+export function drawRadar(ctx, radarData) {
+  const { size } = radarData;
+  ctx.clearRect(0, 0, size, size);
+  paintRadar(ctx, radarData, 0, 0);
   ctx.draw();
 }
 
 export default {
   buildRadarPoints,
+  paintRadar,
   drawRadar,
 };
