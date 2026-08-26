@@ -1,7 +1,5 @@
 import { exportSharePoster, preloadMiniprogramQrcode } from './sharePoster';
 
-const POSTER_CANVAS_ID = 'sharePosterCanvas';
-
 function canUseShareImageMenu() {
   return typeof wx.showShareImageMenu === 'function';
 }
@@ -15,12 +13,7 @@ export function createShareImageController(page) {
 
       wx.showLoading({ title: '生成图片中', mask: true });
       try {
-        const path = await exportSharePoster(
-          page,
-          POSTER_CANVAS_ID,
-          payload,
-          page.qrcodeLocalPath || '',
-        );
+        const path = await exportSharePoster(page, payload, page.qrcodeDataUrl || '');
         page.shareImagePath = path;
         return path;
       } finally {

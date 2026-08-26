@@ -23,7 +23,7 @@ Page({
     const key = decodeURIComponent(query.key || '');
     const testId = Number(query.testId || 0);
     this.shareImagePath = '';
-    this.qrcodeLocalPath = '';
+    this.qrcodeDataUrl = '';
     this.shareImageController = createShareImageController(this);
     this.entrancePath = `/pages/quiz/intro/index?key=${encodeURIComponent(key)}&testId=${testId}`;
     const session = wx.getStorageSync(SESSION_KEY) || {};
@@ -96,8 +96,8 @@ Page({
         wx.nextTick(() => this.drawRadarChart(quiz, model));
       }
 
-      preloadMiniprogramQrcode().then((path) => {
-        this.qrcodeLocalPath = path;
+      preloadMiniprogramQrcode().then((dataUrl) => {
+        this.qrcodeDataUrl = dataUrl;
       });
     } catch (error) {
       this.setData({ loading: false, key, testId });

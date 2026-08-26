@@ -12,13 +12,73 @@ const TAG_GAP = 12;
 const TAG_ROW_GAP = 12;
 const TAG_FONT_SIZE = 22;
 const FOOTER_TOP_GAP = 24;
-const FOOTER_HEIGHT = 120;
-const QR_CODE_SIZE = 96;
-const QR_CODE_PATHS = ['/static/miniprogram-qrcode.png', '/static/miniprogram-qrcode.jpg'];
+const FOOTER_HEIGHT = 192;
+const QR_CODE_SIZE = 192;
+const QR_CODE_PATHS = ['/static/miniprogram-qrcode.png'];
 export const MINIPROGRAM_QR_CODE = QR_CODE_PATHS[0];
+export const SHARE_POSTER_CANVAS_SELECTOR = '#sharePosterCanvas';
 const FOOTER_TEXT = '来自「轻测」小程序';
 
-let cachedQrcodePath = '';
+let cachedQrcodeDataUrl = '';
+
+function adaptCtx(ctx) {
+  return {
+    setFillStyle(color) {
+      ctx.fillStyle = color;
+    },
+    setStrokeStyle(color) {
+      ctx.strokeStyle = color;
+    },
+    setLineWidth(width) {
+      ctx.lineWidth = width;
+    },
+    setFontSize(size) {
+      ctx.font = `${size}px sans-serif`;
+    },
+    setTextAlign(align) {
+      ctx.textAlign = align;
+    },
+    fillText(...args) {
+      ctx.fillText(...args);
+    },
+    fillRect(...args) {
+      ctx.fillRect(...args);
+    },
+    beginPath() {
+      ctx.beginPath();
+    },
+    closePath() {
+      ctx.closePath();
+    },
+    moveTo(...args) {
+      ctx.moveTo(...args);
+    },
+    lineTo(...args) {
+      ctx.lineTo(...args);
+    },
+    arc(...args) {
+      ctx.arc(...args);
+    },
+    fill() {
+      ctx.fill();
+    },
+    stroke() {
+      ctx.stroke();
+    },
+    save() {
+      ctx.save();
+    },
+    restore() {
+      ctx.restore();
+    },
+    translate(...args) {
+      ctx.translate(...args);
+    },
+    measureText(text) {
+      return ctx.measureText(text);
+    },
+  };
+}
 
 function measureLines(ctx, text, maxWidth, fontSize) {
   ctx.setFontSize(fontSize);
@@ -162,6 +222,21 @@ function measureFooterHeight() {
   return FOOTER_TOP_GAP + FOOTER_HEIGHT + 24;
 }
 
+function calcPosterLayout(ctx, payload) {
+  const { modules = {} } = payload;
+  const showRadar = modules.radar && (payload.dimensions || []).length > 0;
+  const showDimensions = modules.dimensions && (payload.model?.dimensionBars || []).length > 0;
+  const heroHeight = measureHeroHeight(ctx, payload);
+  const radarHeight = showRadar ? measureRadarHeight(ctx, payload) : 0;
+  const dimensionsHeight = showDimensions
+    ? measureDimensionsHeight(ctx, payload.model.dimensionBars, payload.display?.dimensionTitle || '结果分布')
+    : 0;
+  const footerHeight = measureFooterHeight();
+  const height = Math.max(heroHeight + radarHeight + dimensionsHeight + footerHeight + 80, 920);
+  const footerTop = 112 + heroHeight + radarHeight + dimensionsHeight + FOOTER_TOP_GAP;
+  return { height, footerTop, showRadar, showDimensions };
+}
+
 function drawHeroSection(ctx, payload, startY) {
   const { model = {}, display = {} } = payload;
   const profile = model.primaryProfile || {};
@@ -256,43 +331,20 @@ function drawDimensionsSection(ctx, payload, startY) {
   return y + 12;
 }
 
-function drawFooterText(ctx, startY) {
-  const footerTop = startY + FOOTER_TOP_GAP;
+function drawFooterText(ctx, footerTop) {
   const textY = footerTop + QR_CODE_SIZE / 2 + 8;
-
   ctx.setFillStyle('#999999');
   ctx.setFontSize(22);
   ctx.setTextAlign('left');
   ctx.fillText(FOOTER_TEXT, HORIZONTAL_PADDING, textY);
-
-  return {
-    footerTop,
-    endY: startY + measureFooterHeight(),
-  };
 }
 
-function drawQrcodeOverlay(ctx, footerTop, qrcodePath) {
-  if (!qrcodePath) return;
-  const qrX = POSTER_WIDTH - HORIZONTAL_PADDING - QR_CODE_SIZE;
-  ctx.drawImage(qrcodePath, qrX, footerTop, QR_CODE_SIZE, QR_CODE_SIZE);
-}
-
-function drawSharePosterContent(ctx, payload, width = POSTER_WIDTH) {
-  const { modules = {} } = payload;
-  const showRadar = modules.radar && (payload.dimensions || []).length > 0;
-  const showDimensions = modules.dimensions && (payload.model?.dimensionBars || []).length > 0;
-
-  const heroHeight = measureHeroHeight(ctx, payload);
-  const radarHeight = showRadar ? measureRadarHeight(ctx, payload) : 0;
-  const dimensionsHeight = showDimensions
-    ? measureDimensionsHeight(ctx, payload.model.dimensionBars, payload.display?.dimensionTitle || '结果分布')
-    : 0;
-  const footerHeight = measureFooterHeight();
-  const height = Math.max(heroHeight + radarHeight + dimensionsHeight + footerHeight + 80, 920);
+function renderPosterContent(ctx, payload, height) {
+  const { showRadar, showDimensions } = calcPosterLayout(ctx, payload);
 
   ctx.setFillStyle('#F2F2F7');
-  ctx.fillRect(0, 0, width, height);
-  drawRoundRect(ctx, 40, 40, width - 80, height - 80, 28, '#FFFFFF');
+  ctx.fillRect(0, 0, POSTER_WIDTH, height);
+  drawRoundRect(ctx, 40, 40, POSTER_WIDTH - 80, height - 80, 28, '#FFFFFF');
 
   let y = 112;
   y = drawHeroSection(ctx, payload, y);
@@ -303,106 +355,117 @@ function drawSharePosterContent(ctx, payload, width = POSTER_WIDTH) {
     y = drawDimensionsSection(ctx, payload, y);
   }
 
-  const { footerTop } = drawFooterText(ctx, y);
-  return { height, footerTop };
+  const footerTop = y + FOOTER_TOP_GAP;
+  drawFooterText(ctx, footerTop);
+  return footerTop;
 }
 
-function getImageInfo(src) {
+function readQrcodeDataUrl(index = 0) {
+  if (index >= QR_CODE_PATHS.length) {
+    return Promise.reject(new Error('小程序码读取失败'));
+  }
+
+  const filePath = QR_CODE_PATHS[index];
+  const mime = filePath.endsWith('.png') ? 'image/png' : 'image/jpeg';
+
   return new Promise((resolve, reject) => {
-    wx.getImageInfo({
-      src,
-      success: (res) => resolve(res.path || src),
-      fail: reject,
+    wx.getFileSystemManager().readFile({
+      filePath,
+      encoding: 'base64',
+      success: (res) => resolve(`data:${mime};base64,${res.data}`),
+      fail: () => {
+        readQrcodeDataUrl(index + 1).then(resolve).catch(reject);
+      },
     });
   });
 }
 
 export function preloadMiniprogramQrcode() {
-  if (cachedQrcodePath) {
-    return Promise.resolve(cachedQrcodePath);
+  if (cachedQrcodeDataUrl) {
+    return Promise.resolve(cachedQrcodeDataUrl);
   }
-
-  const tryLoad = (index) => {
-    if (index >= QR_CODE_PATHS.length) {
-      return Promise.resolve('');
-    }
-    return getImageInfo(QR_CODE_PATHS[index])
-      .then((path) => {
-        cachedQrcodePath = path;
-        return path;
-      })
-      .catch(() => tryLoad(index + 1));
-  };
-
-  return tryLoad(0);
-}
-
-function loadQrcodeImage(preloadedPath = '') {
-  if (preloadedPath) {
-    return Promise.resolve(preloadedPath);
-  }
-  return preloadMiniprogramQrcode();
-}
-
-function exportCanvasToFile(page, canvasId, height) {
-  return new Promise((resolve, reject) => {
-    wx.canvasToTempFilePath(
-      {
-        canvasId,
-        x: 0,
-        y: 0,
-        width: POSTER_WIDTH,
-        height,
-        destWidth: POSTER_WIDTH,
-        destHeight: height,
-        fileType: 'png',
-        success: (res) => resolve(res.tempFilePath),
-        fail: reject,
-      },
-      page,
-    );
+  return readQrcodeDataUrl().then((dataUrl) => {
+    cachedQrcodeDataUrl = dataUrl;
+    return dataUrl;
   });
 }
 
-export function drawSharePoster(ctx, payload, qrcodePath = '', width = POSTER_WIDTH) {
-  const layout = drawSharePosterContent(ctx, payload, width);
-  drawQrcodeOverlay(ctx, layout.footerTop, qrcodePath);
-  return layout.height;
+function loadQrcodeImage(canvas, dataUrl = '') {
+  const source = dataUrl || cachedQrcodeDataUrl;
+  if (!source) {
+    return preloadMiniprogramQrcode().then((url) => loadQrcodeImage(canvas, url));
+  }
+
+  return new Promise((resolve, reject) => {
+    const image = canvas.createImage();
+    image.onload = () => resolve(image);
+    image.onerror = reject;
+    image.src = source;
+  });
 }
 
-export function exportSharePoster(page, canvasId, payload, preloadedQrcodePath = '') {
-  return loadQrcodeImage(preloadedQrcodePath).then((qrcodePath) =>
-    new Promise((resolve, reject) => {
-      const ctx = wx.createCanvasContext(canvasId, page);
-      const { height, footerTop } = drawSharePosterContent(ctx, payload);
-
-      ctx.draw(false, () => {
-        const finishExport = () => {
-          wx.nextTick(() => {
-            setTimeout(() => {
-              exportCanvasToFile(page, canvasId, height).then(resolve).catch(reject);
-            }, 300);
-          });
-        };
-
-        if (!qrcodePath) {
-          finishExport();
+function getPosterCanvas(page) {
+  return new Promise((resolve, reject) => {
+    wx.createSelectorQuery()
+      .in(page)
+      .select(SHARE_POSTER_CANVAS_SELECTOR)
+      .fields({ node: true, size: true })
+      .exec((res) => {
+        const canvas = res?.[0]?.node;
+        if (!canvas) {
+          reject(new Error('分享画布初始化失败'));
           return;
         }
-
-        const qrCtx = wx.createCanvasContext(canvasId, page);
-        drawQrcodeOverlay(qrCtx, footerTop, qrcodePath);
-        qrCtx.draw(true, () => {
-          finishExport();
-        });
+        resolve(canvas);
       });
-    }),
-  );
+  });
+}
+
+function exportCanvasToFile(canvas, height, dpr) {
+  return new Promise((resolve, reject) => {
+    wx.canvasToTempFilePath({
+      canvas,
+      x: 0,
+      y: 0,
+      width: POSTER_WIDTH * dpr,
+      height: height * dpr,
+      destWidth: POSTER_WIDTH,
+      destHeight: height,
+      fileType: 'png',
+      success: (res) => resolve(res.tempFilePath),
+      fail: reject,
+    });
+  });
+}
+
+export function exportSharePoster(page, payload, preloadedQrcodeDataUrl = '') {
+  return getPosterCanvas(page).then((canvas) => {
+    const rawCtx = canvas.getContext('2d');
+    const ctx = adaptCtx(rawCtx);
+    const dpr = wx.getWindowInfo().pixelRatio || 2;
+    const { height } = calcPosterLayout(ctx, payload);
+
+    canvas.width = POSTER_WIDTH * dpr;
+    canvas.height = height * dpr;
+    rawCtx.scale(dpr, dpr);
+
+    const footerTop = renderPosterContent(ctx, payload, height);
+
+    return loadQrcodeImage(canvas, preloadedQrcodeDataUrl)
+      .then((image) => {
+        const qrX = POSTER_WIDTH - HORIZONTAL_PADDING - QR_CODE_SIZE;
+        rawCtx.drawImage(image, qrX, footerTop, QR_CODE_SIZE, QR_CODE_SIZE);
+      })
+      .catch((error) => {
+        console.warn('share poster qrcode skipped', error);
+      })
+      .then(() => exportCanvasToFile(canvas, height, dpr));
+  });
 }
 
 export default {
-  drawSharePoster,
   exportSharePoster,
   preloadMiniprogramQrcode,
   MINIPROGRAM_QR_CODE,
+  SHARE_POSTER_CANVAS_SELECTOR,
 };

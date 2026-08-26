@@ -142,7 +142,8 @@
 </scroll-view>
 
 <canvas
-  canvas-id="sharePosterCanvas"
+  type="2d"
+  id="sharePosterCanvas"
   class="share-poster-canvas"
   style="width: 750px; height: 2400px;"
 />
