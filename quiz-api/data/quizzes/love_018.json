@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 2,
+  "meta": {
+    "key": "love_018",
+    "category": "love",
+    "categoryLabel": "情感",
+    "level": "light",
+    "levelLabel": "轻量版",
+    "title": "你的暧昧雷达",
+    "subtitle": "测测你能不能分清热情和心动",
+    "duration": "约 3 分钟",
+    "disclaimer": "本测试仅供娱乐与自我观察参考，不构成心理诊断或专业建议。"
+  },
+  "display": {
+    "template": "light",
+    "heroLabel": "你的暧昧雷达是",
+    "dimensionTitle": "五个暧昧观察维度",
+    "deepAnalysisTitle": "你的暧昧模式",
+    "modules": ["hero", "dimensions", "deepAnalysis", "strengths", "actions", "share"]
+  },
+  "dimensions": [
+    {"key":"signal","label":"信号捕捉","bands":{"low":"对方偶尔主动联系时，你通常把它当作普通礼貌，不会马上联想到暧昧。","medium":"你能注意到联系频率和语气变化，但会再观察几次才下判断。","high":"对方一个眼神、一个称呼变化，你都很快捕捉到，并会猜测其中有没有特别意味。"}},
+    {"key":"projection","label":"期待投射","bands":{"low":"你很少把自己的期待加到对方身上，更愿意等明确表达再回应。","medium":"你会有一点想象，但也会提醒自己别只凭感觉下结论。","high":"只要对方释放一点好感，你就容易在心里补完整段关系的发展。"}},
+    {"key":"boundary","label":"边界判断","bands":{"low":"你能清楚区分朋友、同事和暧昧对象，不太会混淆关系位置。","medium":"遇到模糊关系时你会犹豫，需要更多相处细节来确认边界。","high":"你很容易被特殊待遇打动，常把普通友好理解成关系升级的暗示。"}},
+    {"key":"verification","label":"求证习惯","bands":{"low":"关系没有说清楚前，你不会主动试探，宁愿保持原来的相处方式。","medium":"你会用聊天或小问题旁敲侧击，看看对方是否愿意靠近。","high":"你会主动制造机会、观察回复速度，尽快确认对方到底有没有意思。"}},
+    {"key":"selfprotection","label":"自我保护","bands":{"low":"即使发现自己心动，你也能照常生活，不会把全部注意力放在对方身上。","medium":"你会控制投入速度，既享受心动，也给自己留退路。","high":"一旦在意对方，你的情绪很容易被对方的冷淡或热情牵着走。"}}
+  ],
+  "questions": [
+    {"scene":"对方突然给你发晚安","dimension":"signal","q":"一个平时不常聊天的人突然连续几天对你说晚安，你会：","options":[{"text":"觉得对方可能在释放特别信号","score":{"signal":3}},{"text":"先记住这个变化，再看看后面会不会继续","score":{"signal":2}},{"text":"觉得只是最近作息碰巧对上了","score":{"signal":1}},{"text":"礼貌回复，不会多想","score":{"signal":0}}]},
+    {"scene":"聊天语气变化","dimension":"signal","q":"对方突然开始用只有你们懂的称呼，你会：","options":[{"text":"马上感觉到关系好像变特别了","score":{"signal":3}},{"text":"觉得有点暧昧，但还要继续观察","score":{"signal":2}},{"text":"觉得只是聊天习惯变了","score":{"signal":1}},{"text":"不会把一个称呼当成信号","score":{"signal":0}}]},
+    {"scene":"对方记住小细节","dimension":"signal","q":"对方记得你随口提过的一个小习惯，你的第一反应是：","options":[{"text":"他居然记得，应该是很在意我","score":{"signal":3}},{"text":"觉得被重视，但还不确定是什么关系","score":{"signal":2}},{"text":"觉得对方记性不错","score":{"signal":1}},{"text":"认为记住细节不代表喜欢","score":{"signal":0}}]},
+    {"scene":"收到暧昧玩笑","dimension":"projection","q":"对方开玩笑说“要不我们试试”，你会：","options":[{"text":"立刻开始想象真的在一起会怎样","score":{"projection":3}},{"text":"心里会心动，但先看看对方是不是认真的","score":{"projection":2}},{"text":"当成一句玩笑，不会延伸想象","score":{"projection":1}},{"text":"直接问清楚，不让自己猜","score":{"projection":0}}]},
+    {"scene":"一起看电影","dimension":"projection","q":"对方选了一部爱情电影和你一起看，你会：","options":[{"text":"觉得这可能是在暗示你们的关系","score":{"projection":3}},{"text":"会联想到一些可能，但不急着下结论","score":{"projection":2}},{"text":"觉得只是刚好想看这部电影","score":{"projection":1}},{"text":"更在意电影好不好看，不会想关系","score":{"projection":0}}]},
+    {"scene":"对方分享情绪","dimension":"projection","q":"对方深夜向你说最近很孤单，你会：","options":[{"text":"觉得对方可能是在向你求一个位置","score":{"projection":3}},{"text":"愿意陪聊，但会分清倾诉和喜欢","score":{"projection":2}},{"text":"先听对方说，不猜背后的意思","score":{"projection":1}},{"text":"只把它当作朋友间的倾诉","score":{"projection":0}}]},
+    {"scene":"只对你特别热情","dimension":"boundary","q":"对方在一群人里只对你特别热情，你会：","options":[{"text":"默认你们之间已经有点不一样了","score":{"boundary":3}},{"text":"觉得有可能特别，但要看私下相处","score":{"boundary":2}},{"text":"认为对方可能只是比较照顾你","score":{"boundary":1}},{"text":"不会因为一次特别对待改变判断","score":{"boundary":0}}]},
+    {"scene":"朋友起哄","dimension":"boundary","q":"朋友们起哄说你们很般配，你会：","options":[{"text":"开始认真想你们是不是确实有戏","score":{"boundary":3}},{"text":"有点不好意思，但还会自己判断","score":{"boundary":2}},{"text":"笑一笑就过去，不会当真","score":{"boundary":1}},{"text":"直接告诉朋友别替你定义关系","score":{"boundary":0}}]},
+    {"scene":"对方忽冷忽热","dimension":"boundary","q":"对方有时很黏、有时几天不回，你会：","options":[{"text":"把每次冷淡都理解成关系出了问题","score":{"boundary":3}},{"text":"觉得关系很模糊，需要更多证据","score":{"boundary":2}},{"text":"认为对方可能只是忙，先不定性","score":{"boundary":1}},{"text":"没有明确表达前，就按普通朋友相处","score":{"boundary":0}}]},
+    {"scene":"试探周末安排","dimension":"verification","q":"你想知道对方周末有没有空，会怎么问？","options":[{"text":"直接约出来，看对方是不是愿意为你留时间","score":{"verification":3}},{"text":"先问对方安排，再决定要不要发出邀请","score":{"verification":2}},{"text":"在朋友圈发动态，等对方主动回应","score":{"verification":1}},{"text":"不试探，等关系说清楚再约","score":{"verification":0}}]},
+    {"scene":"对方回复变慢","dimension":"verification","q":"对方最近回复明显变慢，你会：","options":[{"text":"马上问是不是对自己没兴趣了","score":{"verification":3}},{"text":"找个自然的话题，看看对方的真实状态","score":{"verification":2}},{"text":"先忙自己的事，不急着确认","score":{"verification":1}},{"text":"直接按普通朋友的频率相处","score":{"verification":0}}]},
+    {"scene":"朋友问你们关系","dimension":"verification","q":"朋友问“你俩到底什么关系”，你会：","options":[{"text":"转头就去问对方，想马上要个答案","score":{"verification":3}},{"text":"先说自己还在观察，再找机会聊聊","score":{"verification":2}},{"text":"笑着带过，不让别人影响判断","score":{"verification":1}},{"text":"认为没确定就没必要解释","score":{"verification":0}}]},
+    {"scene":"对方临时取消约会","dimension":"selfprotection","q":"对方临时取消了原本的约会，你会：","options":[{"text":"一整天都在猜是不是自己哪里做错了","score":{"selfprotection":3}},{"text":"会失落，但先问清楚对方是不是有急事","score":{"selfprotection":2}},{"text":"重新安排自己的事，不让这件事占满情绪","score":{"selfprotection":1}},{"text":"觉得一次取消很正常，不会影响自己的安排","score":{"selfprotection":0}}]},
+    {"scene":"对方点赞旧动态","dimension":"selfprotection","q":"对方突然点赞你几年前的动态，你会：","options":[{"text":"反复琢磨对方是不是在暗示想靠近","score":{"selfprotection":3}},{"text":"觉得有点特别，但不会立刻投入","score":{"selfprotection":2}},{"text":"回一个赞，继续过自己的生活","score":{"selfprotection":1}},{"text":"把它当普通互动，不改变自己的节奏","score":{"selfprotection":0}}]},
+    {"scene":"暧昧对象与别人亲近","dimension":"selfprotection","q":"看到暧昧对象和别人聊得很开心，你会：","options":[{"text":"立刻情绪下沉，忍不住比较自己","score":{"selfprotection":3}},{"text":"会在意，但提醒自己关系还没确定","score":{"selfprotection":2}},{"text":"觉得正常，不会马上影响心情","score":{"selfprotection":1}},{"text":"继续做自己的事，不把注意力交出去","score":{"selfprotection":0}}]}
+  ],
+  "profiles": {
+    "signal":{"name":"细节捕手型","verdict":"你很会捕捉暧昧里的细微信号。","core":"对方语气里的停顿、称呼的变化、突然增加的联系频率，都很难逃过你的注意。你的雷达灵敏，优点是很少错过真实的靠近；但也要记得，捕捉到信号只是发现变化，不等于已经知道对方的答案。","combo":"projection","secondary":"boundary","trigger":"对方突然变得比平时更主动、更细心的时候","reaction":"会迅速注意到变化，并开始判断这是不是特别对待","benefit":"你对关系里的细节很敏锐，能及时发现相处方式的变化","cost":"容易把普通的热情放大成暧昧信号，提前消耗自己的情绪","strengths":["很会记住对方语气和行为里的细小变化","能及时察觉关系从普通走向特别的迹象"],"costs":["容易因为一个细节反复猜测对方的心意","把注意力放在信号上太久会忽略直接沟通"],"actions":[{"time":"今天","text":"把让你心动的信号写下来，同时列出至少一种普通解释"},{"time":"这周","text":"观察对方是否持续用行动靠近，不只看一次特别表现"},{"time":"下次","text":"遇到关键关系问题时，用直接问题替代长时间猜测"}],"share":"我的暧昧雷达很灵，但信号亮起不等于答案已经确定。"},
+    "projection":{"name":"想象先行型","verdict":"一点点好感，就能在你心里长出完整剧情。","core":"你对关系的想象力很强，别人一句玩笑、一次单独邀约，都可能让你看见关系继续发展的画面。这让心动变得有趣，也让你很容易提前投入。真正保护你的方式，不是禁止自己期待，而是把想象和对方明确做过的事分开记录。","combo":"signal","secondary":"selfprotection","trigger":"对方给出暧昧玩笑或分享私密情绪的时候","reaction":"会迅速把一个片段延伸成关于关系未来的想象","benefit":"你感受爱意和浪漫的能力很强，容易发现相处中的美好","cost":"期待跑得比现实快时，容易因为落差感到失望","strengths":["很能感受到关系里的浪漫和情绪流动","愿意对一段可能的关系投入真诚期待"],"costs":["容易把自己的期待当成对方已经表达的意思","投入太快时会忽略关系还没有被确认"],"actions":[{"time":"今天","text":"把事实和猜测分成两列，提醒自己不要混在一起"},{"time":"这周","text":"每次想象关系进展时，先问对方是否做过对应的明确行动"},{"time":"下次","text":"给自己设一个慢三步规则，连续看到行动后再增加投入"}],"share":"我很会想象爱情，但现在会先看事实有没有跟上。"},
+    "boundary":{"name":"关系易混型","verdict":"你容易被特殊对待打动，关系边界需要更清楚。","core":"当一个人只对你热情、记得你的细节，或者在朋友面前表现得格外亲近时，你很容易感觉你们已经不只是普通朋友。你的感受并没有错，只是特殊对待和确定关系之间还隔着一次坦白的沟通，别让模糊状态替你做决定。","combo":"signal","secondary":"verification","trigger":"对方在公开场合或细节上只对你特别的时候","reaction":"会把特殊待遇当作关系升级的证据，投入更多注意力","benefit":"你重视关系的独特感，很能感受到别人对你的用心","cost":"边界不清时容易进入单方面期待，事后才发现双方理解不同","strengths":["能感受到别人对你的特别照顾和用心","愿意认真对待不普通的关系连接"],"costs":["容易把友好和暧昧混在一起理解","关系没说清前就投入太多情绪和时间"],"actions":[{"time":"今天","text":"写下你们已经说清楚的关系，再单独列出仍然只是猜测的部分"},{"time":"这周","text":"观察对方是否在私下和公开场合都保持一致的靠近","time":"这周"},{"time":"下次","text":"当边界影响到你的选择时，直接询问彼此对关系的理解"}],"share":"我容易被特别对待打动，所以会记得把关系问清楚。"},
+    "verification":{"name":"主动求证型","verdict":"你不喜欢长期猜，倾向用行动换一个答案。","core":"暧昧对你来说最难受的不是没结果，而是一直没有结果。你会通过发出邀请、观察回复、抛出小问题来确认对方的态度。主动让你少走很多弯路，但求证也要留出对方自然表达的空间，别把一次反应当成最终结论。","combo":"signal","secondary":"boundary","trigger":"对方的联系频率变化，或朋友开始追问你们关系的时候","reaction":"会主动创造机会，通过互动测试对方是否愿意靠近","benefit":"你有行动力，能把模糊关系逐步带到可讨论的位置","cost":"太急着确认时，可能把对方的犹豫误读成拒绝或承诺","strengths":["不喜欢让猜测长期消耗自己","敢于通过真实互动验证关系可能性"],"costs":["容易把每次回复都当成一次考试成绩","求证频率太高会让相处失去轻松感"],"actions":[{"time":"今天","text":"决定你真正想确认的一个问题，别同时追问所有细节"},{"time":"这周","text":"给对方留出自然回应的时间，不用连续发送试探消息"},{"time":"下次","text":"把一次互动当作信息，不把它直接升级成关系结论"}],"share":"我可以主动，但会给答案留一点自然长出来的时间。"},
+    "selfprotection":{"name":"情绪易牵动型","verdict":"一旦在意对方，你的心情很容易跟着对方起伏。","core":"你不是没有判断力，而是投入之后感受特别深。对方回得快，你会很开心；对方突然冷下来，你也很难假装没事。你的真诚是关系里的温度，但别把全部情绪遥控器交给一个还没有给出明确答案的人，保留自己的生活节奏同样重要。","combo":"projection","secondary":"verification","trigger":"对方忽冷忽热、临时改变安排或和别人亲近的时候","reaction":"会反复检查聊天和细节，情绪被对方的反应牵着走","benefit":"你对关系很投入，能给对方细腻而真诚的回应","cost":"暧昧越不确定，你越容易失去自己的节奏和安全感","strengths":["愿意认真回应喜欢的人，不敷衍自己的感受","能敏锐感受到关系中的温度变化"],"costs":["容易因对方短暂冷淡否定自己的价值","把太多时间花在等待和揣测上"],"actions":[{"time":"今天","text":"把今天的安排照常完成，不因对方未回复而取消自己的计划"},{"time":"这周","text":"每天留一段完全不看聊天窗口的时间，找回注意力的主动权"},{"time":"下次","text":"用对方持续的行动判断关系，不用一次冷淡定义自己"}],"share":"我会心动，也会把自己的生活留在自己手里。"}
+  },
+  "combinations": {
+    "signal+projection":{"title":"捕捉 × 想象","summary":"你既能迅速发现细节，又会把细节延伸成关系可能，暧昧对你来说很有戏剧性。","tension":"先分清对方做了什么和你想到了什么，再决定下一步投入多少。"},
+    "boundary+verification":{"title":"边界 × 求证","summary":"你不喜欢长期模糊，会在发现特殊对待后主动把关系推向更清楚的位置。","tension":"可以求证，但别只用一次回应给关系盖章。"},
+    "projection+selfprotection":{"title":"期待 × 情绪","summary":"你很容易被心动点亮，也容易被对方的冷淡影响，关系节奏需要慢一点。","tension":"保留自己的日程和朋友，让期待只是生活的一部分。"}
+  },
+  "insightRules": [],
+  "report": {"decision": null}
+}
