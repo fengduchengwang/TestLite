@@ -7,10 +7,17 @@ export const TEST_CATEGORIES = [
   { label: '知识', value: '知识' },
 ];
 
-/** 搜索页热门关键词（首页分类 tab，不含「推荐」） */
-export const HOT_SEARCH_TAGS = TEST_CATEGORIES.filter((item) => item.value !== 'all').map(
-  (item) => item.label,
-);
+/** 搜索页热门关键词（贴合现有题库标题，接口只搜标题/副标题） */
+export const HOT_SEARCH_TAGS = [
+  '拖延',
+  '讨好',
+  '爱情',
+  '辞职',
+  '魅力',
+  '恋爱',
+  '快乐',
+  '欲望',
+];
 
 /** 格式化测试时长（秒 → 约X分钟） */
 export function formatDuration(seconds) {
