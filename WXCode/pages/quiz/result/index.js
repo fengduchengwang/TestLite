@@ -1,9 +1,9 @@
 import { fetchQuizDetail } from '~/utils/api';
-import { scoreQuiz } from '~/utils/quiz/score';
-import { buildQuizResult } from '~/utils/quiz/result';
-import { buildRadarPoints, drawRadar } from '~/utils/quiz/radar';
-import { createShareImageController } from '~/utils/quiz/shareImage';
-import { preloadMiniprogramQrcode } from '~/utils/quiz/sharePoster';
+import { scoreQuiz } from './utils/score';
+import { buildQuizResult } from './utils/result';
+import { buildRadarPoints, drawRadar } from './utils/radar';
+import { createShareImageController } from './utils/shareImage';
+import { preloadMiniprogramQrcode } from './utils/sharePoster';
 
 const SESSION_KEY = 'quizSession';
 
