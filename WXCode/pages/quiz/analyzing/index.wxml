@@ -1,0 +1,30 @@
+<view class="analyzing">
+  <view class="analyzing__content">
+    <view class="analyzing__spinner"></view>
+    <view class="analyzing__eyebrow">AI 正在分析</view>
+    <view class="analyzing__title">生成你的专属结果</view>
+    <view class="analyzing__lead">请稍候，大约需要几秒钟</view>
+
+    <view class="analyzing__progress">
+      <view class="analyzing__progress-bar" style="width: {{progress}}%;"></view>
+    </view>
+
+    <view class="analyzing__steps">
+      <view
+        wx:for="{{steps}}"
+        wx:key="title"
+        class="analyzing__step analyzing__step--{{item.status}}"
+      >
+        <view class="analyzing__dot">
+          <text wx:if="{{item.status === 'done'}}">✓</text>
+          <text wx:elif="{{item.status === 'active'}}">{{index + 1}}</text>
+          <text wx:else>{{index + 1}}</text>
+        </view>
+        <view class="analyzing__step-body">
+          <view class="analyzing__step-title">{{item.title}}</view>
+          <view class="analyzing__step-desc">{{item.desc}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

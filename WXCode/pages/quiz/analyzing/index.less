@@ -1,0 +1,131 @@
+@import '/variable.less';
+
+.analyzing {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 0 48rpx calc(48rpx + env(safe-area-inset-bottom));
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__content {
+    width: 100%;
+    max-width: 620rpx;
+  }
+
+  &__spinner {
+    width: 72rpx;
+    height: 72rpx;
+    margin: 0 auto 32rpx;
+    border-radius: 50%;
+    border: 6rpx solid #ece8ff;
+    border-top-color: #7b61ff;
+    animation: analyzing-spin 0.9s linear infinite;
+  }
+
+  &__eyebrow {
+    text-align: center;
+    color: #7b61ff;
+    font-size: 24rpx;
+    margin-bottom: 12rpx;
+  }
+
+  &__title {
+    text-align: center;
+    font-size: 40rpx;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 12rpx;
+  }
+
+  &__lead {
+    text-align: center;
+    font-size: 26rpx;
+    color: rgba(26, 26, 26, 0.5);
+    margin-bottom: 48rpx;
+  }
+
+  &__progress {
+    height: 10rpx;
+    border-radius: 999rpx;
+    background: #ece8ff;
+    overflow: hidden;
+    margin-bottom: 48rpx;
+  }
+
+  &__progress-bar {
+    height: 100%;
+    border-radius: 999rpx;
+    background: #7b61ff;
+    transition: width 0.35s ease;
+  }
+
+  &__steps {
+    display: flex;
+    flex-direction: column;
+    gap: 28rpx;
+  }
+
+  &__step {
+    display: flex;
+    align-items: flex-start;
+    gap: 20rpx;
+  }
+
+  &__dot {
+    width: 48rpx;
+    height: 48rpx;
+    border-radius: 50%;
+    background: #f0f0f5;
+    color: rgba(26, 26, 26, 0.35);
+    font-size: 22rpx;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  &__step--active &__dot {
+    background: #7b61ff;
+    color: #fff;
+  }
+
+  &__step--done &__dot {
+    background: #2bc4b6;
+    color: #fff;
+  }
+
+  &__step-title {
+    font-size: 28rpx;
+    font-weight: 600;
+    color: rgba(26, 26, 26, 0.4);
+    margin-bottom: 6rpx;
+  }
+
+  &__step-desc {
+    font-size: 24rpx;
+    color: rgba(26, 26, 26, 0.3);
+    line-height: 1.5;
+  }
+
+  &__step--active &__step-title,
+  &__step--done &__step-title {
+    color: #1a1a1a;
+  }
+
+  &__step--active &__step-desc,
+  &__step--done &__step-desc {
+    color: rgba(26, 26, 26, 0.55);
+  }
+}
+
+@keyframes analyzing-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

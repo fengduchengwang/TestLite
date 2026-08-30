@@ -1,12 +1,15 @@
 @import '/variable.less';
 
 .quiz-play {
-  min-height: 100vh;
+  height: 100vh;
   background: #f2f2f7;
   box-sizing: border-box;
-  padding-bottom: calc(32rpx + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  padding-bottom: env(safe-area-inset-bottom);
 
   &__head {
+    flex-shrink: 0;
     background: #fff;
     padding: 24rpx 32rpx 20rpx;
   }
@@ -32,7 +35,16 @@
   }
 
   &__body {
-    padding: 40rpx 32rpx 0;
+    flex: 1;
+    min-height: 0;
+    padding: 32rpx 32rpx 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* 下侧重一些留白，把整块内容视觉中心上移到约 40% 高度 */
+    padding-bottom: 20%;
+    overflow-y: auto;
   }
 
   &__scene {

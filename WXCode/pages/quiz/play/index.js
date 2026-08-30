@@ -74,7 +74,7 @@ Page({
       });
 
       wx.redirectTo({
-        url: `/pages/quiz/result/index?key=${encodeURIComponent(this.data.key)}&testId=${this.data.testId}`,
+        url: `/pages/quiz/analyzing/index?key=${encodeURIComponent(this.data.key)}&testId=${this.data.testId}`,
       });
     }, 160);
   },

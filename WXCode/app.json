@@ -20,7 +20,7 @@
     {
       "root": "pages/quiz",
       "name": "quiz",
-      "pages": ["intro/index", "play/index", "result/index"]
+      "pages": ["intro/index", "play/index", "analyzing/index", "result/index"]
     },
     {
       "root": "pages/webview",
