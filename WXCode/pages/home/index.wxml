@@ -20,7 +20,7 @@
         />
       </view>
 
-      <view class="home-category">
+      <view class="home-category home-category--sticky" id="categoryBar">
         <view
           wx:for="{{categories}}"
           wx:key="value"
