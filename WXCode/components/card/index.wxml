@@ -9,7 +9,11 @@ module.exports = {
 };
 </wxs>
 
-<view class="test-card" bindtap="onTap" bindlongpress="onLongPress">
+<view
+  class="test-card {{actionMode ? 'test-card--with-follow' : ''}}"
+  bindtap="onTap"
+  bindlongpress="onLongPress"
+>
   <view class="test-card__image-wrap">
     <t-image t-class="test-card__image" src="{{imageLink}}" mode="aspectFill" />
   </view>
@@ -18,8 +22,12 @@ module.exports = {
     <text class="test-card__subtitle">{{subtitle}}</text>
     <text class="test-card__meta">{{questionCount}}题 | {{fmt.formatDuration(duration)}}</text>
   </view>
-  <view wx:if="{{followed}}" class="test-card__follow-icon">
-    <t-icon name="heart" size="36rpx" />
+  <view
+    wx:if="{{actionMode}}"
+    class="test-card__follow-icon"
+    catchtap="onFollowIconTap"
+  >
+    <t-icon name="{{followed ? 'heart-filled' : 'heart'}}" size="36rpx" />
   </view>
   <view wx:if="{{tested}}" class="test-card__badge">已测试</view>
 

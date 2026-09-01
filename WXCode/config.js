@@ -6,4 +6,9 @@ export default {
    * - 真机/正式环境使用已部署域名
    */
   apiBaseUrl: 'https://quiz.kingdaisy.cn',
+  /**
+   * 测试封面 CDN 根路径（不含末尾斜杠）
+   * 图片文件名与 quizKey 一致，如 featured_001.jpg
+   */
+  coverBaseUrl: 'https://alypic.kingdaisy.cn/testlite',
 };

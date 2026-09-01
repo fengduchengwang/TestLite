@@ -10,6 +10,12 @@
   background: @bg-color-white;
   box-sizing: border-box;
 
+  &--with-follow {
+    .test-card__content {
+      padding-right: 52rpx;
+    }
+  }
+
   &__image-wrap {
     width: 160rpx;
     height: 160rpx;
@@ -33,10 +39,10 @@
   }
 
   &__title {
-    font-size: 32rpx;
+    font-size: 30rpx;
     font-weight: 600;
     color: @gy1;
-    line-height: 44rpx;
+    line-height: 42rpx;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -62,13 +68,17 @@
 
   &__follow-icon {
     position: absolute;
-    right: 24rpx;
-    top: 24rpx;
-    z-index: 1;
+    right: 16rpx;
+    top: 16rpx;
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: center;
+    min-width: 64rpx;
+    min-height: 64rpx;
+    padding: 8rpx;
     color: @category-active-color;
+    box-sizing: border-box;
   }
 
   &__badge {

@@ -45,8 +45,6 @@ Component({
       if (!quizKey && !testLink) return;
 
       openTest(testId, testLink, quizKey);
-      this.setData({ tested: true });
-      this.triggerEvent('tested', { id: testId });
     },
 
     lockTap() {
@@ -66,6 +64,20 @@ Component({
     onCloseMenu() {
       this.lockTap();
       this.setData({ showMenu: false });
+    },
+
+    onFollowIconTap() {
+      const { actionMode, testId, followed } = this.properties;
+      if (!actionMode) return;
+
+      this.lockTap();
+
+      if (actionMode === 'unfollow' || followed) {
+        this.triggerEvent('unfollow', { id: testId });
+        return;
+      }
+
+      this.triggerEvent('follow', { id: testId });
     },
 
     onFollowActionTap() {

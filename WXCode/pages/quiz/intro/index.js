@@ -1,4 +1,5 @@
 import { fetchQuizDetail } from '~/utils/api';
+import { markTestAsTested } from '~/utils/test';
 
 Page({
   data: {
@@ -49,6 +50,9 @@ Page({
   onStart() {
     const { key, testId } = this.data;
     if (!key) return;
+    if (testId) {
+      markTestAsTested(testId);
+    }
     wx.redirectTo({
       url: `/pages/quiz/play/index?key=${encodeURIComponent(key)}&testId=${testId}`,
     });
