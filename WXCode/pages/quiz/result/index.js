@@ -1,4 +1,9 @@
 import { fetchQuizDetail } from '~/utils/api';
+import {
+  buildQuizIntroPath,
+  buildQuizIntroQuery,
+  buildQuizShareImage,
+} from '~/utils/share';
 import { scoreQuiz } from '../utils/score';
 import { buildQuizResult } from '../utils/result';
 import { buildRadarPoints, drawRadar } from '../utils/radar';
@@ -29,13 +34,9 @@ Page({
     const session = wx.getStorageSync(SESSION_KEY) || {};
 
     if (session.key !== key || !Array.isArray(session.answers)) {
-      this.setData({ loading: false, key, testId });
-      wx.showToast({ title: '请先完成答题', icon: 'none' });
-      setTimeout(() => {
-        wx.redirectTo({
-          url: `/pages/quiz/intro/index?key=${encodeURIComponent(key)}&testId=${testId}`,
-        });
-      }, 400);
+      wx.redirectTo({
+        url: `/pages/quiz/intro/index?key=${encodeURIComponent(key)}&testId=${testId}`,
+      });
       return;
     }
 
@@ -133,5 +134,35 @@ Page({
   onShareResult() {
     if (!this.data.model) return;
     this.shareImageController.shareResult(this.getSharePayload(), this.entrancePath);
+  },
+
+  buildShareTitle() {
+    const { meta, model } = this.data;
+    const resultName = model?.primaryProfile?.name;
+    if (meta?.title && resultName) {
+      return `「${meta.title}」我的结果：${resultName}`;
+    }
+    if (meta?.title) {
+      return `我刚完成了「${meta.title}」`;
+    }
+    return '我刚完成一个心理测试';
+  },
+
+  onShareAppMessage() {
+    const { key, testId } = this.data;
+    return {
+      title: this.buildShareTitle(),
+      path: buildQuizIntroPath(key, testId),
+      imageUrl: buildQuizShareImage(key),
+    };
+  },
+
+  onShareTimeline() {
+    const { key, testId } = this.data;
+    return {
+      title: this.buildShareTitle(),
+      query: buildQuizIntroQuery(key, testId),
+      imageUrl: buildQuizShareImage(key),
+    };
   },
 });

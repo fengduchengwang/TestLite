@@ -1,5 +1,10 @@
 import { fetchQuizDetail } from '~/utils/api';
 import { markTestAsTested } from '~/utils/test';
+import {
+  buildQuizIntroPath,
+  buildQuizIntroQuery,
+  buildQuizShareImage,
+} from '~/utils/share';
 
 Page({
   data: {
@@ -56,5 +61,23 @@ Page({
     wx.redirectTo({
       url: `/pages/quiz/play/index?key=${encodeURIComponent(key)}&testId=${testId}`,
     });
+  },
+
+  onShareAppMessage() {
+    const { key, testId, meta } = this.data;
+    return {
+      title: meta.title ? `来测测：${meta.title}` : '来测一个有趣的心理测试',
+      path: buildQuizIntroPath(key, testId),
+      imageUrl: buildQuizShareImage(key),
+    };
+  },
+
+  onShareTimeline() {
+    const { key, testId, meta } = this.data;
+    return {
+      title: meta.title ? `来测测：${meta.title}` : '来测一个有趣的心理测试',
+      query: buildQuizIntroQuery(key, testId),
+      imageUrl: buildQuizShareImage(key),
+    };
   },
 });

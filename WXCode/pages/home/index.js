@@ -6,6 +6,7 @@ import {
   openTest,
 } from '~/utils/test';
 import { fetchTestList } from '~/utils/api';
+import { HOME_SHARE } from '~/utils/share';
 
 const BANNER_MAX_COUNT = 5;
 
@@ -113,5 +114,18 @@ Page({
       item.id === id ? { ...item, tested: true } : item,
     );
     this.setData({ cardInfo });
+  },
+
+  onShareAppMessage() {
+    return {
+      title: HOME_SHARE.title,
+      path: HOME_SHARE.path,
+    };
+  },
+
+  onShareTimeline() {
+    return {
+      title: HOME_SHARE.title,
+    };
   },
 });
