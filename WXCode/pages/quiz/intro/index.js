@@ -6,6 +6,32 @@ import {
   buildQuizShareImage,
 } from '~/utils/share';
 
+function splitHeroTitle(title = '') {
+  const trimmed = String(title).trim();
+  if (!trimmed) return { main: '', accent: '' };
+  const punct = trimmed.search(/[，,：:；;]/);
+  if (punct > 1 && punct < trimmed.length - 2) {
+    return {
+      main: trimmed.slice(0, punct),
+      accent: trimmed.slice(punct + 1).trim(),
+    };
+  }
+  if (trimmed.length <= 8) return { main: '', accent: trimmed };
+  const take = Math.min(8, Math.max(4, Math.ceil(trimmed.length * 0.42)));
+  return {
+    main: trimmed.slice(0, -take),
+    accent: trimmed.slice(-take),
+  };
+}
+
+function parseDuration(duration = '') {
+  const match = String(duration).match(/(\d+)/);
+  if (match) {
+    return { value: match[1], label: '分钟左右' };
+  }
+  return { value: duration || '—', label: '完成时间' };
+}
+
 Page({
   data: {
     key: '',
@@ -15,6 +41,10 @@ Page({
     meta: {},
     questionCount: 0,
     dimensionCount: 0,
+    titleMain: '',
+    titleAccent: '',
+    durationValue: '',
+    durationLabel: '完成时间',
   },
 
   async onLoad(query) {
@@ -33,6 +63,8 @@ Page({
         return;
       }
 
+      const heroTitle = splitHeroTitle(quiz.meta.title);
+      const duration = parseDuration(quiz.meta.duration);
       this.setData({
         key,
         testId,
@@ -40,6 +72,10 @@ Page({
         meta: quiz.meta,
         questionCount: quiz.questions.length,
         dimensionCount: quiz.dimensions.length,
+        titleMain: heroTitle.main,
+        titleAccent: heroTitle.accent,
+        durationValue: duration.value,
+        durationLabel: duration.label,
       });
       wx.setNavigationBarTitle({ title: quiz.meta.title });
     } catch (error) {
@@ -52,14 +88,24 @@ Page({
     }
   },
 
+  onShow() {
+    this.starting = false;
+  },
+
   onStart() {
     const { key, testId } = this.data;
-    if (!key) return;
+    if (!key || this.starting) return;
+    this.starting = true;
     if (testId) {
       markTestAsTested(testId);
     }
-    wx.redirectTo({
+    // 整个测试流程保留上一张深色页面，重测时统一返回这里并清理流程页面。
+    wx.navigateTo({
       url: `/pages/quiz/play/index?key=${encodeURIComponent(key)}&testId=${testId}`,
+      fail: () => {
+        this.starting = false;
+        wx.showToast({ title: '打开测试失败，请重试', icon: 'none' });
+      },
     });
   },
 

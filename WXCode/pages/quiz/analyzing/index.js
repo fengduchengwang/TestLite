@@ -1,20 +1,15 @@
-const STEP_DURATION = 1500;
-const STEPS = [
-  { title: '正在整理你的作答', desc: '梳理选项与情境线索' },
-  { title: '正在匹配维度画像', desc: '计算各维度偏好分布' },
-  { title: '正在生成专属报告', desc: '汇总画像、解析与建议' },
-];
+import { returnToQuizIntro } from '../utils/navigation';
+
+const MESSAGES = ['计算各观察维度...', '对比你的结果分布...', '生成专属结果页...'];
+const MESSAGE_INTERVAL = 520;
+const TOTAL_DURATION = 1650;
 
 Page({
   data: {
     key: '',
     testId: 0,
-    steps: STEPS.map((item, index) => ({
-      ...item,
-      status: index === 0 ? 'active' : 'pending',
-    })),
-    activeIndex: 0,
-    progress: 0,
+    message: MESSAGES[0],
+    retry: false,
   },
 
   timers: [],
@@ -23,7 +18,21 @@ Page({
     const key = decodeURIComponent(query.key || '');
     const testId = Number(query.testId || 0);
     this.setData({ key, testId });
+    this.resultOpened = false;
+    this.navigating = false;
+  },
+
+  onShow() {
+    // 从结果页返回时直接回到开始页，避免停留在已完成的分析页或再次打开结果。
+    if (this.resultOpened) {
+      returnToQuizIntro(this.data.key, this.data.testId);
+      return;
+    }
     this.startAnalyze();
+  },
+
+  onHide() {
+    this.clearTimers();
   },
 
   onUnload() {
@@ -37,38 +46,34 @@ Page({
 
   startAnalyze() {
     this.clearTimers();
-    const total = STEPS.length;
+    this.setData({ retry: false, message: MESSAGES[0] });
 
-    STEPS.forEach((_, index) => {
+    MESSAGES.forEach((message, index) => {
       const timer = setTimeout(() => {
-        const steps = STEPS.map((item, stepIndex) => {
-          if (stepIndex < index) return { ...item, status: 'done' };
-          if (stepIndex === index) return { ...item, status: 'active' };
-          return { ...item, status: 'pending' };
-        });
-
-        this.setData({
-          steps,
-          activeIndex: index,
-          progress: Math.round(((index + 1) / total) * 100),
-        });
-
-        if (index === total - 1) {
-          const finishTimer = setTimeout(() => {
-            this.goResult();
-          }, STEP_DURATION);
-          this.timers.push(finishTimer);
-        }
-      }, index * STEP_DURATION);
-
+        this.setData({ message });
+      }, index * MESSAGE_INTERVAL);
       this.timers.push(timer);
     });
+
+    const finishTimer = setTimeout(() => {
+      this.goResult();
+    }, TOTAL_DURATION);
+    this.timers.push(finishTimer);
   },
 
   goResult() {
+    if (this.navigating) return;
+    this.navigating = true;
     const { key, testId } = this.data;
-    wx.redirectTo({
+    wx.navigateTo({
       url: `/pages/quiz/result/index?key=${encodeURIComponent(key)}&testId=${testId}`,
+      success: () => {
+        this.resultOpened = true;
+      },
+      fail: () => {
+        this.navigating = false;
+        this.setData({ retry: true, message: '结果暂时未能打开，请重试' });
+      },
     });
   },
 });

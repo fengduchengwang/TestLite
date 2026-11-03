@@ -1,4 +1,11 @@
 {
+  "navigationStyle": "custom",
   "navigationBarTitleText": "测试结果",
-  "usingComponents": {}
+  "navigationBarBackgroundColor": "#09090d",
+  "navigationBarTextStyle": "white",
+  "backgroundColor": "#09090d",
+  "backgroundTextStyle": "light",
+  "usingComponents": {
+    "t-navbar": "tdesign-miniprogram/navbar/navbar"
+  }
 }

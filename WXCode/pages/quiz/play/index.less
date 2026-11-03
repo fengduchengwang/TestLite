@@ -1,133 +1,155 @@
 @import '/variable.less';
+@import '../theme.less';
 
 .quiz-play {
-  height: 100vh;
-  background: #f2f2f7;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  padding-bottom: env(safe-area-inset-bottom);
+  .quiz-page();
+  min-height: 100vh;
+  padding-bottom: calc(72rpx + env(safe-area-inset-bottom));
 
-  &__head {
-    flex-shrink: 0;
-    background: #fff;
-    padding: 24rpx 32rpx 20rpx;
+  &__top {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding: 24rpx 36rpx 20rpx;
+    background: rgba(9, 9, 13, 0.92);
   }
 
-  &__progress-text {
-    font-size: 24rpx;
-    color: rgba(26, 26, 26, 0.55);
-    margin-bottom: 16rpx;
+  &__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24rpx;
   }
 
-  &__progress {
+  &__back {
+    min-height: 72rpx;
+    color: @quiz-muted;
+    font-size: 28rpx;
+    line-height: 72rpx;
+  }
+
+  &__progress-copy {
+    text-align: right;
+  }
+
+  &__count {
+    display: block;
+    font-size: 28rpx;
+    font-weight: 700;
+    color: @quiz-text;
+  }
+
+  &__hint-top {
+    display: block;
+    margin-top: 8rpx;
+    color: @quiz-muted-2;
+    font-size: 22rpx;
+  }
+
+  &__track {
     height: 10rpx;
-    border-radius: 999rpx;
-    background: #ece8ff;
+    margin-top: 20rpx;
     overflow: hidden;
+    border-radius: 999rpx;
+    background: @quiz-surface-3;
   }
 
-  &__progress-bar {
+  &__bar {
     height: 100%;
-    border-radius: 999rpx;
-    background: #7b61ff;
-    transition: width 0.2s ease;
+    border-radius: inherit;
+    background: @quiz-progress-gradient;
+    transition: width 0.28s ease;
   }
 
   &__body {
-    flex: 1;
-    min-height: 0;
-    padding: 32rpx 32rpx 0;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    /* 下侧重一些留白，把整块内容视觉中心上移到约 40% 高度 */
-    padding-bottom: 20%;
-    overflow-y: auto;
+    padding: 44rpx 36rpx 0;
   }
 
-  &__scene {
-    color: #7b61ff;
+  &__dimension {
+    margin: 0 0 28rpx;
+    color: @quiz-accent-label;
     font-size: 24rpx;
-    margin-bottom: 20rpx;
+    font-weight: 700;
   }
 
   &__title {
-    font-size: 40rpx;
-    line-height: 1.4;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin-bottom: 40rpx;
+    min-height: 168rpx;
+    font-size: 48rpx;
+    line-height: 1.42;
+    font-weight: 800;
+    color: @quiz-text;
   }
 
   &__options {
     display: flex;
     flex-direction: column;
-    gap: 20rpx;
+    gap: 24rpx;
+    margin-top: 48rpx;
   }
 
   &__option {
+    position: relative;
+    min-height: 128rpx;
+    padding: 26rpx 100rpx 26rpx 40rpx;
     display: flex;
-    align-items: flex-start;
-    gap: 20rpx;
-    background: #fff;
-    border-radius: 24rpx;
-    padding: 28rpx 24rpx;
-    border: 2rpx solid transparent;
+    align-items: center;
+    border: 2rpx solid @quiz-line;
+    border-radius: @quiz-radius;
+    background: @quiz-surface;
     box-sizing: border-box;
   }
 
   &__option.is-selected {
-    border-color: #7b61ff;
-    background: #f7f4ff;
-  }
-
-  &__letter {
-    width: 48rpx;
-    height: 48rpx;
-    border-radius: 50%;
-    background: #ece8ff;
-    color: #7b61ff;
-    font-size: 24rpx;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  &__option.is-selected &__letter {
-    background: #7b61ff;
-    color: #fff;
+    border-color: @quiz-accent-strong;
+    background: @quiz-accent-soft;
   }
 
   &__option-text {
-    flex: 1;
-    font-size: 28rpx;
+    font-size: 30rpx;
     line-height: 1.55;
-    color: #1a1a1a;
-    padding-top: 6rpx;
+    color: @quiz-text-strong;
   }
 
-  &__footer {
-    margin-top: 40rpx;
+  &__radio {
+    position: absolute;
+    right: 40rpx;
+    width: 36rpx;
+    height: 36rpx;
+    border: 4rpx solid #45414d;
+    border-radius: 50%;
+    box-sizing: border-box;
+  }
+
+  &__option.is-selected &__radio {
+    border: 10rpx solid @quiz-accent-strong;
+    background: #fff;
+  }
+
+  &__nav {
+    margin-top: 48rpx;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 24rpx;
   }
 
   &__prev {
-    font-size: 26rpx;
-    color: #7b61ff;
+    min-width: 208rpx;
+    height: 96rpx;
+    line-height: 96rpx;
+    padding: 0 36rpx;
+    text-align: center;
+    font-size: 28rpx;
+    box-sizing: border-box;
   }
 
   &__prev.is-disabled {
-    color: rgba(26, 26, 26, 0.25);
+    opacity: 0.36;
   }
 
-  &__hint {
+  &__auto {
+    color: @quiz-muted-2;
     font-size: 22rpx;
-    color: rgba(26, 26, 26, 0.4);
+    text-align: right;
   }
 }

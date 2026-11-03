@@ -1,60 +1,79 @@
-<scroll-view class="quiz-result" scroll-y wx:if="{{!loading && model}}">
-  <view class="quiz-result__shell">
-    <view class="result-card result-hero" wx:if="{{modules.hero}}">
-      <view class="result-kicker">{{display.heroLabel}}</view>
-      <view class="result-hero__name">{{model.primaryProfile.name}}</view>
-      <view class="result-hero__verdict">{{model.primaryProfile.verdict}}</view>
-      <view class="result-hero__tags">
-        <view wx:for="{{model.highlights}}" wx:key="key" class="result-hero__tag">
-          {{item.label}} · {{item.score}}%
-        </view>
-      </view>
-      <view class="result-hero__quote">“{{model.primaryProfile.share}}”</view>
-    </view>
+<view class="quiz-result-nav">
+  <t-navbar
+    title="测试结果"
+    left-arrow
+    fixed="{{false}}"
+    animation="{{false}}"
+    delta="{{0}}"
+    bind:go-back="onBack"
+  />
+</view>
 
-    <view class="result-card" wx:if="{{modules.decision && model.decision}}">
-      <view class="result-kicker">当前判断</view>
-      <view class="result-title">你现在更接近哪一步</view>
-      <view class="result-decision__label">{{model.decision.label}}</view>
-      <view class="result-decision__line">
-        <view class="result-decision__dot" style="left: {{decisionPosition}}%;"></view>
+<scroll-view class="quiz-result" scroll-y>
+  <view class="quiz-result__shell" wx:if="{{!loading && model}}">
+    <view class="result-kicker" wx:if="{{modules.hero}}">{{display.heroLabel}}</view>
+
+    <view class="identity-card" wx:if="{{modules.hero}}">
+      <view class="identity-card__wash"></view>
+      <view class="identity-card__grid"></view>
+      <view class="identity-number">{{identity.number}}</view>
+      <view class="identity-top">
+        <view class="identity-code">{{identity.code}}</view>
+        <view class="identity-rank">{{identity.rank}}</view>
       </view>
-      <view class="result-decision__labels">
-        <text>{{model.decision.leftLabel}}</text>
-        <text>{{model.decision.rightLabel}}</text>
+      <view class="identity-main">
+        <view class="identity-label">YOUR SPECTRUM PROFILE</view>
+        <view class="identity-title">{{model.primaryProfile.name}}</view>
+        <view class="identity-line">{{model.primaryProfile.verdict}}</view>
       </view>
-      <view class="result-decision__signals">
-        <view class="result-decision__col">
-          <view class="result-subtitle">支持先调整的信号</view>
-          <view wx:for="{{leftSignals}}" wx:key="*this" class="result-list-item">{{item}}</view>
-        </view>
-        <view class="result-decision__col">
-          <view class="result-subtitle">支持改变方向的信号</view>
-          <view wx:for="{{rightSignals}}" wx:key="*this" class="result-list-item">{{item}}</view>
-        </view>
+      <view class="identity-foot">
+        <text>{{identity.footLeft}}</text>
+        <text>{{identity.footRight}}</text>
       </view>
     </view>
 
-    <view class="result-card" wx:if="{{showRadar}}">
-      <view class="result-kicker">整体轮廓</view>
-      <view class="result-title">{{display.radarTitle || '维度雷达'}}</view>
-      <canvas canvas-id="radarCanvas" class="result-radar" style="width: 300px; height: 300px;"></canvas>
+    <view class="result-section" wx:if="{{modules.decision && model.decision}}">
+      <view class="section-heading">当前判断</view>
+      <view class="spectrum-card">
+        <view class="spectrum-labels">
+          <text class="pale-percent">{{model.decision.leftLabel}}</text>
+          <text class="rich-percent">{{model.decision.rightLabel}}</text>
+        </view>
+        <view class="spectrum-track">
+          <view class="spectrum-marker" style="left: {{decisionPosition}}%;"></view>
+        </view>
+        <view class="spectrum-state">{{model.decision.label}}</view>
+      </view>
+      <view class="analysis-card spectrum-signals">
+        <view class="analysis-block">
+          <view class="analysis-label">{{model.decision.leftLabel}}</view>
+          <view wx:for="{{leftSignals}}" wx:key="*this" class="analysis-text">{{item}}</view>
+        </view>
+        <view class="analysis-block attention">
+          <view class="analysis-label">{{model.decision.rightLabel}}</view>
+          <view wx:for="{{rightSignals}}" wx:key="*this" class="analysis-text">{{item}}</view>
+        </view>
+      </view>
     </view>
 
-    <view class="result-card" wx:if="{{modules.dimensions}}">
-      <view class="result-kicker">结果分布</view>
-      <view class="result-title">{{display.dimensionTitle}}</view>
-      <view
-        wx:for="{{model.dimensionBars}}"
-        wx:key="key"
-        class="result-bar {{item.isStrongest ? 'is-strong' : ''}}"
-      >
-        <view class="result-bar__head">
-          <text>{{item.label}}</text>
-          <text class="result-bar__score">{{item.score}}%</text>
-        </view>
-        <view class="result-bar__track">
-          <view class="result-bar__fill" style="width: {{item.score}}%;"></view>
+    <view class="result-section" wx:if="{{showRadar}}">
+      <view class="section-heading">{{display.radarTitle || '维度雷达'}}</view>
+      <view class="analysis-card radar-card">
+        <canvas canvas-id="radarCanvas" class="result-radar" style="width: 300px; height: 300px;"></canvas>
+      </view>
+    </view>
+
+    <view class="result-section" wx:if="{{modules.dimensions}}">
+      <view class="section-heading">{{display.dimensionTitle}}</view>
+      <view class="dimension-list">
+        <view wx:for="{{model.dimensionBars}}" wx:key="key" class="dimension-item">
+          <view class="dimension-main">
+            <view class="dimension-head">{{item.label}}</view>
+            <view class="dimension-track">
+              <view class="dimension-fill" style="width: {{item.score}}%; background: {{item.color}};"></view>
+            </view>
+          </view>
+          <view class="dimension-score" style="color: {{item.color}};">{{item.score}}%</view>
         </view>
       </view>
       <view class="result-note">
@@ -62,82 +81,95 @@
       </view>
     </view>
 
-    <view class="result-card" wx:if="{{modules.deepAnalysis}}">
-      <view class="result-kicker">深度解析</view>
-      <view class="result-title">{{model.deepAnalysis.title}}</view>
-      <view class="result-copy">{{model.deepAnalysis.summary}}</view>
-      <view class="result-copy" wx:if="{{model.deepAnalysis.tension}}">{{model.deepAnalysis.tension}}</view>
-    </view>
-
-    <view class="result-card" wx:if="{{modules.evidence}}">
-      <view class="result-kicker">真实作答</view>
-      <view class="result-title">答案里反复出现的信号</view>
-      <view wx:for="{{model.evidence}}" wx:key="index" class="result-evidence">
-        <view class="result-evidence__scene">{{item.scene}}</view>
-        <view class="result-evidence__q">{{item.question}}</view>
-        <view class="result-evidence__a">你选择了“{{item.answer}}”</view>
-      </view>
-    </view>
-
-    <view class="result-card" wx:if="{{modules.pattern}}">
-      <view class="result-kicker">现实表现</view>
-      <view class="result-title">这套模式是怎么一步步发生的</view>
-      <view wx:for="{{model.patternSteps}}" wx:key="no" class="result-pattern">
-        <view class="result-pattern__no">{{item.no}}</view>
-        <view class="result-pattern__body">
-          <view class="result-pattern__title">{{item.title}}</view>
-          <view class="result-pattern__text">{{item.text}}</view>
+    <view class="result-section" wx:if="{{modules.deepAnalysis}}">
+      <view class="section-heading">{{model.deepAnalysis.title || '完整解读'}}</view>
+      <view class="analysis-card">
+        <view class="analysis-block">
+          <view class="analysis-label">核心底色</view>
+          <view class="analysis-text">{{model.deepAnalysis.summary}}</view>
+        </view>
+        <view class="analysis-block attention" wx:if="{{model.deepAnalysis.tension}}">
+          <view class="analysis-label">需要留意</view>
+          <view class="analysis-text">{{model.deepAnalysis.tension}}</view>
+        </view>
+        <view class="analysis-block summary" wx:if="{{portraitText}}">
+          <view class="analysis-label">本次画像</view>
+          <view class="analysis-text">{{portraitText}}</view>
         </view>
       </view>
     </view>
 
-    <view class="result-card" wx:if="{{modules.strengths}}">
-      <view class="result-kicker">{{isLight ? '更像你的地方' : '两面都值得看见'}}</view>
-      <view class="result-title">
-        {{isLight ? '你的方式有它的好，也有它的代价' : '你正在保护什么，又付出了什么'}}
-      </view>
-      <view class="result-grid">
-        <view class="result-box result-box--good">
-          <view class="result-subtitle">值得留下的能力</view>
-          <view wx:for="{{model.primaryProfile.strengths}}" wx:key="*this" class="result-list-item">
-            {{item}}
-          </view>
-        </view>
-        <view class="result-box result-box--cost">
-          <view class="result-subtitle">容易付出的代价</view>
-          <view wx:for="{{model.primaryProfile.costs}}" wx:key="*this" class="result-list-item">
-            {{item}}
-          </view>
+    <view class="result-section" wx:if="{{modules.evidence}}">
+      <view class="section-heading">答案里反复出现的信号</view>
+      <view class="analysis-card">
+        <view wx:for="{{model.evidence}}" wx:key="index" class="analysis-block">
+          <view class="analysis-label">{{item.scene}}</view>
+          <view class="analysis-text">{{item.question}}</view>
+          <view class="analysis-text analysis-text--strong">你选择了“{{item.answer}}”</view>
         </view>
       </view>
     </view>
 
-    <view class="result-card result-card--insight" wx:if="{{modules.insight && model.insight}}">
-      <view class="result-kicker">特别提醒</view>
-      <view class="result-title">{{model.insight.title}}</view>
-      <view class="result-copy">{{model.insight.content}}</view>
-    </view>
-
-    <view class="result-card" wx:if="{{modules.actions}}">
-      <view class="result-kicker">接下来</view>
-      <view class="result-title">
-        {{isDeep ? '把改变拆成三步，不必一次解决全部' : '可以先从这一件小事开始'}}
-      </view>
-      <view wx:for="{{model.actions}}" wx:key="time" class="result-action">
-        <view class="result-action__time">{{item.time}}</view>
-        <view class="result-action__text">{{item.text}}</view>
+    <view class="result-section" wx:if="{{modules.pattern}}">
+      <view class="section-heading">这套模式是怎么一步步发生的</view>
+      <view class="analysis-card">
+        <view
+          wx:for="{{model.patternSteps}}"
+          wx:key="no"
+          class="analysis-block {{index === model.patternSteps.length - 1 ? 'attention' : ''}}"
+        >
+          <view class="analysis-label">{{item.no}} · {{item.title}}</view>
+          <view class="analysis-text">{{item.text}}</view>
+        </view>
       </view>
     </view>
 
-    <block wx:if="{{modules.share}}">
-      <view class="result-closing">“{{model.primaryProfile.share}}”</view>
-      <view class="result-disclaimer">{{meta.disclaimer}}</view>
-    </block>
+    <view class="result-section" wx:if="{{modules.strengths}}">
+      <view class="section-heading">{{isLight ? '更像你的地方' : '两面都值得看见'}}</view>
+      <view class="analysis-card">
+        <view class="analysis-block">
+          <view class="analysis-label">值得留下的能力</view>
+          <view wx:for="{{model.primaryProfile.strengths}}" wx:key="*this" class="analysis-text">{{item}}</view>
+        </view>
+        <view class="analysis-block attention">
+          <view class="analysis-label">容易付出的代价</view>
+          <view wx:for="{{model.primaryProfile.costs}}" wx:key="*this" class="analysis-text">{{item}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="result-section" wx:if="{{modules.insight && model.insight}}">
+      <view class="section-heading">特别提醒</view>
+      <view class="advice-box">
+        <view class="advice-title">{{model.insight.title}}</view>
+        <view class="advice-text">{{model.insight.content}}</view>
+      </view>
+    </view>
+
+    <view class="result-section" wx:if="{{modules.actions}}">
+      <view class="section-heading">行动建议</view>
+      <view class="advice-box">
+        <view wx:for="{{model.actions}}" wx:key="time" class="advice-item">
+          <view class="advice-time" wx:if="{{item.time}}">{{item.time}}</view>
+          <view class="advice-text">{{item.text}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="result-section" wx:if="{{modules.share}}">
+      <view class="section-heading">你的结果宣言</view>
+      <view class="declaration-card">
+        <view class="declaration-label">属于你这一型的一句话</view>
+        <view class="declaration-quote">“{{model.primaryProfile.share}}”</view>
+        <view class="declaration-signature">{{declarationSignature}}</view>
+      </view>
+    </view>
 
     <view class="result-actions">
-      <button class="result-btn" bindtap="onRestart">重新测试</button>
-      <button class="result-btn result-btn--solid" bindtap="onShareResult">分享结果</button>
+      <button class="quiz-secondary" bindtap="onRestart">重新测试</button>
+      <button class="quiz-primary" bindtap="onShareResult">分享结果</button>
     </view>
+    <view class="result-footnote">{{meta.disclaimer}}</view>
   </view>
 </scroll-view>
 

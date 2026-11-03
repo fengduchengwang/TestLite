@@ -1,4 +1,8 @@
 {
   "navigationBarTitleText": "答题中",
+  "navigationBarBackgroundColor": "#09090d",
+  "navigationBarTextStyle": "white",
+  "backgroundColor": "#09090d",
+  "backgroundTextStyle": "light",
   "usingComponents": {}
 }

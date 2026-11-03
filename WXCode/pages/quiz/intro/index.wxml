@@ -1,29 +1,38 @@
-<view class="quiz-intro" wx:if="{{!loading && !error}}">
-  <view class="quiz-intro__mark">{{meta.level === 'deep' ? '深' : meta.level === 'standard' ? '析' : '测'}}</view>
-  <view class="quiz-intro__eyebrow">{{meta.categoryLabel}} · {{meta.levelLabel}}</view>
-  <view class="quiz-intro__title">{{meta.title}}</view>
-  <view class="quiz-intro__lead">{{meta.subtitle}}</view>
-
-  <view class="quiz-intro__meta">
-    <view class="quiz-intro__meta-item">
-      <text class="quiz-intro__meta-strong">{{questionCount}}题</text>
-      <text class="quiz-intro__meta-label">具体情境</text>
-    </view>
-    <view class="quiz-intro__meta-item">
-      <text class="quiz-intro__meta-strong">{{dimensionCount}}维</text>
-      <text class="quiz-intro__meta-label">独立计分</text>
-    </view>
-    <view class="quiz-intro__meta-item">
-      <text class="quiz-intro__meta-strong">{{meta.duration}}</text>
-      <text class="quiz-intro__meta-label">完成时间</text>
-    </view>
+<view class="quiz-intro quiz-intro--loading" wx:if="{{loading}}">
+  <view class="quiz-loader">
+    <view class="quiz-loader__ring quiz-loader__ring--outer"></view>
+    <view class="quiz-loader__ring quiz-loader__ring--inner"></view>
   </view>
-
-  <button class="quiz-intro__btn" bindtap="onStart">开始测试</button>
-  <view class="quiz-intro__notice">{{meta.disclaimer}}</view>
 </view>
 
-<view class="quiz-intro quiz-intro--error" wx:elif="{{error}}">
-  <view class="quiz-intro__title">测试无法打开</view>
-  <view class="quiz-intro__lead">{{error}}</view>
+<view class="quiz-intro" wx:elif="{{!error}}">
+  <view class="quiz-intro__content">
+    <view class="quiz-intro__eyebrow">{{meta.categoryLabel}} · {{meta.levelLabel}}</view>
+    <view class="quiz-intro__title" wx:if="{{titleMain}}">{{titleMain}}</view>
+    <view class="quiz-intro__title quiz-intro__title--accent">{{titleAccent}}</view>
+    <view class="quiz-intro__copy">{{meta.subtitle}}</view>
+
+    <view class="quiz-intro__facts">
+      <view class="quiz-intro__fact">
+        <text class="quiz-intro__fact-value">{{questionCount}}</text>
+        <text class="quiz-intro__fact-label">道题目</text>
+      </view>
+      <view class="quiz-intro__fact">
+        <text class="quiz-intro__fact-value">{{dimensionCount}}</text>
+        <text class="quiz-intro__fact-label">观察维度</text>
+      </view>
+      <view class="quiz-intro__fact">
+        <text class="quiz-intro__fact-value">{{durationValue}}</text>
+        <text class="quiz-intro__fact-label">{{durationLabel}}</text>
+      </view>
+    </view>
+
+    <button class="quiz-primary quiz-intro__btn" bindtap="onStart">开始测试　→</button>
+    <view class="quiz-intro__disclaimer">{{meta.disclaimer}}</view>
+  </view>
+</view>
+
+<view class="quiz-intro quiz-intro--error" wx:else>
+  <view class="quiz-intro__title quiz-intro__title--accent">测试无法打开</view>
+  <view class="quiz-intro__copy">{{error}}</view>
 </view>

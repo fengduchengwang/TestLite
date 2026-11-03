@@ -1,0 +1,111 @@
+@quiz-bg: #09090d;
+@quiz-surface: #121218;
+@quiz-surface-2: #181820;
+@quiz-surface-3: #202029;
+@quiz-text: #f5f3f7;
+@quiz-text-strong: #eeeaf2;
+@quiz-muted: #9995a2;
+@quiz-muted-2: #716d79;
+@quiz-line: #292731;
+@quiz-line-soft: rgba(255, 255, 255, 0.055);
+@quiz-accent-1: #9b7cff;
+@quiz-accent-2: #e765aa;
+@quiz-accent-3: #f18764;
+@quiz-accent-strong: #a083ff;
+@quiz-accent-label: #aa98ff;
+@quiz-accent-soft: rgba(155, 124, 255, 0.09);
+@quiz-accent-border: rgba(155, 124, 255, 0.22);
+@quiz-radius: 16rpx;
+@quiz-brand-gradient: linear-gradient(105deg, @quiz-accent-1, @quiz-accent-2 50%, @quiz-accent-3);
+@quiz-button-gradient: linear-gradient(105deg, #8f70f2, #dc62ad 52%, #ef895e);
+@quiz-progress-gradient: linear-gradient(90deg, @quiz-accent-1, @quiz-accent-2, @quiz-accent-3);
+@quiz-spectrum-gradient: linear-gradient(90deg, #64a7df, #79c5b3, #d6c46d, #e79c62, #e65f88);
+
+// 页面底色独立于内容渲染，避免跳转、加载时露出 app.less 的浅色背景。
+page {
+  min-height: 100vh;
+  color: @quiz-text;
+  background-color: @quiz-bg;
+}
+
+.quiz-reset-btn() {
+  margin: 0;
+  padding: 0;
+  line-height: inherit;
+  font-weight: 700;
+  border-radius: @quiz-radius;
+  box-sizing: border-box;
+
+  &::after {
+    border: none;
+  }
+}
+
+.quiz-page {
+  min-height: 100vh;
+  box-sizing: border-box;
+  color: @quiz-text;
+  background:
+    linear-gradient(180deg, rgba(155, 124, 255, 0.045), transparent 360px),
+    @quiz-bg;
+}
+
+.quiz-primary {
+  .quiz-reset-btn();
+  height: 104rpx;
+  line-height: 104rpx;
+  color: #fff;
+  background: @quiz-button-gradient;
+  box-shadow: 0 24rpx 68rpx rgba(222, 99, 171, 0.18);
+}
+
+.quiz-secondary {
+  .quiz-reset-btn();
+  height: 96rpx;
+  line-height: 96rpx;
+  color: @quiz-text;
+  background: @quiz-surface;
+  border: 2rpx solid @quiz-line;
+}
+
+.quiz-loader {
+  position: relative;
+  width: 188rpx;
+  height: 188rpx;
+  margin: 0 auto 64rpx;
+  border: 2rpx solid @quiz-line;
+  border-radius: 50%;
+
+  &__ring {
+    position: absolute;
+    border: 4rpx solid transparent;
+    border-top-color: @quiz-accent-2;
+    border-right-color: @quiz-accent-1;
+    border-radius: 50%;
+    animation: quiz-spin 1.05s linear infinite;
+
+    &--outer {
+      top: 20rpx;
+      right: 20rpx;
+      bottom: 20rpx;
+      left: 20rpx;
+    }
+
+    &--inner {
+      top: 54rpx;
+      right: 54rpx;
+      bottom: 54rpx;
+      left: 54rpx;
+      border-top-color: @quiz-accent-3;
+      border-right-color: transparent;
+      animation-direction: reverse;
+      animation-duration: 0.75s;
+    }
+  }
+}
+
+@keyframes quiz-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,6 +1,15 @@
 import { fetchQuizDetail } from '~/utils/api';
+import { returnToQuizIntro } from '../utils/navigation';
 
 const SESSION_KEY = 'quizSession';
+
+function progressHint(index, total) {
+  const progress = (index + 1) / Math.max(total, 1);
+  if (progress < 0.25) return '刚起步，凭第一反应';
+  if (progress < 0.55) return '轮廓正在变清楚';
+  if (progress < 0.85) return '你的倾向开始显形';
+  return '最后几步，别改答案';
+}
 
 Page({
   data: {
@@ -9,9 +18,9 @@ Page({
     index: 0,
     total: 0,
     progress: 0,
+    progressHint: '',
     question: null,
     selected: null,
-    letters: ['A', 'B', 'C', 'D'],
   },
 
   answers: [],
@@ -24,7 +33,7 @@ Page({
       const quiz = await fetchQuizDetail(key);
       if (!quiz) {
         wx.showToast({ title: '测试不存在', icon: 'none' });
-        setTimeout(() => wx.navigateBack(), 500);
+        this.returnTimer = setTimeout(() => wx.navigateBack(), 500);
         return;
       }
 
@@ -39,18 +48,44 @@ Page({
       this.renderQuestion(0);
     } catch (error) {
       wx.showToast({ title: error.message || '加载失败', icon: 'none' });
-      setTimeout(() => wx.navigateBack(), 500);
+      this.returnTimer = setTimeout(() => wx.navigateBack(), 500);
     }
   },
 
+  onShow() {
+    this.selecting = false;
+  },
+
+  onHide() {
+    this.clearTimers();
+  },
+
+  onUnload() {
+    this.clearTimers();
+  },
+
+  clearTimers() {
+    clearTimeout(this.selectionTimer);
+    clearTimeout(this.returnTimer);
+    this.selectionTimer = null;
+    this.returnTimer = null;
+  },
+
   renderQuestion(index) {
+    const total = this.quiz.questions.length;
     const question = this.quiz.questions[index];
     this.setData({
       index,
       question,
       selected: this.answers[index],
-      progress: Math.round(((index + 1) / this.quiz.questions.length) * 100),
+      progress: Math.round(((index + 1) / total) * 100),
+      progressHint: progressHint(index, total),
     });
+  },
+
+  onBack() {
+    const { key, testId } = this.data;
+    returnToQuizIntro(key, testId);
   },
 
   onSelect(e) {
@@ -60,9 +95,10 @@ Page({
     this.setData({ selected: optionIndex });
     this.selecting = true;
 
-    setTimeout(() => {
-      this.selecting = false;
+    this.selectionTimer = setTimeout(() => {
+      this.selectionTimer = null;
       if (this.data.index < this.quiz.questions.length - 1) {
+        this.selecting = false;
         this.renderQuestion(this.data.index + 1);
         return;
       }
@@ -73,14 +109,18 @@ Page({
         answers: this.answers,
       });
 
-      wx.redirectTo({
+      wx.navigateTo({
         url: `/pages/quiz/analyzing/index?key=${encodeURIComponent(this.data.key)}&testId=${this.data.testId}`,
+        fail: () => {
+          this.selecting = false;
+          wx.showToast({ title: '打开分析页失败，请重试', icon: 'none' });
+        },
       });
-    }, 160);
+    }, 300);
   },
 
   onPrevious() {
-    if (this.data.index <= 0) return;
+    if (this.selecting || this.data.index <= 0) return;
     this.renderQuestion(this.data.index - 1);
   },
 });

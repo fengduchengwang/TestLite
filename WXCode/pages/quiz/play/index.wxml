@@ -1,31 +1,41 @@
-<view class="quiz-play" wx:if="{{question}}">
-  <view class="quiz-play__head">
-    <view class="quiz-play__progress-text">{{index + 1}} / {{total}}</view>
-    <view class="quiz-play__progress">
-      <view class="quiz-play__progress-bar" style="width: {{progress}}%;"></view>
-    </view>
-  </view>
-
-  <view class="quiz-play__body">
-    <view class="quiz-play__scene">{{question.scene}}</view>
-    <view class="quiz-play__title">{{question.q}}</view>
-
-    <view class="quiz-play__options">
-      <view
-        wx:for="{{question.options}}"
-        wx:key="text"
-        class="quiz-play__option {{selected === index ? 'is-selected' : ''}}"
-        data-index="{{index}}"
-        bindtap="onSelect"
-      >
-        <text class="quiz-play__letter">{{letters[index]}}</text>
-        <text class="quiz-play__option-text">{{item.text}}</text>
+<view class="quiz-play">
+  <block wx:if="{{question}}">
+    <view class="quiz-play__top">
+      <view class="quiz-play__meta">
+        <view class="quiz-play__back" bindtap="onBack">← 返回首页</view>
+        <view class="quiz-play__progress-copy">
+          <text class="quiz-play__count">{{index + 1}} / {{total}}</text>
+          <text class="quiz-play__hint-top">{{progressHint}}</text>
+        </view>
+      </view>
+      <view class="quiz-play__track">
+        <view class="quiz-play__bar" style="width: {{progress}}%;"></view>
       </view>
     </view>
 
-    <view class="quiz-play__footer">
-      <view class="quiz-play__prev {{index === 0 ? 'is-disabled' : ''}}" bindtap="onPrevious">上一题</view>
-      <view class="quiz-play__hint">选择后自动进入下一题</view>
+    <view class="quiz-play__body">
+      <view class="quiz-play__dimension" wx:if="{{question.scene}}">{{question.scene}}</view>
+      <view class="quiz-play__title">{{question.q}}</view>
+
+      <view class="quiz-play__options">
+        <view
+          wx:for="{{question.options}}"
+          wx:key="text"
+          class="quiz-play__option {{selected === index ? 'is-selected' : ''}}"
+          data-index="{{index}}"
+          bindtap="onSelect"
+        >
+          <text class="quiz-play__option-text">{{item.text}}</text>
+          <view class="quiz-play__radio"></view>
+        </view>
+      </view>
+
+      <view class="quiz-play__nav">
+        <view class="quiz-secondary quiz-play__prev {{index === 0 ? 'is-disabled' : ''}}" bindtap="onPrevious">
+          ← 上一题
+        </view>
+        <view class="quiz-play__auto">选择后自动进入下一题</view>
+      </view>
     </view>
-  </view>
+  </block>
 </view>

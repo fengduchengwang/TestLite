@@ -41,8 +41,26 @@ export function buildRadarPoints(dimensions, scores, size = 300) {
   return { size, center, rings, axes, shape, labels };
 }
 
-export function paintRadar(ctx, radarData, offsetX = 0, offsetY = 0) {
+const RADAR_THEMES = {
+  light: {
+    ring: '#E8E4F8',
+    fill: 'rgba(123, 97, 255, 0.22)',
+    stroke: '#7B61FF',
+    label: '#1A1A1A',
+    value: '#7B61FF',
+  },
+  dark: {
+    ring: 'rgba(255, 255, 255, 0.08)',
+    fill: 'rgba(155, 124, 255, 0.22)',
+    stroke: '#a083ff',
+    label: '#f5f3f7',
+    value: '#aa98ff',
+  },
+};
+
+export function paintRadar(ctx, radarData, offsetX = 0, offsetY = 0, theme = 'light') {
   const { rings, axes, shape, labels } = radarData;
+  const colors = RADAR_THEMES[theme] || RADAR_THEMES.light;
 
   ctx.save();
   ctx.translate(offsetX, offsetY);
@@ -54,7 +72,7 @@ export function paintRadar(ctx, radarData, offsetX = 0, offsetY = 0) {
       else ctx.lineTo(point.x, point.y);
     });
     ctx.closePath();
-    ctx.setStrokeStyle('#E8E4F8');
+    ctx.setStrokeStyle(colors.ring);
     ctx.setLineWidth(1);
     ctx.stroke();
   });
@@ -63,7 +81,7 @@ export function paintRadar(ctx, radarData, offsetX = 0, offsetY = 0) {
     ctx.beginPath();
     ctx.moveTo(axis.from.x, axis.from.y);
     ctx.lineTo(axis.to.x, axis.to.y);
-    ctx.setStrokeStyle('#E8E4F8');
+    ctx.setStrokeStyle(colors.ring);
     ctx.setLineWidth(1);
     ctx.stroke();
   });
@@ -74,8 +92,8 @@ export function paintRadar(ctx, radarData, offsetX = 0, offsetY = 0) {
     else ctx.lineTo(point.x, point.y);
   });
   ctx.closePath();
-  ctx.setFillStyle('rgba(123, 97, 255, 0.22)');
-  ctx.setStrokeStyle('#7B61FF');
+  ctx.setFillStyle(colors.fill);
+  ctx.setStrokeStyle(colors.stroke);
   ctx.setLineWidth(2);
   ctx.fill();
   ctx.stroke();
@@ -83,16 +101,16 @@ export function paintRadar(ctx, radarData, offsetX = 0, offsetY = 0) {
   shape.forEach((point) => {
     ctx.beginPath();
     ctx.arc(point.x, point.y, 3.5, 0, Math.PI * 2);
-    ctx.setFillStyle('#7B61FF');
+    ctx.setFillStyle(colors.stroke);
     ctx.fill();
   });
 
   labels.forEach((item) => {
-    ctx.setFillStyle('#1A1A1A');
+    ctx.setFillStyle(colors.label);
     ctx.setFontSize(11);
     ctx.setTextAlign(item.align);
     ctx.fillText(item.label, item.x, item.y - 6);
-    ctx.setFillStyle('#7B61FF');
+    ctx.setFillStyle(colors.value);
     ctx.setFontSize(10);
     ctx.fillText(item.value, item.x, item.y + 10);
   });
@@ -100,10 +118,10 @@ export function paintRadar(ctx, radarData, offsetX = 0, offsetY = 0) {
   ctx.restore();
 }
 
-export function drawRadar(ctx, radarData) {
+export function drawRadar(ctx, radarData, theme = 'light') {
   const { size } = radarData;
   ctx.clearRect(0, 0, size, size);
-  paintRadar(ctx, radarData, 0, 0);
+  paintRadar(ctx, radarData, 0, 0, theme);
   ctx.draw();
 }
 

@@ -9,8 +9,43 @@ import { buildQuizResult } from '../utils/result';
 import { buildRadarPoints, drawRadar } from '../utils/radar';
 import { createShareImageController } from '../utils/shareImage';
 import { preloadMiniprogramQrcode } from '../utils/sharePoster';
+import { returnToQuizIntro } from '../utils/navigation';
 
 const SESSION_KEY = 'quizSession';
+const DIMENSION_COLORS = ['#e96f94', '#e3a75e', '#a987f4', '#72aee6', '#6bc8a0'];
+
+function pad2(value) {
+  return String(value).padStart(2, '0');
+}
+
+function buildIdentity(quiz, model) {
+  const dimensions = quiz.dimensions || [];
+  const primaryIndex = Math.max(
+    0,
+    dimensions.findIndex((item) => item.key === model.primary.key),
+  );
+  const number = pad2(primaryIndex + 1);
+  return {
+    code: String(model.primary.key || 'TYPE')
+      .replace(/_/g, '')
+      .slice(0, 8)
+      .toUpperCase(),
+    rank: `${number} / ${pad2(dimensions.length || 1)}`,
+    number,
+    footLeft: quiz.meta?.categoryLabel || 'SPECTRUM',
+    footRight: `${quiz.questions.length} QUESTIONS · ${dimensions.length} DIMENSIONS`,
+  };
+}
+
+function buildPortraitText(model) {
+  const primaryLabel = model.primary?.label;
+  const secondaryLabel = model.secondary?.label;
+  if (!primaryLabel) return '';
+  if (!secondaryLabel || secondaryLabel === primaryLabel) {
+    return `你本次最突出的维度是${primaryLabel}。这也是你与其他人最不同的地方。`;
+  }
+  return `你最突出的两项是${primaryLabel}和${secondaryLabel}。这也是你与同一类结果里其他人最不同的地方。`;
+}
 
 Page({
   data: {
@@ -27,6 +62,7 @@ Page({
   async onLoad(query) {
     const key = decodeURIComponent(query.key || '');
     const testId = Number(query.testId || 0);
+    this.setData({ key, testId });
     this.shareImagePath = '';
     this.qrcodeDataUrl = '';
     this.shareImageController = createShareImageController(this);
@@ -34,9 +70,7 @@ Page({
     const session = wx.getStorageSync(SESSION_KEY) || {};
 
     if (session.key !== key || !Array.isArray(session.answers)) {
-      wx.redirectTo({
-        url: `/pages/quiz/intro/index?key=${encodeURIComponent(key)}&testId=${testId}`,
-      });
+      returnToQuizIntro(key, testId);
       return;
     }
 
@@ -74,6 +108,11 @@ Page({
           ? model.decision.rightSignals
           : ['目前还没有形成足够明确的支持信号。'];
 
+      const dimensionBars = (model.dimensionBars || []).map((item, index) => ({
+        ...item,
+        color: DIMENSION_COLORS[index % DIMENSION_COLORS.length],
+      }));
+
       this.quiz = quiz;
       this.setData({
         key,
@@ -81,8 +120,14 @@ Page({
         loading: false,
         meta: quiz.meta,
         display: quiz.display,
-        model,
+        model: {
+          ...model,
+          dimensionBars,
+        },
         modules,
+        identity: buildIdentity(quiz, model),
+        portraitText: buildPortraitText(model),
+        declarationSignature: `— ${quiz.meta.title} · ${model.primaryProfile?.name || ''}`,
         leftSignals,
         rightSignals,
         showRadar: modules.radar,
@@ -109,24 +154,28 @@ Page({
   drawRadarChart(quiz, model) {
     const radarData = buildRadarPoints(quiz.dimensions, model.scores, 300);
     const ctx = wx.createCanvasContext('radarCanvas', this);
-    drawRadar(ctx, radarData);
+    drawRadar(ctx, radarData, 'dark');
+  },
+
+  onBack() {
+    const { key, testId } = this.data;
+    returnToQuizIntro(key, testId);
   },
 
   onRestart() {
     const { key, testId } = this.data;
     wx.removeStorageSync(SESSION_KEY);
-    wx.redirectTo({
-      url: `/pages/quiz/intro/index?key=${encodeURIComponent(key)}&testId=${testId}`,
-    });
+    returnToQuizIntro(key, testId);
   },
 
   getSharePayload() {
-    const { meta, model, display, modules } = this.data;
+    const { meta, model, display, modules, identity } = this.data;
     return {
       meta,
       model,
       display,
       modules,
+      identity,
       dimensions: this.quiz?.dimensions || [],
     };
   },

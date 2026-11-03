@@ -1,6 +1,8 @@
 {
-  "navigationBarTitleText": "AI 分析中",
-  "navigationBarBackgroundColor": "#ffffff",
-  "backgroundColor": "#ffffff",
+  "navigationBarTitleText": "分析中",
+  "navigationBarBackgroundColor": "#09090d",
+  "navigationBarTextStyle": "white",
+  "backgroundColor": "#09090d",
+  "backgroundTextStyle": "light",
   "usingComponents": {}
 }
