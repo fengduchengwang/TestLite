@@ -25,8 +25,8 @@
           data-index="{{index}}"
           bindtap="onSelect"
         >
+          <view class="quiz-play__radio">{{letters[index]}}</view>
           <text class="quiz-play__option-text">{{item.text}}</text>
-          <view class="quiz-play__radio"></view>
         </view>
       </view>
 

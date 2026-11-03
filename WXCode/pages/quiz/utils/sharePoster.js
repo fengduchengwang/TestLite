@@ -1,5 +1,3 @@
-import { buildRadarPoints, paintRadar } from './radar';
-
 const POSTER_WIDTH = 750;
 const HORIZONTAL_PADDING = 56;
 const CONTENT_WIDTH = POSTER_WIDTH - HORIZONTAL_PADDING * 2;
@@ -8,14 +6,8 @@ const IDENTITY_PADDING = 40;
 const IDENTITY_TITLE_SIZE = 56;
 const IDENTITY_TITLE_LINE_HEIGHT = IDENTITY_TITLE_SIZE * 1.15;
 const IDENTITY_VERDICT_LINE_HEIGHT = 28 * 1.65;
-const RADAR_SIZE = 320;
 const SECTION_GAP = 40;
 const BAR_ROW_HEIGHT = 56;
-const TAG_HEIGHT = 32;
-const TAG_PADDING_X = 18;
-const TAG_GAP = 12;
-const TAG_ROW_GAP = 12;
-const TAG_FONT_SIZE = 22;
 const FOOTER_TOP_GAP = 24;
 const FOOTER_HEIGHT = 192;
 const QR_CODE_SIZE = 192;
@@ -26,17 +18,17 @@ const FOOTER_TEXT = '来自「轻测」小程序';
 
 // Canvas 无法直接引用 Less 变量，配色与 ../theme.less 的结果页主题保持一致。
 const POSTER_THEME = {
-  background: '#09090d',
-  surface: '#121218',
-  track: '#202029',
-  text: '#f5f3f7',
-  textStrong: '#eeeaf2',
-  muted: '#9995a2',
-  line: '#292731',
-  accent: '#a083ff',
-  accentLabel: '#aa98ff',
-  accentSoft: 'rgba(155, 124, 255, 0.09)',
-  accentBorder: 'rgba(155, 124, 255, 0.22)',
+  background: '#0b0e16',
+  surface: '#141827',
+  track: '#252d43',
+  text: '#f4f1e9',
+  textStrong: '#e9e6dd',
+  muted: '#8e97aa',
+  line: '#232a3d',
+  accent: '#b9d6fb',
+  accentLabel: '#8ab8ee',
+  accentSoft: 'rgba(138, 184, 238, 0.15)',
+  accentBorder: 'rgba(138, 184, 238, 0.3)',
 };
 
 let cachedQrcodeDataUrl = '';
@@ -171,103 +163,23 @@ function drawRoundRect(ctx, x, y, width, height, radius, fillStyle, strokeStyle 
   }
 }
 
-function drawSectionTitle(ctx, kicker, title, y) {
-  fillLines(ctx, [kicker], HORIZONTAL_PADDING, y, 34, POSTER_THEME.accentLabel, 24);
-  y += 40;
-  const titleLines = measureLines(ctx, title, CONTENT_WIDTH, 32);
-  y = fillLines(ctx, titleLines, HORIZONTAL_PADDING, y, 44, POSTER_THEME.text, 32);
-  return y + 20;
-}
-
-function measureTagRows(ctx, highlights) {
-  if (!highlights.length) return 0;
-  let tagX = HORIZONTAL_PADDING;
-  let rows = 1;
-  ctx.setFontSize(TAG_FONT_SIZE);
-  highlights.forEach((item) => {
-    const label = `${item.label} · ${item.score}%`;
-    const tagWidth = Math.min(ctx.measureText(label).width + TAG_PADDING_X * 2, CONTENT_WIDTH);
-    if (tagX + tagWidth > HORIZONTAL_PADDING + CONTENT_WIDTH) {
-      tagX = HORIZONTAL_PADDING;
-      rows += 1;
-    }
-    tagX += tagWidth + TAG_GAP;
-  });
-  return rows;
-}
-
-function measureTagBlockHeight(ctx, highlights) {
-  const rows = measureTagRows(ctx, highlights);
-  if (!rows) return 0;
-  return rows * TAG_HEIGHT + (rows - 1) * TAG_ROW_GAP + 24;
-}
-
-function drawHeroTags(ctx, highlights, startY) {
-  if (!highlights.length) return startY;
-
-  let tagX = HORIZONTAL_PADDING;
-  let tagRowTop = startY;
-  ctx.setFontSize(TAG_FONT_SIZE);
-
-  highlights.forEach((item) => {
-    const label = `${item.label} · ${item.score}%`;
-    const tagWidth = Math.min(ctx.measureText(label).width + TAG_PADDING_X * 2, CONTENT_WIDTH);
-    if (tagX + tagWidth > HORIZONTAL_PADDING + CONTENT_WIDTH) {
-      tagX = HORIZONTAL_PADDING;
-      tagRowTop += TAG_HEIGHT + TAG_ROW_GAP;
-    }
-
-    drawRoundRect(
-      ctx,
-      tagX,
-      tagRowTop,
-      tagWidth,
-      TAG_HEIGHT,
-      TAG_HEIGHT / 2,
-      POSTER_THEME.accentSoft,
-      POSTER_THEME.accentBorder,
-    );
-    ctx.setFillStyle(POSTER_THEME.accentLabel);
-    ctx.setFontSize(TAG_FONT_SIZE);
-    ctx.setTextAlign('left');
-    ctx.fillText(label, tagX + TAG_PADDING_X, tagRowTop + TAG_HEIGHT / 2 + 7);
-    tagX += tagWidth + TAG_GAP;
-  });
-
-  return tagRowTop + TAG_HEIGHT + 24;
-}
-
-function measureSectionTitleHeight(ctx, title) {
-  const titleLines = measureLines(ctx, title, CONTENT_WIDTH, 32);
-  return 40 + titleLines.length * 44 + 20;
-}
-
 function measureHeroHeight(ctx, payload) {
   const { model = {} } = payload;
   const profile = model.primaryProfile || {};
-  const highlights = (model.highlights || []).slice(0, 4);
   const quote = profile.share || '';
 
   const label = payload.display?.heroLabel || '测试结果';
   let height = measureLines(ctx, label, CONTENT_WIDTH, 22, 800, 3.52).length * 30 + 28;
   height += measureIdentityCard(ctx, profile).height + 28;
-  if (highlights.length) {
-    height += measureTagBlockHeight(ctx, highlights);
-  }
   if (quote) {
     height += measureLines(ctx, `“${quote}”`, CONTENT_WIDTH - 48, 26).length * 38 + 48 + 28;
   }
   return height;
 }
 
-function measureRadarHeight(ctx, payload) {
-  const title = payload.display?.radarTitle || '维度雷达';
-  return SECTION_GAP + measureSectionTitleHeight(ctx, title) + RADAR_SIZE + 24;
-}
-
-function measureDimensionsHeight(ctx, bars, dimensionTitle) {
+function measureDimensionsHeight(bars) {
   if (!bars.length) return 0;
-  return SECTION_GAP + measureSectionTitleHeight(ctx, dimensionTitle) + bars.length * BAR_ROW_HEIGHT + 12;
+  return SECTION_GAP + bars.length * BAR_ROW_HEIGHT + 12;
 }
 
 function measureFooterHeight() {
@@ -276,17 +188,15 @@ function measureFooterHeight() {
 
 function calcPosterLayout(ctx, payload) {
   const { modules = {} } = payload;
-  const showRadar = modules.radar && (payload.dimensions || []).length > 0;
   const showDimensions = modules.dimensions && (payload.model?.dimensionBars || []).length > 0;
   const heroHeight = measureHeroHeight(ctx, payload);
-  const radarHeight = showRadar ? measureRadarHeight(ctx, payload) : 0;
   const dimensionsHeight = showDimensions
-    ? measureDimensionsHeight(ctx, payload.model.dimensionBars, payload.display?.dimensionTitle || '结果分布')
+    ? measureDimensionsHeight(payload.model.dimensionBars)
     : 0;
   const footerHeight = measureFooterHeight();
-  const height = Math.ceil(Math.max(CONTENT_TOP + heroHeight + radarHeight + dimensionsHeight + footerHeight + 40, 920));
-  const footerTop = CONTENT_TOP + heroHeight + radarHeight + dimensionsHeight + FOOTER_TOP_GAP;
-  return { height, footerTop, showRadar, showDimensions };
+  const height = Math.ceil(Math.max(CONTENT_TOP + heroHeight + dimensionsHeight + footerHeight + 40, 920));
+  const footerTop = CONTENT_TOP + heroHeight + dimensionsHeight + FOOTER_TOP_GAP;
+  return { height, footerTop, showDimensions };
 }
 
 function drawSpacedText(ctx, text, x, y, size, spacing, color, weight = 800, align = 'left') {
@@ -328,7 +238,7 @@ function drawIdentityCard(ctx, payload, top) {
   const left = x + IDENTITY_PADDING;
   const right = x + width - IDENTITY_PADDING;
 
-  // 对齐结果页的 125deg 紫—粉—橙渐变。
+  // 对齐结果页的 125deg 渐变，颜色取自 identity。
   const angle = (125 * Math.PI) / 180;
   const dx = Math.sin(angle);
   const dy = -Math.cos(angle);
@@ -339,9 +249,8 @@ function drawIdentityCard(ctx, payload, top) {
     x + width / 2 + dx * length / 2,
     top + height / 2 + dy * length / 2,
   );
-  gradient.addColorStop(0, '#5b3fd4');
-  gradient.addColorStop(0.52, '#c94d8a');
-  gradient.addColorStop(1, '#e06a4e');
+  gradient.addColorStop(0, identity.deep);
+  gradient.addColorStop(1, identity.end);
 
   ctx.save();
   ctx.setShadow(0, 36, 100, 'rgba(0, 0, 0, 0.32)');
@@ -394,7 +303,6 @@ function drawIdentityCard(ctx, payload, top) {
 function drawHeroSection(ctx, payload, startY) {
   const { model = {}, display = {} } = payload;
   const profile = model.primaryProfile || {};
-  const highlights = (model.highlights || []).slice(0, 4);
   const quote = profile.share || '';
   const heroLabel = display.heroLabel || '测试结果';
 
@@ -409,10 +317,6 @@ function drawHeroSection(ctx, payload, startY) {
   ctx.restore();
   y = drawIdentityCard(ctx, payload, y + 28) + 28;
 
-  if (highlights.length) {
-    y = drawHeroTags(ctx, highlights, y);
-  }
-
   if (quote) {
     const quoteLines = measureLines(ctx, `“${quote}”`, CONTENT_WIDTH - 48, 26);
     const quoteHeight = quoteLines.length * 38 + 48;
@@ -422,7 +326,7 @@ function drawHeroSection(ctx, payload, startY) {
       HORIZONTAL_PADDING + CONTENT_WIDTH,
       y + quoteHeight,
     );
-    quoteGradient.addColorStop(0, 'rgba(155, 124, 255, 0.12)');
+    quoteGradient.addColorStop(0, 'rgba(138, 184, 238, 0.12)');
     quoteGradient.addColorStop(1, 'rgba(241, 135, 100, 0.09)');
     drawRoundRect(
       ctx,
@@ -441,26 +345,12 @@ function drawHeroSection(ctx, payload, startY) {
   return y;
 }
 
-function drawRadarSection(ctx, payload, startY) {
-  const { display = {}, model = {}, dimensions = [] } = payload;
-  if (!dimensions.length || !model.scores) return startY;
-
-  let y = startY + SECTION_GAP;
-  y = drawSectionTitle(ctx, '整体轮廓', display.radarTitle || '维度雷达', y);
-
-  const radarX = (POSTER_WIDTH - RADAR_SIZE) / 2;
-  const radarData = buildRadarPoints(dimensions, model.scores, RADAR_SIZE);
-  paintRadar(ctx, radarData, radarX, y, 'dark');
-  return y + RADAR_SIZE + 24;
-}
-
 function drawDimensionsSection(ctx, payload, startY) {
-  const { display = {}, model = {} } = payload;
+  const { model = {} } = payload;
   const bars = model.dimensionBars || [];
   if (!bars.length) return startY;
 
   let y = startY + SECTION_GAP;
-  y = drawSectionTitle(ctx, '结果分布', display.dimensionTitle || '结果分布', y);
 
   bars.forEach((item) => {
     const color = item.color || POSTER_THEME.accent;
@@ -501,7 +391,7 @@ function drawFooterText(ctx, footerTop) {
 }
 
 function renderPosterContent(ctx, payload, height) {
-  const { showRadar, showDimensions } = calcPosterLayout(ctx, payload);
+  const { showDimensions } = calcPosterLayout(ctx, payload);
 
   ctx.setFillStyle(POSTER_THEME.background);
   ctx.fillRect(0, 0, POSTER_WIDTH, height);
@@ -518,9 +408,6 @@ function renderPosterContent(ctx, payload, height) {
 
   let y = CONTENT_TOP;
   y = drawHeroSection(ctx, payload, y);
-  if (showRadar) {
-    y = drawRadarSection(ctx, payload, y);
-  }
   if (showDimensions) {
     y = drawDimensionsSection(ctx, payload, y);
   }

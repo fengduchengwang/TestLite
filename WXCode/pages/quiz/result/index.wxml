@@ -13,7 +13,7 @@
   <view class="quiz-result__shell" wx:if="{{!loading && model}}">
     <view class="result-kicker" wx:if="{{modules.hero}}">{{display.heroLabel}}</view>
 
-    <view class="identity-card" wx:if="{{modules.hero}}">
+    <view class="identity-card" wx:if="{{modules.hero}}" style="--card-deep: {{identity.deep}}; --card-end: {{identity.end}};">
       <view class="identity-card__wash"></view>
       <view class="identity-card__grid"></view>
       <view class="identity-number">{{identity.number}}</view>

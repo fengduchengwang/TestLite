@@ -3,7 +3,7 @@
 .search-page {
   box-sizing: border-box;
   min-height: 100vh;
-  background: #fff;
+  background: @bg-color;
 }
 
 .search-navbar {
@@ -27,7 +27,7 @@
     width: 48rpx;
     height: 64rpx;
     margin-right: 8rpx;
-    color: #333;
+    color: @gy1;
   }
 
   .t-search {
@@ -55,7 +55,7 @@
   margin-bottom: 24rpx;
   font-size: 32rpx;
   font-weight: 600;
-  color: #333;
+  color: @gy1;
   line-height: 44rpx;
 }
 
@@ -68,9 +68,9 @@
 .hot-tag {
   padding: 12rpx 28rpx;
   border-radius: 999rpx;
-  background: #f3f3f3;
+  background: @bg-color-raised;
   font-size: 26rpx;
-  color: #666;
+  color: @gy2;
   line-height: 36rpx;
 }
 
@@ -84,7 +84,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 28rpx 0;
-  border-bottom: 1rpx solid #f0f0f0;
+  border-bottom: 1rpx solid @line-color;
 }
 
 .history-item__text {
@@ -92,7 +92,7 @@
   min-width: 0;
   margin-right: 24rpx;
   font-size: 28rpx;
-  color: #333;
+  color: @gy1;
   line-height: 40rpx;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -101,22 +101,22 @@
 
 .history-item__close {
   flex-shrink: 0;
-  color: #bbb;
+  color: @gy3;
 }
 
 .search-empty {
   padding: 24rpx 0;
   font-size: 26rpx;
-  color: #999;
+  color: @gy3;
   line-height: 40rpx;
 }
 
 .search-page .t-search__input-container {
   border-radius: 999rpx !important;
-  background: #f3f3f3 !important;
+  background: @bg-color-raised !important;
 }
 
 .search-page .t-search__input {
   font-size: 28rpx !important;
-  color: #333 !important;
+  color: @gy1 !important;
 }

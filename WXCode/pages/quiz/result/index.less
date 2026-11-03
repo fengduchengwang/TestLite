@@ -54,7 +54,7 @@ page {
   right: 0;
   bottom: 0;
   left: 0;
-  background: linear-gradient(125deg, #5b3fd4, #c94d8a 52%, #e06a4e);
+  background: linear-gradient(125deg, var(--card-deep), var(--card-end));
 }
 
 .identity-card__grid {
@@ -156,10 +156,10 @@ page {
 
 .spectrum-card {
   padding: 40rpx;
-  border: 2rpx solid rgba(132, 111, 148, 0.28);
+  border: 2rpx solid @quiz-accent-border;
   border-radius: @quiz-radius;
   background:
-    linear-gradient(105deg, rgba(76, 143, 211, 0.12), rgba(18, 18, 24, 0.86) 48%, rgba(231, 75, 102, 0.12)),
+    linear-gradient(105deg, rgba(76, 143, 211, 0.12), rgba(20, 24, 39, 0.86) 48%, rgba(231, 75, 102, 0.12)),
     @quiz-surface;
 }
 
@@ -342,7 +342,7 @@ page {
   padding: 56rpx 44rpx;
   border: 2rpx solid @quiz-line;
   border-radius: @quiz-radius;
-  background: linear-gradient(135deg, rgba(155, 124, 255, 0.12), rgba(241, 135, 100, 0.09));
+  background: linear-gradient(135deg, rgba(138, 184, 238, 0.12), rgba(241, 135, 100, 0.09));
   text-align: center;
 }
 

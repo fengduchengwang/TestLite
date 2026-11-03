@@ -1,11 +1,28 @@
 /**app.wxss**/
+@import '/variable.less';
+
+// 全局深色：覆盖 TDesign 的主题变量，组件文字和底色随之切换。
 page {
-  background-color: #f3f3f3;
+  --td-bg-color-page: @bg-color;
+  --td-bg-color-container: @bg-color-white;
+  --td-bg-color-container-active: @bg-color-raised;
+  --td-bg-color-secondarycontainer: @bg-color-raised;
+  --td-bg-color-component: @bg-color-raised;
+  --td-text-color-primary: @gy1;
+  --td-text-color-secondary: @gy2;
+  --td-text-color-placeholder: @gy3;
+  --td-component-stroke: @line-color;
+  --td-component-border: @line-color;
+  --td-brand-color: @category-active-color;
+  --td-navbar-bg-color: @bg-color;
+  --td-navbar-color: @gy1;
+  background-color: @bg-color;
+  color: @gy1;
   height: auto;
   min-height: 100%;
 }
 
 .page {
   height: 100vh;
-  background-color: #fff;
+  background-color: @bg-color;
 }

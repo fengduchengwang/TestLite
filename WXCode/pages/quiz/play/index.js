@@ -21,6 +21,7 @@ Page({
     progressHint: '',
     question: null,
     selected: null,
+    letters: ['A', 'B', 'C', 'D', 'E', 'F'],
   },
 
   answers: [],

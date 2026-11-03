@@ -8,6 +8,12 @@
     "pages/my/info-edit/index"
   ],
   "lazyCodeLoading": "requiredComponents",
+  "preloadRule": {
+    "pages/home/index": {
+      "network": "all",
+      "packages": ["pages/quiz"]
+    }
+  },
   "usingComponents": {
     "t-toast": "tdesign-miniprogram/toast/toast"
   },
@@ -35,9 +41,12 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "backgroundColor": "#0b0e16",
+    "backgroundColorTop": "#0b0e16",
+    "backgroundColorBottom": "#0b0e16",
+    "navigationBarBackgroundColor": "#0b0e16",
     "navigationBarTitleText": "心理测试",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "white"
   },
   "tabBar": {
     "custom": true,

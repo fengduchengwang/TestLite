@@ -11,7 +11,7 @@
     top: 0;
     z-index: 10;
     padding: 24rpx 36rpx 20rpx;
-    background: rgba(9, 9, 13, 0.92);
+    background: rgba(11, 14, 22, 0.92);
   }
 
   &__meta {
@@ -47,7 +47,7 @@
   }
 
   &__track {
-    height: 10rpx;
+    height: 8rpx;
     margin-top: 20rpx;
     overflow: hidden;
     border-radius: 999rpx;
@@ -90,9 +90,10 @@
   &__option {
     position: relative;
     min-height: 128rpx;
-    padding: 26rpx 100rpx 26rpx 40rpx;
+    padding: 26rpx 40rpx 26rpx 28rpx;
     display: flex;
     align-items: center;
+    gap: 24rpx;
     border: 2rpx solid @quiz-line;
     border-radius: @quiz-radius;
     background: @quiz-surface;
@@ -111,18 +112,22 @@
   }
 
   &__radio {
-    position: absolute;
-    right: 40rpx;
-    width: 36rpx;
-    height: 36rpx;
-    border: 4rpx solid #45414d;
+    flex: none;
+    width: 52rpx;
+    height: 52rpx;
+    border: 4rpx solid rgba(183, 210, 241, 0.45);
     border-radius: 50%;
+    color: @quiz-muted;
+    font-size: 24rpx;
+    font-weight: 800;
+    line-height: 44rpx;
+    text-align: center;
     box-sizing: border-box;
   }
 
   &__option.is-selected &__radio {
-    border: 10rpx solid @quiz-accent-strong;
-    background: #fff;
+    border-color: @quiz-accent-strong;
+    color: @quiz-accent-strong;
   }
 
   &__nav {

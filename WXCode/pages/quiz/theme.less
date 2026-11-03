@@ -1,23 +1,23 @@
-@quiz-bg: #09090d;
-@quiz-surface: #121218;
-@quiz-surface-2: #181820;
-@quiz-surface-3: #202029;
-@quiz-text: #f5f3f7;
-@quiz-text-strong: #eeeaf2;
-@quiz-muted: #9995a2;
-@quiz-muted-2: #716d79;
-@quiz-line: #292731;
-@quiz-line-soft: rgba(255, 255, 255, 0.055);
-@quiz-accent-1: #9b7cff;
-@quiz-accent-2: #e765aa;
-@quiz-accent-3: #f18764;
-@quiz-accent-strong: #a083ff;
-@quiz-accent-label: #aa98ff;
-@quiz-accent-soft: rgba(155, 124, 255, 0.09);
-@quiz-accent-border: rgba(155, 124, 255, 0.22);
+@quiz-bg: #0b0e16;
+@quiz-surface: #141827;
+@quiz-surface-2: #1b2133;
+@quiz-surface-3: #252d43;
+@quiz-text: #f4f1e9;
+@quiz-text-strong: #e9e6dd;
+@quiz-muted: #8e97aa;
+@quiz-muted-2: #6b7488;
+@quiz-line: #232a3d;
+@quiz-line-soft: rgba(210, 220, 242, 0.08);
+@quiz-accent-1: #89b8ee;
+@quiz-accent-2: #77c7b6;
+@quiz-accent-3: #e3b86f;
+@quiz-accent-strong: #b9d6fb;
+@quiz-accent-label: #8ab8ee;
+@quiz-accent-soft: rgba(138, 184, 238, 0.15);
+@quiz-accent-border: rgba(138, 184, 238, 0.3);
 @quiz-radius: 16rpx;
 @quiz-brand-gradient: linear-gradient(105deg, @quiz-accent-1, @quiz-accent-2 50%, @quiz-accent-3);
-@quiz-button-gradient: linear-gradient(105deg, #8f70f2, #dc62ad 52%, #ef895e);
+@quiz-button-gradient: linear-gradient(105deg, @quiz-accent-1, @quiz-accent-2 55%, @quiz-accent-3);
 @quiz-progress-gradient: linear-gradient(90deg, @quiz-accent-1, @quiz-accent-2, @quiz-accent-3);
 @quiz-spectrum-gradient: linear-gradient(90deg, #64a7df, #79c5b3, #d6c46d, #e79c62, #e65f88);
 
@@ -46,7 +46,7 @@ page {
   box-sizing: border-box;
   color: @quiz-text;
   background:
-    linear-gradient(180deg, rgba(155, 124, 255, 0.045), transparent 360px),
+    linear-gradient(180deg, rgba(138, 184, 238, 0.06), transparent 360px),
     @quiz-bg;
 }
 
@@ -54,9 +54,10 @@ page {
   .quiz-reset-btn();
   height: 104rpx;
   line-height: 104rpx;
-  color: #fff;
+  color: #10131c;
+  border-radius: 999rpx;
   background: @quiz-button-gradient;
-  box-shadow: 0 24rpx 68rpx rgba(222, 99, 171, 0.18);
+  box-shadow: 0 28rpx 70rpx rgba(97, 164, 211, 0.2);
 }
 
 .quiz-secondary {

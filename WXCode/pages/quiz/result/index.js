@@ -12,6 +12,17 @@ import { preloadMiniprogramQrcode } from '../utils/sharePoster';
 import { returnToQuizIntro } from '../utils/navigation';
 
 const SESSION_KEY = 'quizSession';
+// 结果卡渐变色 [起, 终]，按主维度序号轮换，结果页与分享海报共用 identity.deep / identity.end。
+const CARD_COLORS = [
+  ['#152844', '#4e8fbd'],
+  ['#2a1b4d', '#7a5cc4'],
+  ['#0f3a3f', '#3f9a96'],
+  ['#4a1f33', '#b5587a'],
+  ['#4a2f14', '#b8813f'],
+  ['#16372a', '#4f9a70'],
+  ['#1d2457', '#5a6fd0'],
+  ['#4a1a22', '#b04a55'],
+];
 const DIMENSION_COLORS = ['#e96f94', '#e3a75e', '#a987f4', '#72aee6', '#6bc8a0'];
 
 function pad2(value) {
@@ -25,7 +36,10 @@ function buildIdentity(quiz, model) {
     dimensions.findIndex((item) => item.key === model.primary.key),
   );
   const number = pad2(primaryIndex + 1);
+  const [deep, end] = CARD_COLORS[primaryIndex % CARD_COLORS.length];
   return {
+    deep,
+    end,
     code: String(model.primary.key || 'TYPE')
       .replace(/_/g, '')
       .slice(0, 8)
@@ -176,7 +190,6 @@ Page({
       display,
       modules,
       identity,
-      dimensions: this.quiz?.dimensions || [],
     };
   },
 

@@ -51,10 +51,10 @@ const RADAR_THEMES = {
   },
   dark: {
     ring: 'rgba(255, 255, 255, 0.08)',
-    fill: 'rgba(155, 124, 255, 0.22)',
-    stroke: '#a083ff',
-    label: '#f5f3f7',
-    value: '#aa98ff',
+    fill: 'rgba(138, 184, 238, 0.22)',
+    stroke: '#8ab8ee',
+    label: '#f4f1e9',
+    value: '#b9d6fb',
   },
 };
 
