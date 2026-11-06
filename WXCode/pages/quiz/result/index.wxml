@@ -5,7 +5,7 @@
     fixed="{{false}}"
     animation="{{false}}"
     delta="{{0}}"
-    bind:go-back="onBack"
+    bind:go-back="onGoHome"
   />
 </view>
 
@@ -166,7 +166,7 @@
     </view>
 
     <view class="result-actions">
-      <button class="quiz-secondary" bindtap="onRestart">重新测试</button>
+      <button class="quiz-secondary" bindtap="onGoHome">回到首页</button>
       <button class="quiz-primary" bindtap="onShareResult">分享结果</button>
     </view>
     <view class="result-footnote">{{meta.disclaimer}}</view>

@@ -1,5 +1,7 @@
 {
   "navigationStyle": "custom",
+  "backgroundColorContent": "#0b0e16",
+  "initialRenderingCache": "static",
   "usingComponents": {
     "t-cell": "tdesign-miniprogram/cell/cell",
     "t-cell-group": "tdesign-miniprogram/cell-group/cell-group",

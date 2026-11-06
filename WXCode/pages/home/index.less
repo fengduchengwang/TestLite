@@ -47,6 +47,9 @@
 
   .home-scroll {
     width: 100%;
+    // 在异步测量导航高度之前，首帧也保留完整的深色滚动区域。
+    height: calc(100vh - 68px - @tab-bar-height - env(safe-area-inset-bottom) - 16px);
+    min-height: 200px;
     background: @bg-color;
   }
 

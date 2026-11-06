@@ -1,5 +1,7 @@
 {
   "navigationStyle": "custom",
+  "backgroundColorContent": "#0b0e16",
+  "initialRenderingCache": "static",
   "usingComponents": {
     "nav": "/components/nav",
     "card": "/components/card"

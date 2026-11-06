@@ -5,6 +5,9 @@
 
   .follow-scroll {
     width: 100%;
+    height: calc(100vh - 68px - @tab-bar-height - env(safe-area-inset-bottom) - 16px);
+    min-height: 200px;
+    background: @bg-color;
   }
 
   .follow-list {

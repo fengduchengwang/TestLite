@@ -37,7 +37,6 @@ Page({
   },
 
   onReady() {
-    this.loadData();
     this.updateScrollHeight();
   },
 
@@ -47,6 +46,8 @@ Page({
   },
 
   async loadData() {
+    if (this.loadingData) return;
+    this.loadingData = true;
     try {
       const list = await fetchTestList({ category: 'all' });
       if (!Array.isArray(list)) {
@@ -66,6 +67,8 @@ Page({
       const message = error?.message || '列表加载失败';
       console.error('load test list failed', message, error?.raw || error);
       wx.showToast({ title: message.slice(0, 20), icon: 'none' });
+    } finally {
+      this.loadingData = false;
     }
   },
 

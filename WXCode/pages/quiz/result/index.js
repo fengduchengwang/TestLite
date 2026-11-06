@@ -171,15 +171,8 @@ Page({
     drawRadar(ctx, radarData, 'dark');
   },
 
-  onBack() {
-    const { key, testId } = this.data;
-    returnToQuizIntro(key, testId);
-  },
-
-  onRestart() {
-    const { key, testId } = this.data;
-    wx.removeStorageSync(SESSION_KEY);
-    returnToQuizIntro(key, testId);
+  onGoHome() {
+    wx.switchTab({ url: '/pages/home/index' });
   },
 
   getSharePayload() {

@@ -1,12 +1,25 @@
 @import '/variable.less';
 
+.tab-bar-shell,
 .custom-tab-bar {
   --td-tab-bar-height: @tab-bar-height;
   --td-tab-bar-bg-color: @bg-color-white;
   --td-tab-bar-active-color: @category-active-color;
   --td-tab-bar-color: @gy2;
   --td-tab-bar-border-color: @line-color;
+}
 
+.tab-bar-shell {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  min-height: calc(@tab-bar-height + env(safe-area-inset-bottom));
+  background-color: @bg-color-white;
+}
+
+.custom-tab-bar {
   &-item {
     margin: 0;
     padding: 16rpx 24rpx;

@@ -1,5 +1,5 @@
 <view class="home-navbar">
-  <t-navbar title="{{ navType === 'search' ? '' : titleText }}">
+  <t-navbar title="{{ navType === 'search' ? '' : titleText }}" animation="{{false}}">
     <view slot="left">
       <view class="home-navbar__left">
         <view

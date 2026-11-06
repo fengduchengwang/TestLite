@@ -8,7 +8,6 @@ Page({
   },
 
   onReady() {
-    this.loadData();
     this.updateScrollHeight();
   },
 
@@ -18,6 +17,8 @@ Page({
   },
 
   async loadData() {
+    if (this.loadingData) return;
+    this.loadingData = true;
     try {
       const list = await fetchTestList();
       this.setData({
@@ -26,6 +27,8 @@ Page({
     } catch (error) {
       console.error(error);
       wx.showToast({ title: '加载失败', icon: 'none' });
+    } finally {
+      this.loadingData = false;
     }
   },
 
