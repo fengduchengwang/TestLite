@@ -37,5 +37,7 @@
         <view class="quiz-play__auto">选择后自动进入下一题</view>
       </view>
     </view>
+
+    <view class="quiz-play__ad-slot"></view>
   </block>
 </view>

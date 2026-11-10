@@ -3,6 +3,7 @@
   "navigationBarBackgroundColor": "#0b0e16",
   "navigationBarTextStyle": "white",
   "backgroundColor": "#0b0e16",
+  "backgroundColorContent": "#0b0e16",
   "backgroundTextStyle": "light",
   "initialRenderingCache": "static",
   "usingComponents": {}

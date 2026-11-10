@@ -1,5 +1,6 @@
 import { fetchQuizDetail } from '~/utils/api';
 import { markTestAsTested } from '~/utils/test';
+import { buildQuestionPath, startQuizSession } from '../utils/playSession';
 import {
   buildQuizIntroPath,
   buildQuizIntroQuery,
@@ -65,6 +66,7 @@ Page({
 
       const heroTitle = splitHeroTitle(quiz.meta.title);
       const duration = parseDuration(quiz.meta.duration);
+      this.quiz = quiz;
       this.setData({
         key,
         testId,
@@ -96,12 +98,18 @@ Page({
     const { key, testId } = this.data;
     if (!key || this.starting) return;
     this.starting = true;
+    try {
+      startQuizSession(key, testId, this.quiz);
+    } catch (error) {
+      this.starting = false;
+      wx.showToast({ title: error.message || '测试暂时无法开始', icon: 'none' });
+      return;
+    }
     if (testId) {
       markTestAsTested(testId);
     }
-    // 整个测试流程保留上一张深色页面，重测时统一返回这里并清理流程页面。
     wx.navigateTo({
-      url: `/pages/quiz/play/index?key=${encodeURIComponent(key)}&testId=${testId}`,
+      url: buildQuestionPath(key, testId, 0),
       fail: () => {
         this.starting = false;
         wx.showToast({ title: '打开测试失败，请重试', icon: 'none' });
